@@ -453,7 +453,15 @@ function HCAIC_Final() {
       </nav>
 
       {/* HERO */}
-      <section style={{ padding: '9rem 2.5rem 5rem', maxWidth: '1400px', margin: '0 auto', position: 'relative', overflow: 'hidden' }} className="grid-overlay">
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        {/* Hero orbit graphic — full viewport width */}
+        <img
+          src="hero-orbit.svg"
+          alt=""
+          aria-hidden="true"
+          style={{ position: 'absolute', right: 0, top: 0, width: '55%', height: '100%', objectFit: 'contain', objectPosition: 'right center', pointerEvents: 'none', zIndex: 0 }}
+        />
+      <section style={{ padding: '9rem 2.5rem 5rem', maxWidth: '1400px', margin: '0 auto', position: 'relative', overflow: 'visible', zIndex: 1 }} className="grid-overlay">
         {/* Ampersand watermark */}
         <img
           src={AMPERSAND_MARK}
@@ -517,14 +525,8 @@ function HCAIC_Final() {
           </a>
         </div>
 
-        {/* Hero orbit graphic */}
-        <img
-          src="hero-orbit.svg"
-          alt=""
-          aria-hidden="true"
-          style={{ position: 'absolute', right: 0, top: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'right center', pointerEvents: 'none', zIndex: 0 }}
-        />
       </section>
+      </div>
 
       {/* STATS BAR */}
       <section style={{ background: C.navy, color: C.ivory, padding: '3rem 2.5rem' }}>
