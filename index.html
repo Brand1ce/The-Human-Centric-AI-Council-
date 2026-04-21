@@ -1019,9 +1019,9 @@ function HCAIC_Final() {
             <p style={{ fontSize: '1rem', lineHeight: 1.65, color: C.slate, marginBottom: '2rem', maxWidth: '46ch' }}>
               Standing up governance. Running a rigorous market scan. Piloting a vendor with the right guardrails. Changing how a team works. That's where Kyle & Co comes in, as the implementation and advisory partner for teams ready to put the work into practice.
             </p>
-            <a href="#" style={{ background: C.navy, color: C.ivory, padding: '1rem 1.8rem', borderRadius: '100px', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }} className="link-arrow">
+            <button onClick={() => setKcoOpen(true)} style={{ background: C.navy, color: C.ivory, padding: '1rem 1.8rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontFamily: 'inherit' }}>
               Talk to Kyle & Co <span>→</span>
-            </a>
+            </button>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {[
@@ -2008,23 +2008,27 @@ function HCAIC_Final() {
           <div className="display" style={{ fontSize: '1.05rem', fontWeight: 500, lineHeight: 1.25, marginBottom: '0.9rem', letterSpacing: '-0.01em' }}>
             Reading is free. <span className="serif-italic" style={{ color: C.cream }}>Doing it is harder.</span>
           </div>
-          <a
-            href="#kco"
-            className="link-arrow"
+          <button
+            onClick={() => setKcoOpen(true)}
             style={{
+              background: 'none',
+              border: 'none',
               color: C.cream,
               fontSize: '0.82rem',
               fontWeight: 500,
-              textDecoration: 'none',
+              fontFamily: 'inherit',
+              cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
               borderBottom: `1px solid ${C.cream}`,
               paddingBottom: '2px',
+              paddingLeft: 0,
+              paddingRight: 0,
             }}
           >
             Talk to Kyle &amp; Co <span>→</span>
-          </a>
+          </button>
         </div>
       )}
     </div>
