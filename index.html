@@ -136,7 +136,7 @@ function HCAIC_Final() {
   // MAILERLITE: paste your form submission URLs below (get from MailerLite → Forms → Embedded → HTML source → <form action="...">)
   const ML_RESOURCE_GATE_URL = 'https://assets.mailerlite.com/jsonp/1555935/forms/185316851276842065/subscribe';
   const ML_APPLY_URL         = 'https://assets.mailerlite.com/jsonp/1555935/forms/159825956656120991/subscribe';
-  const ML_KCO_URL           = 'YOUR_MAILERLITE_KCO_FORM_URL';
+  const ML_KCO_URL           = 'https://assets.mailerlite.com/jsonp/1555935/forms/185371122148050837/subscribe';
   const ML_TOWNHALL_URL      = 'https://assets.mailerlite.com/jsonp/1555935/forms/185370079945295046/subscribe';
   const ML_UNDERWRITER_URL   = 'https://assets.mailerlite.com/jsonp/1555935/forms/159836007953335925/subscribe';
 
@@ -1658,13 +1658,23 @@ function HCAIC_Final() {
                   </div>
                   <input required type="email" name="fields[email]" placeholder="Work email" style={gateInput(C)} />
                   <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
+                  <div style={{ padding: '0.85rem 1rem', border: '1px solid rgba(39,55,82,0.18)', borderRadius: '4px', background: '#fff' }}>
+                    <div style={{ fontSize: '0.82rem', color: C.slate, marginBottom: '0.75rem', fontWeight: 500 }}>What would you like help with?</div>
+                    {['General Advisory', 'GTM Strategy', 'Field Marketing Activation', 'Schedule an Analyst Briefing'].map((opt) => (
+                      <label key={opt} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.88rem', color: C.navy, marginBottom: '0.5rem', cursor: 'pointer' }}>
+                        <input type="checkbox" name="fields[what_would_you_like_help_with][]" value={opt} style={{ accentColor: C.navy, width: '15px', height: '15px', flexShrink: 0 }} />
+                        {opt}
+                      </label>
+                    ))}
+                  </div>
                   <textarea
-                    required
-                    name="fields[needs]"
-                    placeholder="What do you need help with? (2–3 sentences)"
-                    rows={4}
+                    name="fields[anything_else]"
+                    placeholder="Anything else we should know? (optional)"
+                    rows={3}
                     style={{ ...gateInput(C), resize: 'vertical', lineHeight: 1.5 }}
                   />
+                  <input type="hidden" name="ml-submit" value="1" />
+                  <input type="hidden" name="anticsrf" value="true" />
                   <button
                     type="submit"
                     style={{
