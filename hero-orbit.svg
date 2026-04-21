@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 720" preserveAspectRatio="xMidYMid slice" role="img" aria-label="HCAIC Orbit decorative background">
+  <defs>
+    <radialGradient id="orbitGlow" cx="100%" cy="100%" r="110%">
+      <stop offset="0%" stop-color="#FDECCD" stop-opacity="0.55"></stop>
+      <stop offset="35%" stop-color="#FDECCD" stop-opacity="0.15"></stop>
+      <stop offset="100%" stop-color="#FDECCD" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+
+  <rect width="700" height="720" fill="url(#orbitGlow)"></rect>
+
+  
+  <g fill="none" stroke-linecap="round">
+    <circle cx="720" cy="740" r="120" stroke="#9D92AD" stroke-width="0.8" opacity="0.35"></circle>
+    <circle cx="720" cy="740" r="220" stroke="#2D5C94" stroke-width="0.8" opacity="0.39"></circle>
+    <circle cx="720" cy="740" r="340" stroke="#C1BACD" stroke-width="0.8" opacity="0.43" stroke-dasharray="4 8"></circle>
+    <circle cx="720" cy="740" r="470" stroke="#9D92AD" stroke-width="1.5" opacity="0.47"></circle>
+    <circle cx="720" cy="740" r="610" stroke="#2D5C94" stroke-width="0.8" opacity="0.51"></circle>
+    <circle cx="720" cy="740" r="770" stroke="#C1BACD" stroke-width="0.8" opacity="0.55" stroke-dasharray="4 8"></circle>
+    <circle cx="720" cy="740" r="940" stroke="#9D92AD" stroke-width="0.8" opacity="0.59"></circle>
+  </g>
+
+  
+  <circle cx="720" cy="740" r="6" fill="#273752"></circle>
+  <circle cx="400" cy="740" r="4" fill="#9D92AD"></circle>
+  <circle cx="600" cy="530" r="4" fill="#2D5C94"></circle>
+  <circle cx="250" cy="600" r="3" fill="#9D92AD"></circle>
+  <circle cx="520" cy="270" r="3" fill="#2D5C94"></circle>
+  <circle cx="350" cy="150" r="3" fill="#9D92AD"></circle>
+</svg>
