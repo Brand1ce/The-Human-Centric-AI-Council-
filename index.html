@@ -530,6 +530,63 @@ function HCAIC_Final() {
         </div>
       </section>
 
+      {/* ABOUT THE COUNCIL */}
+      <section style={{ background: C.navy, padding: '7rem 2.5rem 0', overflow: 'hidden' }}>
+        <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
+          {/* Top: mission + CTAs */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'end', marginBottom: '5rem' }}>
+            <div>
+              <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.5rem' }}>
+                The Human-Centric AI Council
+              </div>
+              <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', color: C.ivory, marginBottom: '1.5rem' }}>
+                Practitioner-led.<br /><span className="serif-italic" style={{ color: C.cream }}>Five pillars. One goal.</span>
+              </h2>
+              <p style={{ fontSize: '0.98rem', lineHeight: 1.7, color: 'rgba(247,241,234,0.75)', maxWidth: '48ch', marginBottom: '2.25rem' }}>
+                The Council brings together senior HR and talent leaders to build the frameworks and fluency that advance responsible, people-first AI adoption — through honest dialogue, shared learning, and co-creation grounded in real-world transformation needs.
+              </p>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <a href="#library" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: C.cream, color: C.navyDark, padding: '0.95rem 1.75rem', borderRadius: '100px', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>
+                  Download the toolkit →
+                </a>
+                <a href="#join" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'transparent', color: C.ivory, padding: '0.95rem 1.75rem', borderRadius: '100px', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, border: '1px solid rgba(247,241,234,0.25)' }}>
+                  Get involved →
+                </a>
+              </div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {[
+                { n: '01', name: 'AI Literacy & Education', blurb: 'Role-specific tools and a practitioner learning community.' },
+                { n: '02', name: 'AI Safety & Trust', blurb: 'Practical standards for fairness, transparency, and accountability.' },
+                { n: '03', name: 'AI Value Realization', blurb: 'Connecting solutions to real business outcomes and ROI.' },
+                { n: '04', name: 'AI Transformation & Scale', blurb: 'Responsible rollout, workforce impact, and cross-functional collaboration.' },
+                { n: '05', name: 'AI Future-Ready Strategy', blurb: 'Trends at the intersection of HR and AI — and what to do about them.' },
+              ].map((p) => (
+                <div key={p.n} style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', padding: '1rem 1.25rem', borderRadius: '6px', background: 'rgba(247,241,234,0.06)', borderLeft: `2px solid ${C.lilac}` }}>
+                  <span className="mono" style={{ fontSize: '0.6rem', color: C.lilac, fontWeight: 500, flexShrink: 0, paddingTop: '0.2rem' }}>{p.n}</span>
+                  <div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 500, color: C.ivory, marginBottom: '0.2rem' }}>{p.name}</div>
+                    <div style={{ fontSize: '0.78rem', color: 'rgba(247,241,234,0.6)', lineHeight: 1.5 }}>{p.blurb}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom: bridge to library */}
+          <div style={{ borderTop: '1px solid rgba(247,241,234,0.1)', padding: '2.5rem 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+            <p className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(247,241,234,0.45)', margin: 0 }}>
+              Cohort Zero · What we built first
+            </p>
+            <div style={{ display: 'flex', gap: '2rem' }}>
+              {['AI Literacy Course', 'Responsible AI Framework', 'Change Management eBook', 'Solution Decision Framework'].map((t) => (
+                <span key={t} className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(247,241,234,0.35)' }}>{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* THE LIBRARY — the star */}
       <section id="library" style={{ padding: '7rem 2.5rem 5rem', maxWidth: '1500px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '4rem', marginBottom: '3rem', alignItems: 'end' }}>
