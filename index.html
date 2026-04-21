@@ -512,24 +512,6 @@ function HCAIC_Final() {
         </svg>
       </section>
 
-      {/* STATS BAR */}
-      <section style={{ background: C.navy, color: C.ivory, padding: '3rem 2.5rem' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
-          {[
-            { stat: '40+', label: 'Senior HR practitioners in the community' },
-            { stat: '13', label: 'HR tech underwriters supporting the work' },
-            { stat: '4', label: 'Frameworks published. More on the way.' },
-          ].map((s, i) => (
-            <div key={i} style={{ borderLeft: `1px solid rgba(247, 241, 234, 0.15)`, paddingLeft: '1.5rem' }}>
-              <div className="display" style={{ fontSize: '3.5rem', fontWeight: 300, color: C.cream, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '0.5rem' }}>
-                {s.stat}
-              </div>
-              <div style={{ fontSize: '0.82rem', opacity: 0.8, lineHeight: 1.5, maxWidth: '28ch' }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ABOUT THE COUNCIL */}
       <section style={{ background: C.navy, padding: '7rem 2.5rem 0', overflow: 'hidden' }}>
         <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
