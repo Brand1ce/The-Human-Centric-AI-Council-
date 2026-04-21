@@ -94,6 +94,16 @@ function HCAIC_Final() {
     return () => { document.body.style.overflow = ''; };
   }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen]);
 
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const timer = setTimeout(() => {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []);
+
   // CTA handler: first click shows email gate, subsequent clicks go straight through
   const handleResourceCta = (resource) => {
     if (accessGranted) {
@@ -420,7 +430,7 @@ function HCAIC_Final() {
           </a>
         </div>
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', fontSize: '0.85rem' }}>
-          <a href="#library" style={{ color: C.navy, textDecoration: 'none' }}>The Library</a>
+          <a href="#library" style={{ color: C.navy, textDecoration: 'none' }}>The Toolkit</a>
           <a href="#work" style={{ color: C.navy, textDecoration: 'none' }}>2026 Work</a>
           <a href="#members" style={{ color: C.navy, textDecoration: 'none' }}>Members</a>
           <a href="#join" style={{ color: C.navy, textDecoration: 'none' }}>How to Participate</a>
@@ -500,7 +510,7 @@ function HCAIC_Final() {
             }}
             className="link-arrow"
           >
-            See what they've built <span>→</span>
+            Access the Toolkit <span>→</span>
           </a>
           <a href="#work" className="underline-grow" style={{ color: C.navy, textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
             What the Council is building in 2026
