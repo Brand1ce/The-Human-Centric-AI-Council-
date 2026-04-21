@@ -14,7 +14,6 @@
       min-height: 100vh;
     }
 
-    /* NAV */
     nav {
       display: flex;
       align-items: center;
@@ -27,7 +26,6 @@
     .nav-back { font-size: 0.8rem; color: #555961; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; }
     .nav-back:hover { color: #273752; }
 
-    /* LAYOUT */
     .page {
       max-width: 1100px;
       margin: 0 auto;
@@ -38,7 +36,6 @@
       align-items: start;
     }
 
-    /* LEFT — event info */
     .overline {
       font-size: 0.72rem;
       letter-spacing: 0.2em;
@@ -73,11 +70,7 @@
       border-radius: 12px;
       margin-bottom: 2rem;
     }
-    .detail-item {
-      display: flex;
-      gap: 0.85rem;
-      align-items: flex-start;
-    }
+    .detail-item { display: flex; gap: 0.85rem; align-items: flex-start; }
     .detail-label {
       font-size: 0.68rem;
       letter-spacing: 0.15em;
@@ -87,11 +80,7 @@
       min-width: 60px;
       padding-top: 0.1rem;
     }
-    .detail-value {
-      font-size: 0.92rem;
-      color: #273752;
-      font-weight: 500;
-    }
+    .detail-value { font-size: 0.92rem; color: #273752; font-weight: 500; }
 
     .what-to-expect h3 {
       font-size: 0.72rem;
@@ -101,12 +90,7 @@
       font-weight: 600;
       margin-bottom: 0.85rem;
     }
-    .what-to-expect ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
+    .what-to-expect ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
     .what-to-expect li {
       font-size: 0.92rem;
       color: #555961;
@@ -114,14 +98,11 @@
       position: relative;
       line-height: 1.5;
     }
-    .what-to-expect li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: #9D92AD;
-    }
+    .what-to-expect li::before { content: '—'; position: absolute; left: 0; color: #9D92AD; }
 
-    /* RIGHT — form card */
+    .kco-logo { display: block; margin-top: 2rem; opacity: 0.45; }
+
+    /* FORM CARD */
     .form-card {
       background: #fff;
       border-radius: 16px;
@@ -134,7 +115,7 @@
       font-family: Georgia, 'Times New Roman', serif;
       font-size: 1.4rem;
       font-weight: 400;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
     .form-card .subhead {
       font-size: 0.88rem;
@@ -143,25 +124,100 @@
       line-height: 1.5;
     }
 
-    /* MailerLite embed placeholder */
-    .ml-embed-zone {
-      border: 2px dashed rgba(157,146,173,0.4);
-      border-radius: 10px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      color: #9D92AD;
-      font-size: 0.85rem;
-      line-height: 1.6;
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
     }
-    .ml-embed-zone strong {
-      display: block;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.85rem;
+    }
+    .form-group label {
       font-size: 0.72rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
+      color: #555961;
+      font-weight: 600;
+    }
+    .form-group input,
+    .form-group select {
+      padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(39,55,82,0.18);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: #273752;
+      background: #F7F1EA;
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #9D92AD;
+      background: #fff;
+    }
+    .form-group input::placeholder { color: rgba(39,55,82,0.35); }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #273752;
+      color: #F7F1EA;
+      border: none;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      margin-top: 0.5rem;
+      transition: background 0.15s;
+    }
+    .submit-btn:hover { background: #1E2C42; }
+
+    .privacy-note {
+      font-size: 0.75rem;
+      color: #9D92AD;
+      text-align: center;
+      margin-top: 0.85rem;
+      line-height: 1.5;
     }
 
-    /* FOOTER */
+    /* SUCCESS STATE */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+    .success-state.visible { display: block; }
+    .form-fields.hidden { display: none; }
+
+    .success-icon {
+      width: 48px;
+      height: 48px;
+      background: #FDECCD;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 1.25rem;
+    }
+    .success-state h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+    .success-state p {
+      font-size: 0.9rem;
+      color: #555961;
+      line-height: 1.6;
+    }
+
     footer {
       text-align: center;
       padding: 2rem;
@@ -172,17 +228,11 @@
     footer a { color: #9D92AD; text-decoration: none; }
     footer a:hover { color: #273752; }
 
-    /* Logo */
-    .kco-logo {
-      display: block;
-      margin-top: 2rem;
-      opacity: 0.45;
-    }
-
     @media (max-width: 720px) {
       .page { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.25rem 4rem; }
       .form-card { position: static; }
       nav { padding: 1rem 1.25rem; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -192,6 +242,9 @@
     <a class="nav-logo" href="/aicouncil">Human-Centric AI Council</a>
     <a class="nav-back" href="/aicouncil">← Back to the Council</a>
   </nav>
+
+  <!-- Hidden iframe — catches the MailerLite POST response so the page doesn't navigate -->
+  <iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
 
   <div class="page">
 
@@ -206,11 +259,11 @@
       <div class="detail-list">
         <div class="detail-item">
           <span class="detail-label">Date</span>
-          <span class="detail-value"><!-- FILL IN DATE e.g. Tuesday, May 20, 2025 -->[Date TBD]</span>
+          <span class="detail-value">[Date TBD]</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Time</span>
-          <span class="detail-value"><!-- FILL IN TIME e.g. 12:00 PM ET / 9:00 AM PT -->[Time TBD]</span>
+          <span class="detail-value">[Time TBD]</span>
         </div>
         <div class="detail-item">
           <span class="detail-label">Format</span>
@@ -238,24 +291,79 @@
     <!-- RIGHT: Registration form -->
     <div class="form-card">
       <h2>Reserve your spot</h2>
-      <p class="subhead">Enter your details below. You'll get a calendar invite and Zoom link by email.</p>
+      <p class="subhead">Free and open to all HR and talent practitioners. You'll get a calendar invite and Zoom link by email.</p>
 
-      <!-- PASTE YOUR MAILERLITE EMBEDDED FORM CODE HERE -->
-      <!-- Remove the placeholder div below once you have the embed code -->
-      <div class="ml-embed-zone">
-        <strong>MailerLite Form Goes Here</strong>
-        Paste your embedded MailerLite form code in place of this block.<br />
-        Dashboard → Forms → Embedded → Copy HTML
+      <!--
+        SETUP: Paste your MailerLite form action URL below.
+        Find it in MailerLite → Forms → your form → Embedded → HTML source → <form action="...">
+        It looks like: https://app.mailerlite.com/webforms/submit/XXXXXXXX
+      -->
+      <form
+        id="townhall-form"
+        action="YOUR_MAILERLITE_TOWNHALL_FORM_URL"
+        method="post"
+        target="ml-submit-frame"
+        onsubmit="handleSubmit(event)"
+      >
+
+        <div class="form-fields" id="form-fields">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="fields[name]" placeholder="First" required />
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="fields[last_name]" placeholder="Last" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Work Email</label>
+            <input type="email" id="email" name="fields[email]" placeholder="you@company.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="fields[title]" placeholder="Your role" />
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="fields[company]" placeholder="Where you work" />
+          </div>
+
+          <button type="submit" class="submit-btn">Register for the Town Hall →</button>
+
+          <p class="privacy-note">No sales calls. No spam. Just a calendar invite and a Zoom link.</p>
+        </div>
+
+      </form>
+
+      <!-- Success state (shown after submit) -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">✓</div>
+        <h3>You're registered.</h3>
+        <p>Check your inbox — a calendar invite and Zoom link are on the way. See you in the room.</p>
       </div>
-      <!-- END MAILERLITE EMBED -->
 
     </div>
-
   </div>
 
   <footer>
     <p>© 2025 Human-Centric AI Council &nbsp;·&nbsp; Operated by <a href="https://kyleandco.com" target="_blank">Kyle &amp; Co</a> &nbsp;·&nbsp; <a href="/aicouncil">Back to the Council</a></p>
   </footer>
+
+  <script>
+    function handleSubmit(e) {
+      // Let the form POST to MailerLite via the hidden iframe
+      // then show success state
+      setTimeout(function() {
+        document.getElementById('form-fields').classList.add('hidden');
+        document.getElementById('success-state').classList.add('visible');
+      }, 600);
+    }
+  </script>
 
 </body>
 </html>
