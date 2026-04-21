@@ -8,12 +8,20 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #F7F1EA; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #273752; min-height: 100vh; }
   .page { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
-  .eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #555961; font-weight: 500; margin-bottom: 2rem; }
+
+  /* Header */
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(39,55,82,0.1); }
+  .header-logo { height: 36px; width: auto; }
+  .header-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 500; }
+
+  /* Hero */
   .hero { background: #273752; border-radius: 8px; padding: 3rem; margin-bottom: 0.5rem; }
   .hero-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 500; margin-bottom: 0.75rem; }
   .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; color: #F7F1EA; margin-bottom: 1rem; }
   .hero h1 em { font-style: italic; color: #FDECCD; }
   .hero p { font-size: 0.95rem; line-height: 1.6; color: rgba(247,241,234,0.8); max-width: 48ch; }
+
+  /* Resources */
   .resources { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
   .resource { background: #fff; border-radius: 8px; padding: 2rem 2.5rem; border-left: 3px solid #273752; }
   .resource-tag { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #555961; font-weight: 500; margin-bottom: 0.5rem; }
@@ -21,19 +29,29 @@
   .resource p { font-size: 0.88rem; line-height: 1.6; color: #555961; margin-bottom: 1.25rem; }
   .btn { display: inline-block; background: #273752; color: #F7F1EA; text-decoration: none; font-size: 0.85rem; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 100px; }
   .btn:hover { background: #172339; }
-  .footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(39,55,82,0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .footer-text { font-size: 0.78rem; color: #555961; }
-  .footer-link { font-size: 0.85rem; font-weight: 500; color: #273752; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
   .r1 { border-left-color: #2D5C94; }
   .r2 { border-left-color: #9D92AD; }
   .r3 { border-left-color: #FDECCD; }
   .r4 { border-left-color: #C1BACD; }
+
+  /* Footer */
+  .footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(39,55,82,0.12); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-text { font-size: 0.78rem; color: #555961; }
+  .footer-link { font-size: 0.85rem; font-weight: 500; color: #273752; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .footer-link:hover { color: #9D92AD; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <p class="eyebrow">The Human-Centric AI Council</p>
+  <div class="header">
+    <img
+      class="header-logo"
+      src="https://kyleandco.com/wp-content/uploads/2024/06/Kyle-Co-Logo_2024_Navy.png"
+      alt="Kyle &amp; Co"
+    />
+    <span class="header-label">The Human-Centric AI Council</span>
+  </div>
 
   <div class="hero">
     <p class="hero-label">You're in</p>
@@ -74,7 +92,7 @@
   </div>
 
   <div class="footer">
-    <p class="footer-text">The Human-Centric AI Council · Powered by Kyle &amp; Co</p>
+    <p class="footer-text">The Human-Centric AI Council · Powered by <strong>Kyle &amp; Co</strong></p>
     <a class="footer-link" href="https://kyleandco.com/aicouncil">Back to the Council →</a>
   </div>
 
