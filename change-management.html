@@ -67,20 +67,22 @@ body {
 .sidenav a.active { color: var(--navy); border-left-color: var(--navy-mid); font-weight: 500; background: rgba(39,55,82,0.04); }
 
 /* ── MAIN CONTENT ── */
-.content { max-width: 780px; padding: 0 3.5rem 6rem; }
+.content { width: 100%; padding: 0 4rem 6rem; }
 
 /* ── HERO ── */
 .hero {
   background: var(--navy); color: var(--ivory);
-  padding: 5rem 3.5rem; margin: 0 -3.5rem 5rem;
+  padding: 5rem 4rem; margin: 0 -4rem 5rem;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center;
 }
+.hero-left { display: flex; flex-direction: column; }
 .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem; }
 .hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 300;
+  font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300;
   line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.25rem;
 }
 .hero h1 em { font-style: italic; color: var(--cream); }
-.hero-meta { font-size: 0.85rem; color: rgba(247,241,234,0.65); margin-bottom: 2rem; line-height: 1.6; }
+.hero-meta { font-size: 0.88rem; color: rgba(247,241,234,0.65); margin-bottom: 2rem; line-height: 1.65; }
 .hero-cta {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--cream); color: var(--navy-dark);
@@ -89,6 +91,13 @@ body {
   border: none; cursor: pointer; font-family: inherit;
 }
 .hero-cta:hover { background: #f5e0b5; }
+.hero-stats { display: flex; flex-direction: column; gap: 1.25rem; }
+.hero-stat {
+  padding: 1.5rem; background: rgba(247,241,234,0.07); border-radius: 8px;
+  border-left: 2px solid var(--lilac);
+}
+.hero-stat-num { font-size: 2.4rem; font-weight: 200; color: var(--cream); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.35rem; }
+.hero-stat-label { font-size: 0.8rem; color: rgba(247,241,234,0.65); line-height: 1.5; }
 
 /* ── SECTIONS ── */
 .chapter { padding: 4rem 0; border-top: 1px solid rgba(39,55,82,0.1); }
@@ -98,12 +107,15 @@ body {
   color: var(--lilac); font-weight: 500; margin-bottom: 1rem;
 }
 .chapter h2 {
-  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400;
   line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 1.5rem;
 }
 .chapter h2 em { font-style: italic; color: var(--lilac); }
-.chapter p { font-size: 0.97rem; line-height: 1.75; color: #3a4558; margin-bottom: 1.25rem; max-width: 64ch; }
+.chapter p { font-size: 0.97rem; line-height: 1.75; color: #3a4558; margin-bottom: 1.25rem; max-width: 72ch; }
 .chapter p:last-child { margin-bottom: 0; }
+.chapter-body { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+.chapter-body .chapter-intro { padding-top: 0.25rem; }
+.chapter-body .chapter-intro p { max-width: none; }
 
 /* ── PULL QUOTE ── */
 .pullquote {
@@ -173,11 +185,10 @@ body {
 
 /* ── DOWNLOAD GATE ── */
 .download-section {
-  margin-top: 5rem; padding: 3.5rem;
+  margin-top: 5rem; padding: 3.5rem 4rem;
   background: white; border-radius: 12px;
   border: 1px solid rgba(39,55,82,0.1);
-  margin-left: -3.5rem; margin-right: 0;
-  width: calc(100% + 3.5rem);
+  margin-left: -4rem; margin-right: -4rem;
 }
 .download-section h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
 .download-section h2 em { font-style: italic; color: var(--lilac); }
@@ -223,7 +234,7 @@ body {
 /* ── FOOTER ── */
 .page-footer {
   background: var(--navy); color: rgba(247,241,234,0.6);
-  padding: 2rem 3.5rem; margin: 5rem -3.5rem -6rem;
+  padding: 2rem 4rem; margin: 5rem -4rem -6rem;
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.75rem; flex-wrap: wrap; gap: 1rem;
 }
@@ -238,14 +249,16 @@ body {
   .layout { grid-template-columns: 1fr; }
   .sidenav { display: none; }
   .content { padding: 0 1.5rem 5rem; }
-  .hero { padding: 4rem 1.5rem; margin: 0 -1.5rem 4rem; }
+  .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; margin: 0 -1.5rem 4rem; }
+  .hero-stats { display: none; }
+  .chapter-body { grid-template-columns: 1fr; gap: 1rem; }
   .card-grid { grid-template-columns: 1fr; }
   .card-grid.cols-3 { grid-template-columns: 1fr; }
   .com-pillars { grid-template-columns: 1fr; }
   .pilot-compare { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .about-strip { grid-template-columns: 1fr; }
-  .download-section { margin-left: -1.5rem; width: calc(100% + 1.5rem); padding: 2rem 1.5rem; }
+  .download-section { margin-left: -1.5rem; margin-right: -1.5rem; padding: 2rem 1.5rem; }
   .page-footer { margin: 4rem -1.5rem -5rem; padding: 2rem 1.5rem; }
 }
 </style>
@@ -281,26 +294,48 @@ body {
 
     <!-- HERO -->
     <div class="hero">
-      <p class="hero-eyebrow">eBook · Human-Centric AI Council</p>
-      <h1>AI Change Management<br /><em>&amp; Adoption</em></h1>
-      <p class="hero-meta">
-        Lead by Alicia Miller · Foreword by Kyle Lagunas<br />
-        A practitioner-built guide for HR and people leaders navigating the human side of AI transformation.
-      </p>
-      <a href="index.html#library" class="hero-cta">Get the full toolkit →</a>
+      <div class="hero-left">
+        <p class="hero-eyebrow">eBook · Human-Centric AI Council</p>
+        <h1>AI Change Management<br /><em>&amp; Adoption</em></h1>
+        <p class="hero-meta">
+          Lead by Alicia Miller · Foreword by Kyle Lagunas<br />
+          A practitioner-built guide for HR and people leaders navigating the human side of AI transformation.
+        </p>
+        <a href="index.html#library" class="hero-cta">Get the full toolkit →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">7</div>
+          <div class="hero-stat-label">Ways AI transformation is fundamentally different from past technology rollouts</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Behavioral levers — Capability, Opportunity, Motivation — that drive adoption at scale</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">6</div>
+          <div class="hero-stat-label">HR functions with role evolution frameworks inside the full eBook</div>
+        </div>
+      </div>
     </div>
 
     <!-- INTRO -->
     <section class="chapter fade-in" id="intro">
-      <p class="chapter-label">Introduction</p>
-      <h2>Leading a people<br /><em>and work</em> transformation</h2>
-      <p>AI adoption is accelerating — and so is the pressure to prove impact. Leaders want speed. Employees want clarity and stability. Meanwhile, the technology is evolving faster than most operating rhythms can absorb.</p>
-      <p>For HR teams responding to this pressure, AI transformation can look like a typical rollout: identify a use case, find a tool, implement and hope it sticks. But the teams that succeed treat AI as a people-and-work transformation, not just a technology upgrade. They build trust, capability, and the habits that change daily work.</p>
-      <div class="pullquote">
-        <p>"The goal isn't to make your workforce 'use AI.' The goal is to help your organization evolve into new ways of working where AI is embedded, outcomes improve, and people remain at the center of how value is created."</p>
-        <cite>— Alicia Miller, Lead Contributor</cite>
+      <div class="chapter-body">
+        <div class="chapter-intro">
+          <p class="chapter-label">Introduction</p>
+          <h2>Leading a people<br /><em>and work</em> transformation</h2>
+        </div>
+        <div>
+          <p>AI adoption is accelerating — and so is the pressure to prove impact. Leaders want speed. Employees want clarity and stability. Meanwhile, the technology is evolving faster than most operating rhythms can absorb.</p>
+          <p>For HR teams responding to this pressure, AI transformation can look like a typical rollout: identify a use case, find a tool, implement and hope it sticks. But the teams that succeed treat AI as a people-and-work transformation, not just a technology upgrade. They build trust, capability, and the habits that change daily work.</p>
+          <div class="pullquote">
+            <p>"The goal isn't to make your workforce 'use AI.' The goal is to help your organization evolve into new ways of working where AI is embedded, outcomes improve, and people remain at the center of how value is created."</p>
+            <cite>— Alicia Miller, Lead Contributor</cite>
+          </div>
+          <p>This guide is not a technical manual, a vendor comparison, or a vision piece. It is a practical, human-centered guide for enterprise and people leaders to lead the people side of AI transformation.</p>
+        </div>
       </div>
-      <p>This guide is not a technical manual, a vendor comparison, or a vision piece. It is a practical, human-centered guide for enterprise and people leaders to lead the people side of AI transformation.</p>
     </section>
 
     <!-- HOW AI IS DIFFERENT -->
