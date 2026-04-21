@@ -199,7 +199,8 @@ function HCAIC_Final() {
       short: "How AI transformation is different, and what that means for the teams leading it.",
       long: "Traditional change management assumes the change is known. AI change is not. Outputs are probabilistic. Trust is fragile. The work itself keeps shifting. This eBook addresses what that means for adoption in practice: sequencing, communication, resistance patterns, role evolution, and the cultural conditions that separate real scale from permanent pilot purgatory.",
       whatYouGet: ['Adoption sequencing model', 'Resistance pattern diagnostics', 'Cultural readiness checklist', 'Role evolution frameworks for 6 HR functions'],
-      ctaLabel: 'Download the eBook',
+      ctaLabel: 'Read the interactive guide',
+      ctaLink: 'change-management.html',
       evolving: 'Interactive version in development',
       interactivePreview: {
         title: 'Interactive readiness diagnostic',
@@ -618,7 +619,7 @@ function HCAIC_Final() {
             <div
               key={r.id}
               className="resource-row"
-              onClick={() => setSelectedResource(r)}
+              onClick={() => r.ctaLink ? window.location.href = r.ctaLink : setSelectedResource(r)}
               style={{
                 display: 'grid',
                 gridTemplateColumns: '60px 160px 1fr 150px 60px',
