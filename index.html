@@ -103,7 +103,7 @@ function HCAIC_Final() {
   // CTA handler: first click shows email gate, subsequent clicks go straight through
   const handleResourceCta = (resource) => {
     if (accessGranted) {
-      if (resource.link) window.location.href = resource.link;
+      if (resource.link) window.open(resource.link, "_blank");
     } else {
       setPendingResourceCta(resource);
       setGateOpen(true);
@@ -116,7 +116,7 @@ function HCAIC_Final() {
     if (pendingResourceCta) {
       const r = pendingResourceCta;
       setPendingResourceCta(null);
-      setTimeout(() => { if (r.link) window.location.href = r.link; }, 250);
+      setTimeout(() => { if (r.link) window.open(r.link, "_blank"); }, 250);
     }
   };
 
