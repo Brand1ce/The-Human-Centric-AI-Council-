@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Solution Decision Framework — HCAIC</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #273752;
+  --navy-dark: #172339;
+  --navy-mid: #2D5C94;
+  --lilac: #9D92AD;
+  --ivory: #F7F1EA;
+  --slate: #555961;
+  --cream: #FDECCD;
+  --lilac-light: #C1BACD;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--ivory); color: var(--navy); line-height: 1.6; }
+
+/* ── NAV ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy); padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+}
+.topbar-brand { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 500; }
+.topbar-title { font-size: 0.82rem; color: rgba(247,241,234,0.7); }
+.topbar-cta { background: var(--cream); color: var(--navy-dark); text-decoration: none; font-size: 0.78rem; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 100px; white-space: nowrap; }
+.topbar-cta:hover { background: #f5e0b5; }
+
+/* ── LAYOUT ── */
+.layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; padding-top: 56px; }
+
+/* ── SIDE NAV ── */
+.sidenav { position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; background: white; border-right: 1px solid rgba(39,55,82,0.08); padding: 2rem 0; }
+.sidenav-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lilac); font-weight: 500; padding: 0 1.5rem; margin-bottom: 1rem; }
+.sidenav a { display: block; padding: 0.55rem 1.5rem; font-size: 0.8rem; color: var(--slate); text-decoration: none; border-left: 2px solid transparent; transition: all 0.15s; line-height: 1.4; }
+.sidenav a:hover { color: var(--navy); background: rgba(39,55,82,0.04); }
+.sidenav a.active { color: var(--navy); border-left-color: var(--navy-mid); font-weight: 500; background: rgba(39,55,82,0.04); }
+
+/* ── CONTENT ── */
+.content { width: 100%; padding: 0 4rem 6rem; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy); color: var(--ivory);
+  padding: 5rem 4rem; margin: 0 -4rem 5rem;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center;
+}
+.hero-left { display: flex; flex-direction: column; }
+.hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem; }
+.hero h1 { font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+.hero h1 em { font-style: italic; color: var(--cream); }
+.hero-meta { font-size: 0.88rem; color: rgba(247,241,234,0.65); margin-bottom: 2rem; line-height: 1.65; }
+.hero-cta { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--cream); color: var(--navy-dark); padding: 0.85rem 1.6rem; border-radius: 100px; text-decoration: none; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; font-family: inherit; }
+.hero-cta:hover { background: #f5e0b5; }
+.hero-stats { display: flex; flex-direction: column; gap: 1.25rem; }
+.hero-stat { padding: 1.5rem; background: rgba(247,241,234,0.07); border-radius: 8px; border-left: 2px solid var(--lilac); }
+.hero-stat-num { font-size: 2.4rem; font-weight: 200; color: var(--cream); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.35rem; }
+.hero-stat-label { font-size: 0.8rem; color: rgba(247,241,234,0.65); line-height: 1.5; }
+
+/* ── SECTIONS ── */
+.chapter { padding: 4rem 0; border-top: 1px solid rgba(39,55,82,0.1); }
+.chapter:first-of-type { border-top: none; }
+.chapter-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 1rem; }
+.chapter h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 1.5rem; }
+.chapter h2 em { font-style: italic; color: var(--lilac); }
+.chapter p { font-size: 0.97rem; line-height: 1.75; color: #3a4558; margin-bottom: 1.25rem; max-width: 72ch; }
+.chapter-body { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+.chapter-body .chapter-intro { padding-top: 0.25rem; }
+.chapter-body .chapter-intro p { max-width: none; }
+
+/* ── PULL QUOTE ── */
+.pullquote { border-left: 3px solid var(--cream); padding: 1.25rem 1.75rem; margin: 2rem 0; background: rgba(253,236,205,0.25); border-radius: 0 6px 6px 0; }
+.pullquote p { font-size: 1.05rem; font-weight: 400; font-style: italic; color: var(--navy); margin: 0; }
+.pullquote cite { font-size: 0.75rem; color: var(--slate); font-style: normal; margin-top: 0.5rem; display: block; }
+
+/* ── CARD GRID ── */
+.card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: white; border-radius: 6px; padding: 1.5rem; border-left: 3px solid var(--lilac); }
+.card.accent { border-left-color: var(--navy-mid); }
+.card.cream-card { border-left-color: var(--cream); background: rgba(253,236,205,0.18); }
+.card.navy-card { background: var(--navy); border-left-color: var(--cream); }
+.card-num { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--lilac); font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; font-family: monospace; }
+.card h3 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.35; }
+.card.navy-card h3 { color: var(--cream); }
+.card p { font-size: 0.83rem; line-height: 1.6; color: var(--slate); margin: 0; }
+.card.navy-card p { color: rgba(247,241,234,0.75); }
+
+/* ── READINESS TABLE ── */
+.readiness-table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.85rem; }
+.readiness-table th { text-align: left; padding: 0.75rem 1rem; background: var(--navy); color: var(--ivory); font-weight: 500; font-size: 0.75rem; letter-spacing: 0.04em; }
+.readiness-table td { padding: 1rem; border-bottom: 1px solid rgba(39,55,82,0.08); vertical-align: top; line-height: 1.55; }
+.readiness-table tr:nth-child(even) td { background: white; }
+.readiness-table td:first-child { font-weight: 600; color: var(--navy); width: 22%; }
+.readiness-table td:nth-child(2) { color: var(--slate); width: 35%; }
+.readiness-table td:nth-child(3) { color: var(--slate); }
+
+/* ── 5-LEVEL INTERACTIVE ── */
+.level-selector { display: flex; gap: 0; margin: 2rem 0 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(39,55,82,0.15); }
+.level-tab {
+  flex: 1; padding: 1rem 0.5rem; text-align: center; cursor: pointer;
+  background: white; border: none; font-family: inherit;
+  font-size: 0.72rem; font-weight: 500; color: var(--slate);
+  border-right: 1px solid rgba(39,55,82,0.1); transition: all 0.2s;
+  line-height: 1.35;
+}
+.level-tab:last-child { border-right: none; }
+.level-tab .tab-num { display: block; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--lilac); margin-bottom: 0.25rem; font-family: monospace; }
+.level-tab:hover { background: rgba(39,55,82,0.04); color: var(--navy); }
+.level-tab.active { background: var(--navy); color: var(--ivory); }
+.level-tab.active .tab-num { color: var(--lilac-light); }
+
+.level-panel { display: none; background: white; border-radius: 0 0 8px 8px; border: 1px solid rgba(39,55,82,0.15); border-top: none; padding: 2rem; margin-bottom: 2rem; }
+.level-panel.active { display: block; }
+.level-panel-header { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(39,55,82,0.08); }
+.level-nature { font-size: 0.82rem; color: var(--slate); line-height: 1.6; }
+.level-nature strong { color: var(--navy); font-weight: 600; display: block; margin-bottom: 0.3rem; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.level-posture { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--ivory); padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 500; color: var(--navy); }
+.bbbb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.bbbb-card { border-radius: 6px; padding: 1.25rem; }
+.bbbb-build { background: rgba(39,55,82,0.06); border-top: 3px solid var(--navy); }
+.bbbb-buy { background: rgba(45,92,148,0.08); border-top: 3px solid var(--navy-mid); }
+.bbbb-borrow { background: rgba(157,146,173,0.12); border-top: 3px solid var(--lilac); }
+.bbbb-bot { background: rgba(253,236,205,0.35); border-top: 3px solid var(--cream); }
+.bbbb-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.6rem; font-family: monospace; }
+.bbbb-build .bbbb-label { color: var(--navy); }
+.bbbb-buy .bbbb-label { color: var(--navy-mid); }
+.bbbb-borrow .bbbb-label { color: var(--lilac); }
+.bbbb-bot .bbbb-label { color: #a07c2a; }
+.bbbb-card p { font-size: 0.8rem; color: var(--slate); line-height: 1.55; }
+
+/* ── MARKET SCAN STEPS ── */
+.scan-steps { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+.scan-step { display: grid; grid-template-columns: 48px 1fr; gap: 1.5rem; align-items: start; background: white; border-radius: 8px; padding: 1.5rem; }
+.scan-step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); color: var(--ivory); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; font-family: monospace; letter-spacing: 0.05em; }
+.scan-step h4 { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; }
+.scan-step p { font-size: 0.83rem; color: var(--slate); line-height: 1.6; margin-bottom: 0; }
+.scan-step .tip { font-size: 0.78rem; color: var(--navy-mid); margin-top: 0.5rem; font-style: italic; }
+
+/* ── KPI CATEGORIES ── */
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 2rem 0; }
+.kpi-box { background: white; border-radius: 8px; padding: 1.75rem; }
+.kpi-box-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 0.75rem; font-family: monospace; }
+.kpi-box h3 { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem; }
+.kpi-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.kpi-list li { font-size: 0.82rem; color: var(--slate); line-height: 1.5; padding-left: 1rem; position: relative; }
+.kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--navy-mid); font-size: 0.7rem; top: 0.15rem; }
+
+/* ── CONCLUSION ── */
+.conclusion-block { background: var(--navy); color: var(--ivory); border-radius: 8px; padding: 3rem; margin: 2rem 0; }
+.conclusion-block p { font-size: 0.97rem; line-height: 1.8; color: rgba(247,241,234,0.85); margin-bottom: 1rem; max-width: none; }
+.conclusion-block p:last-child { margin-bottom: 0; }
+.conclusion-block strong { color: var(--cream); font-weight: 500; }
+
+/* ── TOOLKIT CTA ── */
+.toolkit-section { margin-top: 5rem; padding: 3.5rem 4rem; background: white; border-radius: 12px; border: 1px solid rgba(39,55,82,0.1); margin-left: -4rem; margin-right: -4rem; }
+.toolkit-section h2 { font-size: 1.6rem; font-weight: 400; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+.toolkit-section h2 em { font-style: italic; color: var(--lilac); }
+.toolkit-section > p { font-size: 0.93rem; color: var(--slate); margin-bottom: 2rem; line-height: 1.65; }
+
+/* ── ABOUT ── */
+.about-strip { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid rgba(39,55,82,0.1); display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.about-strip h4 { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lilac); margin-bottom: 0.75rem; font-weight: 500; }
+.about-strip p { font-size: 0.82rem; color: var(--slate); line-height: 1.65; }
+
+/* ── FOOTER ── */
+.page-footer { background: var(--navy); color: rgba(247,241,234,0.6); padding: 2rem 4rem; margin: 5rem -4rem -6rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; flex-wrap: wrap; gap: 1rem; }
+.page-footer a { color: var(--cream); text-decoration: none; }
+
+/* ── FADE IN ── */
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidenav { display: none; }
+  .content { padding: 0 1.5rem 5rem; }
+  .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; margin: 0 -1.5rem 4rem; }
+  .hero-stats { display: none; }
+  .chapter-body { grid-template-columns: 1fr; gap: 1rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .bbbb-grid { grid-template-columns: 1fr 1fr; }
+  .level-panel-header { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .about-strip { grid-template-columns: 1fr; }
+  .toolkit-section { margin-left: -1.5rem; margin-right: -1.5rem; padding: 2rem 1.5rem; }
+  .page-footer { margin: 4rem -1.5rem -5rem; padding: 2rem 1.5rem; }
+  .level-tab { font-size: 0.65rem; padding: 0.75rem 0.25rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <span class="topbar-brand">Human-Centric AI Council</span>
+  <span class="topbar-title">AI Solution Decision Framework</span>
+  <a href="https://kyleandco.com/wp-content/uploads/2026/04/AI-Value-Realization-Framework.pdf" class="topbar-cta" target="_blank" rel="noopener noreferrer">Download the PDF →</a>
+</nav>
+
+<div class="layout">
+
+  <aside class="sidenav">
+    <div class="sidenav-label">Contents</div>
+    <a href="#intro" class="active">Introduction</a>
+    <a href="#framework">Build, Buy, Borrow, or Bot</a>
+    <a href="#readiness">Readiness Lens</a>
+    <a href="#market-scan">Market Scan Guidelines</a>
+    <a href="#assessment">Solution Assessment</a>
+    <a href="#kpis">KPI Dashboard</a>
+    <a href="#conclusion">Conclusion</a>
+    <a href="#toolkit" style="margin-top:1.5rem; color: var(--navy); font-weight:600; border-left-color: var(--cream);">↓ Access the toolkit</a>
+  </aside>
+
+  <main class="content">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-left">
+        <p class="hero-eyebrow">eBook · Human-Centric AI Council</p>
+        <h1>AI Solution<br /><em>Decision Framework</em></h1>
+        <p class="hero-meta">
+          Lead by Lydia Wu · Foreword by Kyle Lagunas<br />
+          Build, Buy, Borrow, or Bot — a practical decision lens for HR leaders that starts with the work problem, not the product pitch.
+        </p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+          <a href="https://kyleandco.com/wp-content/uploads/2026/04/AI-Value-Realization-Framework.pdf" class="hero-cta" target="_blank" rel="noopener noreferrer">Download the PDF →</a>
+          <a href="thankyou.html" style="color:rgba(247,241,234,0.75); font-size:0.88rem; font-weight:500; text-decoration:none; border-bottom:1px solid rgba(247,241,234,0.35); padding-bottom:2px;">Access the toolkit →</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">5</div>
+          <div class="hero-stat-label">Levels of AI maturity — from task automation to catalytic transformation</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Decision paths: Build, Buy, Borrow, or Bot — mapped to each maturity level</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-label">Readiness dimensions every HR team should assess before evaluating solutions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="chapter fade-in" id="intro">
+      <div class="chapter-body">
+        <div class="chapter-intro">
+          <p class="chapter-label">Introduction</p>
+          <h2>Start with the problem,<br /><em>not the product.</em></h2>
+        </div>
+        <div>
+          <p>Every HR leader today feels the pressure to "do something with AI." Vendors pitch innovation; executives demand speed; employees expect smarter systems. But AI readiness isn't about adopting technology — it's about understanding what work needs to change and how that work should be enabled.</p>
+          <p>Too often, organizations start from the solution side: "What kind of AI should we use?" The better question is: "What kind of work problem are we solving, and what form of AI readiness do we actually have?"</p>
+          <div class="pullquote">
+            <p>"The costliest mistakes usually happen before implementation — when teams choose the wrong approach to acquire, design, and sustain the capability."</p>
+            <cite>— Kyle Lagunas, Founder Kyle &amp; Co · Executive Director, HCAIC</cite>
+          </div>
+          <p>This framework introduces a decision lens — Build, Buy, Borrow, or Bot — grounded in a five-level AI maturity model. By connecting the type of AI with the strategic intent, business problem, and organizational readiness, HR leaders can make disciplined, value-driven choices without over-engineering solutions or getting swept up in hype.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORK: 5 LEVELS + BBBB -->
+    <section class="chapter fade-in" id="framework">
+      <p class="chapter-label">Chapter 1</p>
+      <h2>Build, Buy, Borrow, or Bot —<br /><em>mapped to AI maturity.</em></h2>
+      <p>Not every AI solution demands the same approach. The right path depends on the type of AI capability you're acquiring. Select a maturity level to see the decision guidance.</p>
+
+      <div class="level-selector" role="tablist">
+        <button class="level-tab active" role="tab" onclick="showLevel(0)">
+          <span class="tab-num">TYPE 1</span>Task Automation
+        </button>
+        <button class="level-tab" role="tab" onclick="showLevel(1)">
+          <span class="tab-num">TYPE 2</span>Assistive Intelligence
+        </button>
+        <button class="level-tab" role="tab" onclick="showLevel(2)">
+          <span class="tab-num">TYPE 3</span>Predictive &amp; Diagnostic
+        </button>
+        <button class="level-tab" role="tab" onclick="showLevel(3)">
+          <span class="tab-num">TYPE 4</span>Autonomous &amp; Adaptive
+        </button>
+        <button class="level-tab" role="tab" onclick="showLevel(4)">
+          <span class="tab-num">TYPE 5</span>Catalytic AI
+        </button>
+      </div>
+
+      <!-- TYPE 1 -->
+      <div class="level-panel active" id="level-0">
+        <div class="level-panel-header">
+          <div>
+            <div class="level-nature"><strong>Nature of AI</strong>Repetitive, rule-based, and process-driven. Produces deterministic, consistent outputs.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>Objective</strong>Reduce manual workload and error; optimize operational efficiency.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>HR Example</strong>Automating employee data changes, generating offer letters, or parsing resumes into structured formats.</div>
+          </div>
+          <div>
+            <div class="level-nature"><strong>Typical Business Problem</strong>HR teams spend significant time on repetitive, low-value activities such as form filling, document validation, and data entry.</div>
+            <div style="margin-top:1rem;"><span class="level-posture">Strategic Posture: Efficiency through automation</span></div>
+          </div>
+        </div>
+        <div class="bbbb-grid">
+          <div class="bbbb-card bbbb-build">
+            <div class="bbbb-label">Build</div>
+            <p>If the process is unique to your HR workflows, consider using internal automation (RPA or scripting). Only when no vendor solution fits your proprietary process.</p>
+          </div>
+          <div class="bbbb-card bbbb-buy">
+            <div class="bbbb-label">Buy</div>
+            <p>For standardized processes (e.g., onboarding checklists, document approvals), use existing SaaS tools with proven reliability. Faster implementation; vendor support included.</p>
+          </div>
+          <div class="bbbb-card bbbb-borrow">
+            <div class="bbbb-label">Borrow</div>
+            <p>For small-scale needs, leverage shared services or BPO partners with built-in automation capabilities. Low-risk way to validate fit and adoption before committing.</p>
+          </div>
+          <div class="bbbb-card bbbb-bot">
+            <div class="bbbb-label">Bot</div>
+            <p>Low ROI — building internally often costs more than the savings realized. Use bots for quick, contained automation where speed matters more than customization.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPE 2 -->
+      <div class="level-panel" id="level-1">
+        <div class="level-panel-header">
+          <div>
+            <div class="level-nature"><strong>Nature of AI</strong>Supports human tasks in a co-pilot style. Requires human judgment to validate and act on outputs.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>Objective</strong>Enhance productivity, decision accuracy, and employee experience through guided assistance.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>HR Example</strong>AI writing assistants for job descriptions, interview question generators, or benefits guidance chatbots.</div>
+          </div>
+          <div>
+            <div class="level-nature"><strong>Typical Business Problem</strong>Recruiters, HRBPs, and managers spend excessive time on cognitive tasks that could be accelerated with intelligent suggestions.</div>
+            <div style="margin-top:1rem;"><span class="level-posture">Strategic Posture: Productivity through augmentation</span></div>
+          </div>
+        </div>
+        <div class="bbbb-grid">
+          <div class="bbbb-card bbbb-build">
+            <div class="bbbb-label">Build</div>
+            <p>When your organization possesses clean, proprietary data that offers strategic differentiation — and the use case is unique enough that no vendor solution fits.</p>
+          </div>
+          <div class="bbbb-card bbbb-buy">
+            <div class="bbbb-label">Buy</div>
+            <p>When use cases are generic (e.g., industry-standard writing assistance) or when your data maturity is low. Most organizations should start here.</p>
+          </div>
+          <div class="bbbb-card bbbb-borrow">
+            <div class="bbbb-label">Borrow</div>
+            <p>Consider academic or vendor partnerships for co-development of context-specific assistants. Good for piloting before committing to procurement.</p>
+          </div>
+          <div class="bbbb-card bbbb-bot">
+            <div class="bbbb-label">Bot</div>
+            <p>Automate model retraining and data refreshes rather than model creation. Use workflow bots to surface AI suggestions within existing tools your team already uses.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPE 3 -->
+      <div class="level-panel" id="level-2">
+        <div class="level-panel-header">
+          <div>
+            <div class="level-nature"><strong>Nature of AI</strong>Detects patterns, forecasts outcomes, and surfaces root causes from historical and real-time data.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>Objective</strong>Enable proactive, data-driven decision-making across talent, performance, and engagement.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>HR Example</strong>Attrition risk modeling, pay equity diagnostics, and workforce demand forecasting.</div>
+          </div>
+          <div>
+            <div class="level-nature"><strong>Typical Business Problem</strong>Leaders react to workforce challenges — attrition, engagement gaps, DEI disparities — only after they occur, due to limited predictive visibility.</div>
+            <div style="margin-top:1rem;"><span class="level-posture">Strategic Posture: Insight and foresight through analytics</span></div>
+          </div>
+        </div>
+        <div class="bbbb-grid">
+          <div class="bbbb-card bbbb-build">
+            <div class="bbbb-label">Build</div>
+            <p>Only viable for enterprises with high data maturity, a dedicated ML team, and use cases where proprietary data creates a meaningful competitive advantage.</p>
+          </div>
+          <div class="bbbb-card bbbb-buy">
+            <div class="bbbb-label">Buy</div>
+            <p>For standard predictive models (turnover risk, engagement scoring), proven SaaS vendors offer faster time-to-value. Evaluate model transparency carefully.</p>
+          </div>
+          <div class="bbbb-card bbbb-borrow">
+            <div class="bbbb-label">Borrow</div>
+            <p>Partner with research institutions or analytics consultancies to co-develop models tailored to your workforce context. Ideal when internal capability is developing.</p>
+          </div>
+          <div class="bbbb-card bbbb-bot">
+            <div class="bbbb-label">Bot</div>
+            <p>Automate data pipelines and model refresh cycles rather than the modeling itself. Bots can schedule reporting and flag anomalies without replacing analytical judgment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPE 4 -->
+      <div class="level-panel" id="level-3">
+        <div class="level-panel-header">
+          <div>
+            <div class="level-nature"><strong>Nature of AI</strong>Continuously learns and adapts to user behavior, personalizing decisions and actions in real time.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>Objective</strong>Deliver individualized experiences and enable real-time behavioral change at scale.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>HR Example</strong>Personalized learning path recommendations, dynamic career coaching, and adaptive performance support tools.</div>
+          </div>
+          <div>
+            <div class="level-nature"><strong>Typical Business Problem</strong>Static HR systems fail to engage employees or managers because they can't personalize experiences or respond dynamically to individual needs.</div>
+            <div style="margin-top:1rem;"><span class="level-posture">Strategic Posture: Personalization at scale</span></div>
+          </div>
+        </div>
+        <div class="bbbb-grid">
+          <div class="bbbb-card bbbb-build">
+            <div class="bbbb-label">Build</div>
+            <p>Only appropriate for enterprises with mature data infrastructure, explainability requirements, and the capacity to monitor behavioral models continuously. High risk.</p>
+          </div>
+          <div class="bbbb-card bbbb-buy">
+            <div class="bbbb-label">Buy</div>
+            <p>Most organizations should buy adaptive systems from vendors with proven personalization engines. Rigorously evaluate bias controls and override mechanisms.</p>
+          </div>
+          <div class="bbbb-card bbbb-borrow">
+            <div class="bbbb-label">Borrow</div>
+            <p>Consider piloting with a vendor's sandbox or academic research partner before enterprise commitment. Adaptive AI is high-stakes — pilot scope and fallback plans matter.</p>
+          </div>
+          <div class="bbbb-card bbbb-bot">
+            <div class="bbbb-label">Bot</div>
+            <p>Automate model monitoring, drift detection, and escalation alerts. Human oversight is non-negotiable at this level — bots assist governance, not replace it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPE 5 -->
+      <div class="level-panel" id="level-4">
+        <div class="level-panel-header">
+          <div>
+            <div class="level-nature"><strong>Nature of AI</strong>Acts as a transformation catalyst, reshaping how work, structure, and value creation occur across the organization.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>Objective</strong>Drive systemic organizational transformation by making AI a co-architect of business design.</div>
+            <div class="level-nature" style="margin-top:0.75rem;"><strong>HR Example</strong>AI-driven organizational design engines that continuously simulate and recommend operating models, talent supply chains, and role architectures.</div>
+          </div>
+          <div>
+            <div class="level-nature"><strong>Typical Business Problem</strong>Static organization structures and talent models can't keep pace with dynamic business strategies or rapidly evolving skill needs.</div>
+            <div style="margin-top:1rem;"><span class="level-posture">Strategic Posture: Transformation and redefinition of work</span></div>
+          </div>
+        </div>
+        <div class="bbbb-grid">
+          <div class="bbbb-card bbbb-build">
+            <div class="bbbb-label">Build</div>
+            <p>Reserved for organizations where AI is core to competitive strategy and where internal teams can responsibly govern systems that redefine roles and structures. Rare.</p>
+          </div>
+          <div class="bbbb-card bbbb-buy">
+            <div class="bbbb-label">Buy</div>
+            <p>Partner with platforms offering catalytic AI — but subject them to rigorous ethics, governance, and executive oversight. Demand explainability and exit clauses.</p>
+          </div>
+          <div class="bbbb-card bbbb-borrow">
+            <div class="bbbb-label">Borrow</div>
+            <p>Co-develop with trusted research or advisory partners who specialize in responsible AI at the catalytic level. Don't go it alone at this maturity stage.</p>
+          </div>
+          <div class="bbbb-card bbbb-bot">
+            <div class="bbbb-label">Bot</div>
+            <p>Automate governance workflows — policy triggers, audit logging, ethics board alerts. Catalytic AI demands more human oversight, not less, as automation increases.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- READINESS LENS -->
+    <section class="chapter fade-in" id="readiness">
+      <div class="chapter-body">
+        <div class="chapter-intro">
+          <p class="chapter-label">Chapter 2</p>
+          <h2>Four things to know<br /><em>before you begin.</em></h2>
+        </div>
+        <div>
+          <p>Before evaluating any AI solution, HR teams must assess readiness across four core dimensions. If you can't answer these clearly, you're not ready to evaluate — you're shopping.</p>
+          <table class="readiness-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Key Question</th>
+                <th>Why It Matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Business Problem Definition</td>
+                <td>What is the work we're trying to improve, augment, or transform?</td>
+                <td>If you can't articulate the problem, you can't design the right intelligence.</td>
+              </tr>
+              <tr>
+                <td>Data &amp; Infrastructure</td>
+                <td>Do we have the data quality, volume, and integration required to train or enable AI?</td>
+                <td>Poor data is the single biggest constraint on AI success.</td>
+              </tr>
+              <tr>
+                <td>Governance &amp; Ethics</td>
+                <td>Can we oversee, explain, and validate the AI's logic and outcomes?</td>
+                <td>Ensures compliance, trust, and accountability across the organization.</td>
+              </tr>
+              <tr>
+                <td>Ownership Strategy</td>
+                <td>How should we source and sustain this capability over time?</td>
+                <td>Determines ROI, agility, and long-term resilience of your AI investments.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKET SCAN -->
+    <section class="chapter fade-in" id="market-scan">
+      <p class="chapter-label">Chapter 3</p>
+      <h2>Market scan guidelines<br /><em>for HR teams.</em></h2>
+      <p>A disciplined market scan isn't about collecting vendor names — it's about uncovering what truly works for your context. The goal is not to find more tools; it's to identify the right-fit solution that delivers measurable value without creating redundancy or integration chaos.</p>
+      <div class="scan-steps">
+        <div class="scan-step">
+          <div class="scan-step-num">ONE</div>
+          <div>
+            <h4>Check what you already have</h4>
+            <p>Audit your current technology stack before scanning the market. Review contracts, product roadmaps, and release notes from current vendors. Check marketplaces (Workday Extend, ServiceNow Store, SuccessFactors Store) for available add-ons or AI copilots. Map your stack by function to identify overlaps and white spaces.</p>
+            <p class="tip">You may already own 80% of what you need — only the last 20% may require new spend.</p>
+          </div>
+        </div>
+        <div class="scan-step">
+          <div class="scan-step-num">TWO</div>
+          <div>
+            <h4>Define the "why" before you search</h4>
+            <p>Write a clear, shareable problem statement. Avoid starting with "We need an AI tool for..." Frame it as: "We need to..." (e.g., improve turnover prediction accuracy, personalize learning, automate compliance reporting). Define success metrics, clarify non-negotiables, and set a realistic timeline including pilot and full rollout.</p>
+            <p class="tip">If you can't clearly articulate the problem, you're not ready to evaluate solutions.</p>
+          </div>
+        </div>
+        <div class="scan-step">
+          <div class="scan-step-num">THREE</div>
+          <div>
+            <h4>Build your AI solution tracker</h4>
+            <p>Turn your market scan into a living knowledge base. Log discoveries, contacts, pricing, and lessons learned. Add fields for AI type (1–5), maturity score, and ethical/governance notes. Share findings across HR, IT, and Procurement to avoid duplicate evaluations and siloed decisions.</p>
+          </div>
+        </div>
+        <div class="scan-step">
+          <div class="scan-step-num">FOUR</div>
+          <div>
+            <h4>Establish your evaluation criteria</h4>
+            <p>For each solution evaluated, apply consistent criteria: Business Fit (does this solve our specific problem?), AI Depth (what maturity level does it truly demonstrate?), Integration (can it connect with our existing systems?), ROI &amp; Cost (what's the expected return vs. total cost of ownership?), and Governance (how does the vendor handle explainability, bias, and data privacy?).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASSESSMENT -->
+    <section class="chapter fade-in" id="assessment">
+      <p class="chapter-label">Chapter 4</p>
+      <h2>Solution assessment<br /><em>by maturity level.</em></h2>
+      <p>When evaluating a specific AI solution, score it across four dimensions against the maturity level it claims. Use this to separate genuine capability from vendor hype.</p>
+      <div class="card-grid">
+        <div class="card accent">
+          <p class="card-num">Dimension 1</p>
+          <h3>Task-to-Technology Fit</h3>
+          <p>Does the AI type match the nature of the task? Rule-based tasks need deterministic logic, not adaptive models. Ambiguous creative challenges require catalytic AI, not bots.</p>
+        </div>
+        <div class="card accent">
+          <p class="card-num">Dimension 2</p>
+          <h3>Data Quality &amp; Access</h3>
+          <p>Does your data meet the requirements for the claimed maturity level? Predictive AI needs high-volume historical data. Adaptive AI needs real-time behavioral signals. Verify before buying.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">Dimension 3</p>
+          <h3>Explainability &amp; Bias Controls</h3>
+          <p>Can the vendor explain how the AI reached its conclusion? Are there fairness audits, auditability layers, and human escalation paths? Non-negotiable at Type 3 and above.</p>
+        </div>
+        <div class="card">
+          <p class="card-num">Dimension 4</p>
+          <h3>Human Impact Assessment</h3>
+          <p>How does this AI change roles, workflows, and employee experience? Map the downstream effects before deployment — especially for adaptive or catalytic systems that reshape how work is done.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI DASHBOARD -->
+    <section class="chapter fade-in" id="kpis">
+      <p class="chapter-label">Chapter 5</p>
+      <h2>Measuring what<br /><em>actually matters.</em></h2>
+      <p>Track AI performance across four categories. Operational metrics tell you if it's being used. Accuracy metrics tell you if it's working. Trust metrics tell you if people believe in it. Business impact tells you if it's worth it.</p>
+      <div class="kpi-grid">
+        <div class="kpi-box">
+          <div class="kpi-box-label">Category 01</div>
+          <h3>Operational Efficiency &amp; Adoption</h3>
+          <ul class="kpi-list">
+            <li>Adoption Rate — % of intended users actively engaging</li>
+            <li>Task Completion Time — AI-assisted vs. manual baseline</li>
+            <li>Frequency of Use — daily/weekly active sessions</li>
+            <li>Cost per Task — total cost of AI use / tasks completed</li>
+            <li>Time-to-Deploy — days from contract signature to go-live</li>
+          </ul>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-box-label">Category 02</div>
+          <h3>Accuracy, Quality &amp; Model Performance</h3>
+          <ul class="kpi-list">
+            <li>Prediction Accuracy — correctness of AI classifications</li>
+            <li>Precision &amp; Recall — true positives vs. false positives</li>
+            <li>Bias/Equity Metrics — accuracy across demographic groups</li>
+            <li>Model Drift — accuracy variance between baseline and current</li>
+            <li>Hallucination/Error Rate — incorrect outputs per total outputs</li>
+          </ul>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-box-label">Category 03</div>
+          <h3>User Experience &amp; Trust</h3>
+          <ul class="kpi-list">
+            <li>User Satisfaction Score — CSAT or NPS survey results</li>
+            <li>Trust Score — "I trust this AI's recommendations" (1–5 scale)</li>
+            <li>Time-to-Insight — query to usable insight</li>
+            <li>Explainability — % of users who understand why AI decided what it did</li>
+            <li>Decision Accuracy — % of AI suggestions accepted by users</li>
+          </ul>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-box-label">Category 04</div>
+          <h3>Business Impact &amp; ROI</h3>
+          <ul class="kpi-list">
+            <li>Return on Investment — (Total Benefits − Total Costs) / Total Costs</li>
+            <li>Cost Savings — baseline spend vs. AI-enabled spend</li>
+            <li>Quality of Outcomes — accuracy of hires, engagement lift, retention improvement</li>
+            <li>Strategic Alignment — % of AI use cases tied to stated HR priorities</li>
+            <li>Risk Reduction — compliance incidents, bias flags, governance escalations</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section class="chapter fade-in" id="conclusion">
+      <p class="chapter-label">Conclusion</p>
+      <h2>Progress that is<br /><em>responsible and repeatable.</em></h2>
+      <div class="conclusion-block">
+        <p>AI has crept into everything HR touches — platform roadmaps, process design, data strategy. HR leaders aren't just shopping for "AI tools" anymore. <strong>You're making architectural decisions about what you'll own, what you'll outsource, how you'll govern it, and how work will run going forward.</strong></p>
+        <p>The Build, Buy, Borrow, or Bot framework isn't a checklist. It's a shared language — one that lets HR, IT, Finance, and Procurement have the same conversation about the same problem at the same level of rigor. Use it as a reality check so progress is responsible, measurable, and repeatable.</p>
+        <p><strong>The question is never which AI tool is best. The question is: which approach is right for this problem, this organization, at this level of readiness — and how will we know if it's working?</strong></p>
+      </div>
+    </section>
+
+    <!-- TOOLKIT CTA -->
+    <section id="toolkit" class="toolkit-section fade-in">
+      <h2>Want the rest<br /><em>of the toolkit?</em></h2>
+      <p>This framework is part of the HCAIC Cohort Zero toolkit — four practitioner-built resources covering AI literacy, responsible AI governance, change management, and solution decision-making. Free to access with a one-time signup.</p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center;">
+        <a href="https://kyleandco.com/wp-content/uploads/2026/04/AI-Value-Realization-Framework.pdf" class="hero-cta" target="_blank" rel="noopener noreferrer">Download the PDF →</a>
+        <a href="thankyou.html" style="color:var(--slate); font-size:0.88rem; font-weight:500; text-decoration:none; border-bottom:1px solid var(--lilac-light); padding-bottom:2px;">Access the toolkit →</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <div class="about-strip fade-in">
+      <div>
+        <h4>About Kyle &amp; Co</h4>
+        <p>Kyle &amp; Co is a modern research and advisory firm helping HR and talent technology leaders make smarter decisions, faster. The team behind the Human-Centric AI Council, the Transformation Realness podcast, and industry-shaping reports on workforce strategy and responsible AI.</p>
+      </div>
+      <div>
+        <h4>About the Author</h4>
+        <p>Lydia Wu is the lead contributor on this framework, bringing practitioner expertise in AI solution strategy and HR technology evaluation. This guide draws on her experience alongside several members of the Human-Centric AI Council.</p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+      <span>The Human-Centric AI Council · Powered by Kyle &amp; Co</span>
+      <a href="index.html">← Back to the Council</a>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+function showLevel(index) {
+  document.querySelectorAll('.level-tab').forEach((t, i) => t.classList.toggle('active', i === index));
+  document.querySelectorAll('.level-panel').forEach((p, i) => p.classList.toggle('active', i === index));
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+const chapters = document.querySelectorAll('.chapter, #toolkit');
+const navLinks = document.querySelectorAll('.sidenav a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sidenav a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+chapters.forEach(c => navObserver.observe(c));
+</script>
+
+</body>
+</html>
