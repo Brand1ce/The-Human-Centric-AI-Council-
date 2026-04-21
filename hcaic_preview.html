@@ -554,7 +554,7 @@ function HCAIC_Final() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '4rem', marginBottom: '3rem', alignItems: 'end' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.25rem' }}>
-              The Library · Cohort Zero Toolkit
+              The Full Cohort Zero Toolkit
             </div>
             <h2 className="display" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.75rem)', fontWeight: 400, lineHeight: 1.02, letterSpacing: '-0.02em', maxWidth: '20ch' }}>
               Four frameworks.<br />
@@ -569,6 +569,17 @@ function HCAIC_Final() {
               Updated April 2026
             </div>
           </div>
+        </div>
+
+        {/* Access all CTA */}
+        <div style={{ marginBottom: '2.5rem' }}>
+          <button
+            onClick={() => { if (accessGranted) { window.alert('[Preview] Full toolkit access'); } else { setGateOpen(true); } }}
+            style={{ padding: '0.95rem 2rem', background: C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
+          >
+            Access the Full Toolkit →
+          </button>
+          <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: C.slate, opacity: 0.75 }}>Free with a one-time signup — all four frameworks, unlocked at once.</p>
         </div>
 
         {/* Filter bar */}
