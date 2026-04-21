@@ -135,10 +135,10 @@ function HCAIC_Final() {
 
   // MAILERLITE: paste your form submission URLs below (get from MailerLite → Forms → Embedded → HTML source → <form action="...">)
   const ML_RESOURCE_GATE_URL = 'https://assets.mailerlite.com/jsonp/1555935/forms/185316851276842065/subscribe';
-  const ML_APPLY_URL         = 'YOUR_MAILERLITE_APPLY_FORM_URL';
+  const ML_APPLY_URL         = 'https://assets.mailerlite.com/jsonp/1555935/forms/159825956656120991/subscribe';
   const ML_KCO_URL           = 'YOUR_MAILERLITE_KCO_FORM_URL';
   const ML_TOWNHALL_URL      = 'YOUR_MAILERLITE_TOWNHALL_FORM_URL';
-  const ML_UNDERWRITER_URL   = 'YOUR_MAILERLITE_UNDERWRITER_FORM_URL';
+  const ML_UNDERWRITER_URL   = 'https://assets.mailerlite.com/jsonp/1555935/forms/159836007953335925/subscribe';
 
   // Gate form input style helper
   const gateInput = (Cp) => ({
@@ -1537,22 +1537,29 @@ function HCAIC_Final() {
                   Cohort 2 is open to senior HR practitioners who have moved AI work forward inside their organizations. Monthly working sessions, framework co-creation, and a peer group that does not exist anywhere else.
                 </p>
                 <form action={ML_APPLY_URL} method="post" target="ml-submit-frame" onSubmit={() => setApplySubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
-                    <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
-                    <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
-                  </div>
+                  <input required type="text" name="fields[name]" placeholder="Full name" style={gateInput(C)} />
                   <input required type="email" name="fields[email]" placeholder="Work email" style={gateInput(C)} />
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
-                    <input required type="text" name="fields[title]" placeholder="Title" style={gateInput(C)} />
-                    <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
-                  </div>
+                  <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
+                  <select required name="fields[council_interest]" style={{ ...gateInput(C), appearance: 'none', WebkitAppearance: 'none' }}>
+                    <option value="">Which council are you interested in?</option>
+                    <option value="The Human Centric AI Council">The Human Centric AI Council</option>
+                    <option value="The Future of Work Council">The Future of Work Council</option>
+                  </select>
                   <textarea
                     required
-                    name="fields[motivation]"
-                    placeholder="What brings you to apply? (2–3 sentences)"
-                    rows={4}
+                    name="fields[contribution]"
+                    placeholder="What would you hope to contribute or explore in this Council?"
+                    rows={3}
                     style={{ ...gateInput(C), resize: 'vertical', lineHeight: 1.5 }}
                   />
+                  <textarea
+                    name="fields[anything_else]"
+                    placeholder="Anything else we should know? (optional)"
+                    rows={2}
+                    style={{ ...gateInput(C), resize: 'vertical', lineHeight: 1.5 }}
+                  />
+                  <input type="hidden" name="ml-submit" value="1" />
+                  <input type="hidden" name="anticsrf" value="true" />
                   <button
                     type="submit"
                     style={{
@@ -1795,6 +1802,23 @@ function HCAIC_Final() {
                       <input required type="text" name="fields[job_title]" placeholder="Title" style={gateInput(C)} />
                       <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
                     </div>
+                    <select required name="fields[initiative_interest]" style={{ ...gateInput(C), appearance: 'none', WebkitAppearance: 'none' }}>
+                      <option value="">Which initiatives are you interested in supporting?</option>
+                      <option value="The Human Centric AI Council">The Human Centric AI Council</option>
+                      <option value="General research underwriting">General research underwriting</option>
+                    </select>
+                    <select required name="fields[underwriting_objective]" style={{ ...gateInput(C), appearance: 'none', WebkitAppearance: 'none' }}>
+                      <option value="">What's your main objective for underwriting?</option>
+                      <option value="Brand visibility">Brand visibility</option>
+                      <option value="Demand Generation">Demand Generation</option>
+                      <option value="AI Messaging and/or product validation">AI Messaging and/or product validation</option>
+                    </select>
+                    <textarea
+                      name="fields[anything_else]"
+                      placeholder="Anything else we should know? (optional)"
+                      rows={3}
+                      style={{ ...gateInput(C), resize: 'vertical', lineHeight: 1.5 }}
+                    />
                     <input type="hidden" name="ml-submit" value="1" />
                     <input type="hidden" name="anticsrf" value="true" />
                     <button type="submit" style={{ marginTop: '0.5rem', background: C.navy, color: C.ivory, padding: '1rem 1.6rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
