@@ -103,8 +103,7 @@ function HCAIC_Final() {
   // CTA handler: first click shows email gate, subsequent clicks go straight through
   const handleResourceCta = (resource) => {
     if (accessGranted) {
-      // Production: replace with real resource link
-      window.alert(`[Preview] Opening ${resource.title}`);
+      if (resource.link) window.location.href = resource.link;
     } else {
       setPendingResourceCta(resource);
       setGateOpen(true);
@@ -117,7 +116,7 @@ function HCAIC_Final() {
     if (pendingResourceCta) {
       const r = pendingResourceCta;
       setPendingResourceCta(null);
-      setTimeout(() => window.alert(`[Preview] Opening ${r.title}`), 250);
+      setTimeout(() => { if (r.link) window.location.href = r.link; }, 250);
     }
   };
 
@@ -173,6 +172,7 @@ function HCAIC_Final() {
       short: 'Role-based AI literacy pathways, hosted as an applied learning course on CodeSignal.',
       long: "Most AI literacy content stops at definitions. This one starts where the work starts: what HR teams need to know, at what level, by role. Pathways for HR generalists, TA, HRBPs, and HR leaders. Built with CodeSignal so learners don't read about AI in the abstract, they use it in context.",
       whatYouGet: ['Role-based pathways for HR archetypes', 'Applied learning on the CodeSignal platform', 'Manager enablement kit for rollout', 'Measurement guidance for literacy programs'],
+      link: 'http://codesignal.com/learn/try/hcaic_ai_literacy?utm_campaign=HCAIC-AI-Literacy-Course_Q1_27_&utm_medium=website&utm_source=HCAIC&utm_content=access-resources',
       ctaLabel: 'Launch on CodeSignal',
     },
     {
@@ -186,6 +186,7 @@ function HCAIC_Final() {
       short: 'A practitioner-led framework for implementation, hosted as an interactive Figma workbook.',
       long: "Responsible AI principles are easy. Operationalizing them is where teams get stuck. This workbook walks HR teams through the implementation decisions that principles alone don't solve: where human oversight belongs, how to document model risk, what to put in an AI use policy, and how to run governance without stalling the work. Hosted as an interactive Figma workbook so teams can move through it at their own pace.",
       whatYouGet: ['Governance operating model template', 'HR AI risk index starter', 'Human oversight decision tree', 'Policy language teams can adapt'],
+      link: 'https://kyleandco-hcaic-responsibleaiframework.figma.site',
       ctaLabel: 'Open the workbook',
     },
     {
@@ -199,8 +200,8 @@ function HCAIC_Final() {
       short: "How AI transformation is different, and what that means for the teams leading it.",
       long: "Traditional change management assumes the change is known. AI change is not. Outputs are probabilistic. Trust is fragile. The work itself keeps shifting. This eBook addresses what that means for adoption in practice: sequencing, communication, resistance patterns, role evolution, and the cultural conditions that separate real scale from permanent pilot purgatory.",
       whatYouGet: ['Adoption sequencing model', 'Resistance pattern diagnostics', 'Cultural readiness checklist', 'Role evolution frameworks for 6 HR functions'],
+      link: 'change-management.html',
       ctaLabel: 'Read the interactive guide',
-      ctaLink: 'change-management.html',
       evolving: 'Interactive version in development',
       interactivePreview: {
         title: 'Interactive readiness diagnostic',
@@ -619,7 +620,7 @@ function HCAIC_Final() {
             <div
               key={r.id}
               className="resource-row"
-              onClick={() => r.ctaLink ? window.location.href = r.ctaLink : setSelectedResource(r)}
+              onClick={() => setSelectedResource(r)}
               style={{
                 display: 'grid',
                 gridTemplateColumns: '60px 160px 1fr 150px 60px',
