@@ -885,51 +885,6 @@ function HCAIC_Final() {
         </div>
       </section>
 
-      {/* AI MOMENTUM REPORT — Kyle & Co research */}
-      <section style={{ background: C.navy, color: C.ivory, padding: '6rem 2.5rem' }}>
-        <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
-          <div>
-            <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <span>Research Report · Kyle &amp; Co</span>
-            </div>
-            <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.25rem', color: C.ivory }}>
-              AI is not about maturity.<br /><span className="serif-italic" style={{ color: C.cream }}>It's about momentum.</span>
-            </h2>
-            <p style={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'rgba(247,241,234,0.8)', marginBottom: '2rem', maxWidth: '50ch' }}>
-              The AI Momentum Model reframes how HR teams think about AI adoption. Not a finish line, but a force to be built. This Kyle &amp; Co research report introduces the model, the nine archetypes, and what it takes to move from stalled to building.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <button onClick={() => setMomentumDownloadOpen(true)} style={{ background: C.cream, color: C.navyDark, padding: '0.95rem 1.75rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                Download the report →
-              </button>
-              <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" style={{ color: C.ivory, fontSize: '0.88rem', fontWeight: 500, textDecoration: 'none', borderBottom: '1px solid rgba(247,241,234,0.4)', paddingBottom: '2px' }}>
-                Take the assessment →
-              </a>
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {[
-              { n: '01', label: 'Capability', q: 'Are we equipped with the foundations to apply AI in HR?' },
-              { n: '02', label: 'Posture', q: 'Are we committed and aligned on how to move?' },
-              { n: '03', label: 'Investment', q: 'Are we committing meaningful resources?' },
-            ].map((d) => (
-              <div key={d.n} style={{ padding: '1.25rem 1.5rem', background: 'rgba(247,241,234,0.07)', borderRadius: '6px', borderLeft: `3px solid ${C.lilac}` }}>
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'baseline' }}>
-                  <span className="mono" style={{ fontSize: '0.65rem', color: C.lilac, fontWeight: 500, flexShrink: 0 }}>{d.n}</span>
-                  <div>
-                    <div style={{ fontSize: '0.92rem', fontWeight: 500, color: C.ivory, marginBottom: '0.25rem' }}>{d.label}</div>
-                    <div style={{ fontSize: '0.8rem', color: 'rgba(247,241,234,0.65)', lineHeight: 1.5 }}>{d.q}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-            <button onClick={() => setMomentumOpen(true)} style={{ background: 'none', border: 'none', color: 'rgba(247,241,234,0.7)', fontSize: '0.82rem', fontWeight: 500, fontFamily: 'inherit', cursor: 'pointer', textAlign: 'left', padding: '0.25rem 0', borderBottom: '1px solid rgba(247,241,234,0.25)', paddingBottom: '2px', alignSelf: 'flex-start' }}>
-              See all drivers &amp; archetypes →
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* HOW THIS IS FUNDED — honest vendor section */}
       <section style={{ padding: '6rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
         <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.5rem' }}>
@@ -996,6 +951,51 @@ function HCAIC_Final() {
                 </span>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI MOMENTUM REPORT — Kyle & Co research */}
+      <section style={{ background: C.navy, color: C.ivory, padding: '6rem 2.5rem' }}>
+        <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+          <div>
+            <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <span>Research Report · Kyle &amp; Co</span>
+            </div>
+            <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.25rem', color: C.ivory }}>
+              AI is not about maturity.<br /><span className="serif-italic" style={{ color: C.cream }}>It's about momentum.</span>
+            </h2>
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'rgba(247,241,234,0.8)', marginBottom: '2rem', maxWidth: '50ch' }}>
+              The AI Momentum Model reframes how HR teams think about AI adoption. Not a finish line, but a force to be built. This Kyle &amp; Co research report introduces the model, the nine archetypes, and what it takes to move from stalled to building.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={() => setMomentumDownloadOpen(true)} style={{ background: C.cream, color: C.navyDark, padding: '0.95rem 1.75rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                Download the report →
+              </button>
+              <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" style={{ color: C.ivory, fontSize: '0.88rem', fontWeight: 500, textDecoration: 'none', borderBottom: '1px solid rgba(247,241,234,0.4)', paddingBottom: '2px' }}>
+                Take the assessment →
+              </a>
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {[
+              { n: '01', label: 'Capability', q: 'Are we equipped with the foundations to apply AI in HR?' },
+              { n: '02', label: 'Posture', q: 'Are we committed and aligned on how to move?' },
+              { n: '03', label: 'Investment', q: 'Are we committing meaningful resources?' },
+            ].map((d) => (
+              <div key={d.n} style={{ padding: '1.25rem 1.5rem', background: 'rgba(247,241,234,0.07)', borderRadius: '6px', borderLeft: `3px solid ${C.lilac}` }}>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'baseline' }}>
+                  <span className="mono" style={{ fontSize: '0.65rem', color: C.lilac, fontWeight: 500, flexShrink: 0 }}>{d.n}</span>
+                  <div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: 500, color: C.ivory, marginBottom: '0.25rem' }}>{d.label}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'rgba(247,241,234,0.65)', lineHeight: 1.5 }}>{d.q}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button onClick={() => setMomentumOpen(true)} style={{ background: 'none', border: 'none', color: 'rgba(247,241,234,0.7)', fontSize: '0.82rem', fontWeight: 500, fontFamily: 'inherit', cursor: 'pointer', textAlign: 'left', padding: '0.25rem 0', borderBottom: '1px solid rgba(247,241,234,0.25)', paddingBottom: '2px', alignSelf: 'flex-start' }}>
+              See all drivers &amp; archetypes →
+            </button>
           </div>
         </div>
       </section>
