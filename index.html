@@ -45,6 +45,8 @@ function HCAIC_Final() {
   const [townhallSubmitted, setTownhallSubmitted] = useState(false);
   const [underwriterOpen, setUnderwriterOpen] = useState(false);
   const [underwriterSubmitted, setUnderwriterSubmitted] = useState(false);
+  const [momentumDownloadOpen, setMomentumDownloadOpen] = useState(false);
+  const [momentumDownloadSubmitted, setMomentumDownloadSubmitted] = useState(false);
 
   // AI Momentum Model content (from Kyle & Co research report)
   const momentumDrivers = [
@@ -90,13 +92,13 @@ function HCAIC_Final() {
   }, []);
 
   useEffect(() => {
-    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen) {
+    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen || momentumDownloadOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen]);
+  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen]);
 
   // CTA handler: first click shows email gate, subsequent clicks go straight through
   const handleResourceCta = (resource) => {
@@ -139,6 +141,7 @@ function HCAIC_Final() {
   const ML_KCO_URL           = 'https://assets.mailerlite.com/jsonp/1555935/forms/185371122148050837/subscribe';
   const ML_TOWNHALL_URL      = 'https://assets.mailerlite.com/jsonp/1555935/forms/185370079945295046/subscribe';
   const ML_UNDERWRITER_URL   = 'https://assets.mailerlite.com/jsonp/1555935/forms/159836007953335925/subscribe';
+  const ML_MOMENTUM_URL      = 'YOUR_MAILERLITE_MOMENTUM_REPORT_FORM_URL';
 
   // Gate form input style helper
   const gateInput = (Cp) => ({
@@ -464,7 +467,7 @@ function HCAIC_Final() {
           }}
         >
           Stay ahead of AI innovation<br />
-          from the HR leaders<br />
+          with the HR leaders<br />
           <span className="serif-italic" style={{ color: C.lilac }}>writing the playbook.</span>
         </h1>
 
@@ -643,60 +646,6 @@ function HCAIC_Final() {
           ))}
         </div>
 
-        {/* AI MOMENTUM BLOCK */}
-        <div style={{ marginTop: '3rem', padding: '2.5rem 2.75rem', background: 'rgba(157, 146, 173, 0.1)', borderRadius: '6px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: '3rem', alignItems: 'center', flexWrap: 'wrap' }}>
-            <div>
-              <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>
-                The AI Momentum Model
-              </div>
-              <div className="display" style={{ fontSize: '1.6rem', fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.9rem' }}>
-                AI is not about maturity. <span className="serif-italic" style={{ color: C.lilac }}>It's about momentum.</span>
-              </div>
-              <p style={{ fontSize: '0.95rem', lineHeight: 1.6, color: C.slate, maxWidth: '54ch' }}>
-                Where is your HR function on the momentum curve? Take the assessment to find your archetype, or explore the drivers and what they mean.
-              </p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'flex-start' }}>
-              <a
-                href="https://kyleandco.typeform.com/to/uQrXm9NS"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-arrow"
-                style={{
-                  background: C.navy,
-                  color: C.ivory,
-                  padding: '0.9rem 1.6rem',
-                  borderRadius: '100px',
-                  textDecoration: 'none',
-                  fontSize: '0.88rem',
-                  fontWeight: 500,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                }}
-              >
-                Take the assessment <span>→</span>
-              </a>
-              <button
-                onClick={() => setMomentumOpen(true)}
-                className="underline-grow"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: C.navy,
-                  fontSize: '0.88rem',
-                  fontWeight: 500,
-                  padding: '0.25rem 0',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                See the drivers &amp; archetypes →
-              </button>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* UPCOMING & REPLAYS */}
@@ -933,6 +882,51 @@ function HCAIC_Final() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* AI MOMENTUM REPORT — Kyle & Co research */}
+      <section style={{ background: C.navy, color: C.ivory, padding: '6rem 2.5rem' }}>
+        <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+          <div>
+            <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <span>Research Report · Kyle &amp; Co</span>
+            </div>
+            <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.25rem', color: C.ivory }}>
+              AI is not about maturity.<br /><span className="serif-italic" style={{ color: C.cream }}>It's about momentum.</span>
+            </h2>
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'rgba(247,241,234,0.8)', marginBottom: '2rem', maxWidth: '50ch' }}>
+              The AI Momentum Model reframes how HR teams think about AI adoption. Not a finish line, but a force to be built. This Kyle &amp; Co research report introduces the model, the nine archetypes, and what it takes to move from stalled to building.
+            </p>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <button onClick={() => setMomentumDownloadOpen(true)} style={{ background: C.cream, color: C.navyDark, padding: '0.95rem 1.75rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+                Download the report →
+              </button>
+              <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" style={{ color: C.ivory, fontSize: '0.88rem', fontWeight: 500, textDecoration: 'none', borderBottom: '1px solid rgba(247,241,234,0.4)', paddingBottom: '2px' }}>
+                Take the assessment →
+              </a>
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {[
+              { n: '01', label: 'Capability', q: 'Are we equipped with the foundations to apply AI in HR?' },
+              { n: '02', label: 'Posture', q: 'Are we committed and aligned on how to move?' },
+              { n: '03', label: 'Investment', q: 'Are we committing meaningful resources?' },
+            ].map((d) => (
+              <div key={d.n} style={{ padding: '1.25rem 1.5rem', background: 'rgba(247,241,234,0.07)', borderRadius: '6px', borderLeft: `3px solid ${C.lilac}` }}>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'baseline' }}>
+                  <span className="mono" style={{ fontSize: '0.65rem', color: C.lilac, fontWeight: 500, flexShrink: 0 }}>{d.n}</span>
+                  <div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: 500, color: C.ivory, marginBottom: '0.25rem' }}>{d.label}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'rgba(247,241,234,0.65)', lineHeight: 1.5 }}>{d.q}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button onClick={() => setMomentumOpen(true)} style={{ background: 'none', border: 'none', color: 'rgba(247,241,234,0.7)', fontSize: '0.82rem', fontWeight: 500, fontFamily: 'inherit', cursor: 'pointer', textAlign: 'left', padding: '0.25rem 0', borderBottom: '1px solid rgba(247,241,234,0.25)', paddingBottom: '2px', alignSelf: 'flex-start' }}>
+              See all drivers &amp; archetypes →
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1837,6 +1831,48 @@ function HCAIC_Final() {
                     <div style={{ fontSize: '0.72rem', color: C.slate, marginTop: '0.2rem', textAlign: 'center' }}>Kyle &amp; Co will follow up within two business days.</div>
                   </form>
                 </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* MOMENTUM REPORT DOWNLOAD MODAL */}
+      {momentumDownloadOpen && (
+        <div className="modal-overlay" onClick={() => { setMomentumDownloadOpen(false); setMomentumDownloadSubmitted(false); }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(23,35,57,0.6)', zIndex: 250, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '5rem 2rem 3rem', overflowY: 'auto', animation: 'fadeUp 0.3s ease-out' }}>
+          <div onClick={(e) => e.stopPropagation()}
+            style={{ background: C.ivory, maxWidth: '520px', width: '100%', borderRadius: '8px', padding: '2.75rem 2.75rem 2.25rem', position: 'relative', boxShadow: '0 30px 80px rgba(23,35,57,0.3)' }}>
+            <button onClick={() => { setMomentumDownloadOpen(false); setMomentumDownloadSubmitted(false); }}
+              style={{ position: 'absolute', top: '1.1rem', right: '1.2rem', background: 'transparent', border: 'none', fontSize: '1.4rem', color: C.slate, cursor: 'pointer', padding: '0.4rem 0.7rem' }} aria-label="Close">×</button>
+            {momentumDownloadSubmitted ? (
+              <div style={{ padding: '2rem 0' }}>
+                <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1rem' }}>Report unlocked</div>
+                <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '1rem' }}>Check your inbox.</h3>
+                <p style={{ fontSize: '0.93rem', lineHeight: 1.6, color: C.slate }}>The AI Momentum Report is on its way. You'll also receive a link to take the full assessment and find your archetype.</p>
+              </div>
+            ) : (
+              <>
+                <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Research Report · Kyle &amp; Co</div>
+                <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>The AI Momentum Report</h3>
+                <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The model, the nine archetypes, and what it takes to build momentum. Research from Kyle &amp; Co, informed by work with senior HR leaders.</p>
+                <form action={ML_MOMENTUM_URL} method="post" target="ml-submit-frame" onSubmit={() => setMomentumDownloadSubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
+                    <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
+                    <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
+                  </div>
+                  <input required type="email" name="fields[email]" placeholder="Work email" style={gateInput(C)} />
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
+                    <input required type="text" name="fields[job_title]" placeholder="Title" style={gateInput(C)} />
+                    <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
+                  </div>
+                  <input type="hidden" name="ml-submit" value="1" />
+                  <input type="hidden" name="anticsrf" value="true" />
+                  <button type="submit" style={{ marginTop: '0.5rem', background: C.navy, color: C.ivory, padding: '1rem 1.6rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                    Send me the report <span>→</span>
+                  </button>
+                  <div style={{ fontSize: '0.72rem', color: C.slate, marginTop: '0.2rem', textAlign: 'center' }}>Kyle &amp; Co research. Free to download.</div>
+                </form>
               </>
             )}
           </div>
