@@ -8,7 +8,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #EDE5D8; color: #273752; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #ffffff; color: #273752; }
 
     /* ── SIDEBAR ─────────────────────────────── */
     .sidebar {
@@ -114,13 +114,13 @@
       height: 580px;
       overflow-y: auto;
       overflow-x: hidden;
-      background: #EDE5D8;
+      background: #f5f5f5;
     }
     .email-scroll::-webkit-scrollbar { width: 4px; }
     .email-scroll::-webkit-scrollbar-track { background: transparent; }
     .email-scroll::-webkit-scrollbar-thumb { background: rgba(39,55,82,0.2); border-radius: 2px; }
     .email-scroll iframe { display: block; border: none; width: 100%; }
-    .ph-slide { padding: 2.5rem 1.5rem; text-align: center; background: #EDE5D8; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+    .ph-slide { padding: 2.5rem 1.5rem; text-align: center; background: #f5f5f5; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
     .ph-slide h3 { font-size: 0.88rem; font-weight: 500; color: #273752; }
     .ph-slide p { font-size: 0.75rem; color: #9D92AD; }
 
@@ -162,6 +162,9 @@
   <a href="#brand">Brand Identity</a>
   <div class="sb-group">Website</div>
   <a href="#council-page">The Council Page</a>
+  <div class="sb-group">Toolkit Pages</div>
+  <a href="#toolkit-change" class="sub">AI Change Management</a>
+  <a href="#toolkit-decision" class="sub">Solution Decision Framework</a>
   <div class="sb-group">Email Sequences</div>
   <a href="#emails">Practitioner · Vendor</a>
   <div class="sb-group">Confirmation</div>
@@ -237,10 +240,38 @@
       </div>
     </section>
 
-    <!-- ── 03 EMAIL SEQUENCES ── -->
+    <!-- ── 03 TOOLKIT ARTIFACT PAGES ── -->
+    <section class="section" id="toolkit">
+      <div class="section-header">
+        <div class="overline">03 — Toolkit Artifact Pages</div>
+        <h2>Resource Pages</h2>
+      </div>
+
+      <!-- Change Management -->
+      <div class="conf-meta" id="toolkit-change" style="margin-bottom:0.75rem;">
+        <span class="seq-tag tag-p" style="margin-bottom:0.5rem;display:inline-block;">Resource Page</span>
+        <div class="conf-subj">AI Change Management &amp; Adoption</div>
+        <div class="conf-pre">Standalone artifact page for the change management ebook</div>
+      </div>
+      <div class="page-viewer" style="margin-bottom:3rem;">
+        <iframe src="change-management.html" title="AI Change Management"></iframe>
+      </div>
+
+      <!-- Solution Decision -->
+      <div class="conf-meta" id="toolkit-decision" style="margin-bottom:0.75rem;">
+        <span class="seq-tag tag-p" style="margin-bottom:0.5rem;display:inline-block;">Resource Page</span>
+        <div class="conf-subj">AI Solution Decision Framework</div>
+        <div class="conf-pre">Standalone artifact page for the solution decision framework</div>
+      </div>
+      <div class="page-viewer">
+        <iframe src="solution-decision.html" title="AI Solution Decision Framework"></iframe>
+      </div>
+    </section>
+
+    <!-- ── 04 EMAIL SEQUENCES ── -->
     <section class="section" id="emails">
       <div class="section-header">
-        <div class="overline">03 — Email Sequences · 3 emails per persona</div>
+        <div class="overline">04 — Email Sequences · 3 emails per persona</div>
         <h2>Practitioner &amp; Vendor Emails</h2>
       </div>
 
@@ -332,7 +363,7 @@
     <!-- ── 04 CONFIRMATION & DELIVERY ── -->
     <section class="section" id="confirmation">
       <div class="section-header">
-        <div class="overline">04 — Confirmation &amp; Delivery</div>
+        <div class="overline">05 — Confirmation &amp; Delivery</div>
         <h2>Post-Action Pages &amp; Emails</h2>
       </div>
 
