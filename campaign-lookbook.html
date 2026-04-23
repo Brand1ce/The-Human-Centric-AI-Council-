@@ -296,9 +296,7 @@
           <!-- Slide 1 -->
           <div class="email-slide active" id="p-slide-1">
             <div class="email-scroll">
-              <iframe src="email-p1-launch.html" title="Practitioner Email 1"
-                onload="this.style.height=(this.contentDocument.documentElement.scrollHeight||this.contentDocument.body.scrollHeight)+'px'">
-              </iframe>
+              <iframe src="email-p1-launch.html" title="Practitioner Email 1" style="height:1400px;"></iframe>
             </div>
           </div>
           <!-- Slide 2 -->
@@ -336,9 +334,7 @@
           <!-- Slide 1 -->
           <div class="email-slide active" id="v-slide-1">
             <div class="email-scroll">
-              <iframe src="email-v1-launch.html" title="Vendor Email 1"
-                onload="this.style.height=(this.contentDocument.documentElement.scrollHeight||this.contentDocument.body.scrollHeight)+'px'">
-              </iframe>
+              <iframe src="email-v1-launch.html" title="Vendor Email 1" style="height:1500px;"></iframe>
             </div>
           </div>
           <!-- Slide 2 -->
@@ -378,7 +374,7 @@
           </div>
           <div class="conf-viewer">
             <iframe src="thankyou.html" title="Library Thank You"
-              onload="this.style.height=(this.contentDocument.documentElement.scrollHeight||this.contentDocument.body.scrollHeight)+'px'">
+              onload="autoH(this)">
             </iframe>
           </div>
         </div>
@@ -392,7 +388,7 @@
           </div>
           <div class="conf-viewer">
             <iframe src="townhall-registration.html" title="Town Hall Registration"
-              onload="this.style.height=(this.contentDocument.documentElement.scrollHeight||this.contentDocument.body.scrollHeight)+'px'">
+              onload="autoH(this)">
             </iframe>
           </div>
         </div>
@@ -408,7 +404,7 @@
         </div>
         <div class="momentum-viewer">
           <iframe src="mailerlite-momentum-email.html" title="AI Momentum Report Email"
-            onload="this.style.height=(this.contentDocument.documentElement.scrollHeight||this.contentDocument.body.scrollHeight)+'px'">
+            onload="autoH(this)">
           </iframe>
         </div>
       </div>
@@ -419,6 +415,23 @@
 </main>
 
 <script>
+  // Retry height measurement until images have loaded (up to 3s)
+  function autoH(iframe) {
+    var tries = 0;
+    function measure() {
+      try {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        var h = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+        if (h > 200) {
+          iframe.style.height = h + 'px';
+        } else if (tries++ < 15) {
+          setTimeout(measure, 200);
+        }
+      } catch(e) {}
+    }
+    measure();
+  }
+
   var subjects = {
     p: {
       1: { s: "You're the one being asked about AI. Here's a toolkit.", p: "Four resources from practitioners navigating the same thing." },
