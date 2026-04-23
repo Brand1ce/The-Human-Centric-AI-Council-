@@ -209,7 +209,7 @@
     <div class="cover-meta">
       <div><div class="cml">Campaign</div><div class="cmv">HCAIC Toolkit Launch</div></div>
       <div><div class="cml">Sequences</div><div class="cmv">Practitioner · Vendor · 3 emails each</div></div>
-      <div><div class="cml">Status</div><div class="cmv">Email 1 live · Emails 2–3 in progress</div></div>
+      <div><div class="cml">Status</div><div class="cmv">Emails 1–2 live · Email 3 in progress</div></div>
       <div><div class="cml">Date</div><div class="cmv">April 2026</div></div>
     </div>
   </div>
@@ -309,7 +309,7 @@
               <span class="seq-tag tag-p">Practitioner</span>
               <div class="email-tabs" id="p-tabs">
                 <button class="etab active done" onclick="switchEmail('p',1,this)">1</button>
-                <button class="etab" onclick="switchEmail('p',2,this)">2</button>
+                <button class="etab done" onclick="switchEmail('p',2,this)">2</button>
                 <button class="etab" onclick="switchEmail('p',3,this)">3</button>
               </div>
             </div>
@@ -326,9 +326,8 @@
           </div>
           <!-- Slide 2 -->
           <div class="email-slide" id="p-slide-2">
-            <div class="ph-slide">
-              <h3>Email 2 — In Progress</h3>
-              <p>Copy not yet written.</p>
+            <div class="email-scroll">
+              <iframe src="email-p2-townhall.html" title="Practitioner Email 2" style="height:1500px;"></iframe>
             </div>
           </div>
           <!-- Slide 3 -->
@@ -347,7 +346,7 @@
               <span class="seq-tag tag-v">Vendor</span>
               <div class="email-tabs" id="v-tabs">
                 <button class="etab active done" onclick="switchEmail('v',1,this)">1</button>
-                <button class="etab" onclick="switchEmail('v',2,this)">2</button>
+                <button class="etab done" onclick="switchEmail('v',2,this)">2</button>
                 <button class="etab" onclick="switchEmail('v',3,this)">3</button>
               </div>
             </div>
@@ -364,9 +363,8 @@
           </div>
           <!-- Slide 2 -->
           <div class="email-slide" id="v-slide-2">
-            <div class="ph-slide">
-              <h3>Email 2 — In Progress</h3>
-              <p>Copy not yet written.</p>
+            <div class="email-scroll">
+              <iframe src="email-v2-townhall.html" title="Vendor Email 2" style="height:1500px;"></iframe>
             </div>
           </div>
           <!-- Slide 3 -->
@@ -592,12 +590,12 @@
   var subjects = {
     p: {
       1: { s: "You're the one being asked about AI. Here's a toolkit.", p: "Four resources from practitioners navigating the same thing." },
-      2: { s: "Copy in progress", p: "" },
+      2: { s: "May 12: What we built, and why we started here.", p: "For the past year, the HCAIC cohort has been building the foundations. On May 12, we walk you through them." },
       3: { s: "Copy in progress", p: "" }
     },
     v: {
       1: { s: "HR buyers just got a new playbook", p: "The HCAIC Toolkit is live. Here's what it changes about how they'll buy." },
-      2: { s: "Copy in progress", p: "" },
+      2: { s: "The frameworks HR will use to evaluate AI vendors. Walk-through May 12.", p: "On May 12, the HCAIC cohort walks through the four frameworks shaping how HR engages, evaluates, and implements AI." },
       3: { s: "Copy in progress", p: "" }
     }
   };
