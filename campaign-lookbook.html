@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCAIC Campaign — Internal Look Book</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #EDE5D8; color: #273752; }
+
+    /* ── SIDEBAR ─────────────────────────────── */
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: 210px; height: 100vh;
+      background: #273752;
+      padding: 1.75rem 1.5rem;
+      overflow-y: auto; z-index: 100;
+    }
+    .sb-brand { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(247,241,234,0.1); }
+    .sb-name { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 600; display: block; margin-bottom: 0.4rem; }
+    .sb-badge { display: inline-block; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(247,241,234,0.4); border: 1px solid rgba(247,241,234,0.15); padding: 0.2rem 0.5rem; border-radius: 100px; }
+    .sb-group { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 700; margin: 1.25rem 0 0.4rem; }
+    .sidebar a { display: block; font-size: 0.7rem; color: rgba(247,241,234,0.5); text-decoration: none; padding: 0.28rem 0; line-height: 1.4; transition: color 0.15s; }
+    .sidebar a:hover { color: #F7F1EA; }
+    .sidebar a.sub { padding-left: 0.75rem; font-size: 0.67rem; }
+    .sidebar a.active { color: #FDECCD; }
+
+    /* ── MAIN ────────────────────────────────── */
+    .main { margin-left: 210px; }
+
+    /* ── COVER ───────────────────────────────── */
+    .cover {
+      background: linear-gradient(150deg, #2E4468 0%, #273752 55%, #1E2C42 100%);
+      padding: 5rem 4rem 4.5rem;
+      position: relative; overflow: hidden;
+    }
+    .cover::before {
+      content: ''; position: absolute; right: -60px; top: -80px;
+      width: 460px; height: 460px; border-radius: 50%;
+      border: 1px solid rgba(253,236,205,0.06);
+    }
+    .cover::after {
+      content: ''; position: absolute; right: 120px; top: 100px;
+      width: 680px; height: 680px; border-radius: 50%;
+      border: 1px solid rgba(253,236,205,0.04);
+    }
+    .cover-badge {
+      display: inline-block; font-size: 0.58rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #FDECCD;
+      border: 1px solid rgba(253,236,205,0.3);
+      padding: 0.3rem 0.75rem; border-radius: 100px; margin-bottom: 1.75rem;
+    }
+    .cover h1 {
+      font-size: clamp(2.5rem, 4vw, 3.75rem); font-weight: 300;
+      line-height: 1.05; letter-spacing: -0.025em; color: #F7F1EA; margin-bottom: 1rem;
+    }
+    .cover h1 em { font-style: italic; color: #FDECCD; }
+    .cover-desc { font-size: 0.9rem; color: rgba(247,241,234,0.6); line-height: 1.65; max-width: 46ch; margin-bottom: 2.5rem; }
+    .cover-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .cover-meta-item { font-size: 0.65rem; letter-spacing: 0.06em; }
+    .cml { color: #9D92AD; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.58rem; margin-bottom: 0.3rem; }
+    .cmv { color: rgba(247,241,234,0.75); font-weight: 500; }
+
+    /* ── CONTENT ─────────────────────────────── */
+    .content { padding: 0 4rem 6rem; }
+
+    /* ── SECTION ─────────────────────────────── */
+    .section { padding-top: 4rem; margin-bottom: 0.5rem; }
+    .section-header { margin-bottom: 2.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(39,55,82,0.12); }
+    .overline { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: #9D92AD; font-weight: 700; margin-bottom: 0.5rem; }
+    .section h2 { font-size: 1.7rem; font-weight: 300; letter-spacing: -0.015em; color: #273752; }
+    .sub-rule { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 700; margin: 2.5rem 0 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .sub-rule::after { content: ''; flex: 1; height: 1px; background: rgba(157,146,173,0.2); }
+
+    /* ── COLOR SWATCHES ──────────────────────── */
+    .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem; margin-bottom: 2.5rem; }
+    .swatch { border-radius: 8px; overflow: hidden; box-shadow: 0 1px 6px rgba(39,55,82,0.07); }
+    .sw-block { height: 68px; }
+    .sw-info { background: #fff; padding: 0.55rem 0.7rem; }
+    .sw-name { font-size: 0.65rem; font-weight: 600; color: #273752; display: block; margin-bottom: 2px; }
+    .sw-hex { font-size: 0.6rem; color: #9D92AD; font-family: 'Courier New', monospace; }
+
+    /* ── TYPE GRID ───────────────────────────── */
+    .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .type-card { background: #fff; border-radius: 8px; padding: 1.5rem 1.75rem; box-shadow: 0 1px 6px rgba(39,55,82,0.06); }
+    .type-label { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9D92AD; font-weight: 700; margin-bottom: 0.75rem; }
+
+    /* ── EMAIL BLOCK ─────────────────────────── */
+    .email-block { margin-bottom: 3.5rem; }
+    .email-meta-row { margin-bottom: 1rem; }
+    .seq-tag {
+      display: inline-block; font-size: 0.57rem; letter-spacing: 0.16em;
+      text-transform: uppercase; font-weight: 700;
+      padding: 0.22rem 0.6rem; border-radius: 100px; margin-bottom: 0.5rem;
+    }
+    .tag-p { background: rgba(39,55,82,0.08); color: #273752; }
+    .tag-v { background: rgba(45,92,148,0.1); color: #2D5C94; }
+    .tag-x { background: rgba(157,146,173,0.1); color: #9D92AD; }
+    .tag-conf { background: rgba(253,236,205,0.6); color: #555961; }
+    .email-subject { font-size: 0.88rem; font-weight: 500; color: #273752; margin-bottom: 0.2rem; }
+    .email-pre { font-size: 0.75rem; color: #9D92AD; font-style: italic; }
+
+    /* email iframe: designed at 680px, scale to fit container */
+    .email-shell {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(39,55,82,0.1), 0 1px 4px rgba(39,55,82,0.05);
+    }
+    .email-shell iframe { display: block; border: none; transform-origin: top left; }
+
+    /* page iframe: responsive, full width */
+    .page-shell {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(39,55,82,0.1), 0 1px 4px rgba(39,55,82,0.05);
+    }
+    .page-shell iframe { display: block; border: none; width: 100%; }
+
+    /* ── PLACEHOLDER ─────────────────────────── */
+    .ph {
+      background: #fff; border-radius: 10px;
+      border: 2px dashed rgba(157,146,173,0.22);
+      padding: 3rem 2rem; text-align: center;
+    }
+    .ph-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(157,146,173,0.1);
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ph h3 { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.35rem; color: #273752; }
+    .ph p { font-size: 0.76rem; color: #9D92AD; line-height: 1.5; }
+
+    /* ── PAGE GRID (2-up) ────────────────────── */
+    .page-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .page-card-label { margin-bottom: 0.75rem; }
+    .page-card-label h4 { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .page-card-label p { font-size: 0.7rem; color: #9D92AD; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <span class="sb-name">HCAIC Campaign</span>
+    <span class="sb-badge">Internal</span>
+  </div>
+
+  <div class="sb-group">Reference</div>
+  <a href="#brand">Brand Identity</a>
+
+  <div class="sb-group">Practitioner</div>
+  <a href="#p1" class="sub">Email 1 — Toolkit Launch ✓</a>
+  <a href="#p2" class="sub">Email 2 — In progress</a>
+  <a href="#p3" class="sub">Email 3 — In progress</a>
+
+  <div class="sb-group">Vendor</div>
+  <a href="#v1" class="sub">Email 1 — Vendor Launch ✓</a>
+  <a href="#v2" class="sub">Email 2 — In progress</a>
+  <a href="#v3" class="sub">Email 3 — In progress</a>
+
+  <div class="sb-group">Confirmation</div>
+  <a href="#conf-library" class="sub">Library Access</a>
+  <a href="#conf-townhall" class="sub">Town Hall</a>
+  <a href="#conf-momentum" class="sub">AI Momentum Report</a>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- COVER -->
+  <div class="cover" id="top">
+    <div class="cover-badge">Internal Use Only</div>
+    <h1>HCAIC Campaign<br /><em>Look Book.</em></h1>
+    <p class="cover-desc">All campaign touchpoints in one place — emails, confirmation pages, and brand reference. Two sequences: practitioner and vendor. Emails 2–3 for each sequence are in progress.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cml">Campaign</div>
+        <div class="cmv">HCAIC Toolkit Launch</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cml">Sequences</div>
+        <div class="cmv">Practitioner · Vendor</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cml">Email Status</div>
+        <div class="cmv">Email 1 live · Emails 2–3 in progress</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cml">Date</div>
+        <div class="cmv">April 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ── 01 BRAND IDENTITY ── -->
+    <section class="section" id="brand">
+      <div class="section-header">
+        <div class="overline">01 — Brand Identity</div>
+        <h2>Colors &amp; Typography</h2>
+      </div>
+
+      <div class="sub-rule">Color Palette</div>
+      <div class="color-grid">
+        <div class="swatch">
+          <div class="sw-block" style="background:#273752;"></div>
+          <div class="sw-info"><span class="sw-name">Navy</span><span class="sw-hex">#273752</span></div>
+        </div>
+        <div class="swatch">
+          <div class="sw-block" style="background:#2D5C94;"></div>
+          <div class="sw-info"><span class="sw-name">Blue</span><span class="sw-hex">#2D5C94</span></div>
+        </div>
+        <div class="swatch">
+          <div class="sw-block" style="background:#9D92AD;"></div>
+          <div class="sw-info"><span class="sw-name">Lilac</span><span class="sw-hex">#9D92AD</span></div>
+        </div>
+        <div class="swatch">
+          <div class="sw-block" style="background:#FDECCD;border:1px solid rgba(0,0,0,0.05);"></div>
+          <div class="sw-info"><span class="sw-name">Cream</span><span class="sw-hex">#FDECCD</span></div>
+        </div>
+        <div class="swatch">
+          <div class="sw-block" style="background:#F7F1EA;border:1px solid rgba(0,0,0,0.05);"></div>
+          <div class="sw-info"><span class="sw-name">Ivory</span><span class="sw-hex">#F7F1EA</span></div>
+        </div>
+        <div class="swatch">
+          <div class="sw-block" style="background:#555961;"></div>
+          <div class="sw-info"><span class="sw-name">Slate</span><span class="sw-hex">#555961</span></div>
+        </div>
+      </div>
+
+      <div class="sub-rule">Typography</div>
+      <div class="type-grid">
+        <div class="type-card">
+          <div class="type-label">Display / Headlines — Georgia, Serif</div>
+          <div style="font-family:Georgia,serif;font-size:2rem;font-weight:400;line-height:1.1;letter-spacing:-0.02em;color:#273752;">AI in HR<br /><em style="font-style:italic;color:#9D92AD;">is changing.</em></div>
+        </div>
+        <div class="type-card">
+          <div class="type-label">Body / UI — Helvetica Neue, Sans-serif</div>
+          <div style="font-size:0.93rem;line-height:1.75;color:#555961;">If you're responsible for AI in HR right now, your job probably looks something like this: pulled into conversations, expected to have a point of view.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-label">Labels / Overlines</div>
+          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:#9D92AD;font-weight:700;margin-bottom:0.75rem;">The reality right now</div>
+          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:#273752;font-weight:700;">Four connected resources. One toolkit.</div>
+        </div>
+        <div class="type-card">
+          <div class="type-label">CTAs &amp; Buttons</div>
+          <div style="margin-bottom:0.75rem;"><span style="display:inline-block;background:#273752;color:#F7F1EA;font-size:0.85rem;font-weight:600;padding:0.65rem 1.75rem;border-radius:100px;letter-spacing:0.01em;">Download the Toolkit →</span></div>
+          <div><span style="display:inline-block;background:transparent;color:#273752;font-size:0.8rem;font-weight:500;padding:0.55rem 1.25rem;border-radius:100px;border:1px solid rgba(39,55,82,0.25);">Explore the Council →</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 PRACTITIONER SEQUENCE ── -->
+    <section class="section" id="practitioner">
+      <div class="section-header">
+        <div class="overline">02 — Practitioner Sequence</div>
+        <h2>Emails — HR Practitioners</h2>
+      </div>
+
+      <!-- P1 -->
+      <div class="email-block" id="p1">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-p">Practitioner · Email 1 of 5</span>
+          <div class="email-subject">You're the one being asked about AI. Here's a toolkit.</div>
+          <div class="email-pre">Four resources from practitioners navigating the same thing.</div>
+        </div>
+        <div class="email-shell" id="es-p1">
+          <iframe src="email-p1-launch.html" scrolling="no" title="Practitioner Email 1"
+            onload="scaleEmail(this, 'es-p1', 680)"></iframe>
+        </div>
+      </div>
+
+      <!-- P2 Placeholder -->
+      <div class="email-block" id="p2">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-x">Practitioner · Email 2 of 5</span>
+          <div class="email-subject" style="color:#9D92AD;">Copy in progress</div>
+        </div>
+        <div class="ph">
+          <div class="ph-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9D92AD" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3>Email 2 — In Progress</h3>
+          <p>Copy not yet written. Will be added to this look book once complete.</p>
+        </div>
+      </div>
+
+      <!-- P3 Placeholder -->
+      <div class="email-block" id="p3">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-x">Practitioner · Email 3 of 5</span>
+          <div class="email-subject" style="color:#9D92AD;">Copy in progress</div>
+        </div>
+        <div class="ph">
+          <div class="ph-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9D92AD" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3>Email 3 — In Progress</h3>
+          <p>Copy not yet written. Will be added to this look book once complete.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 VENDOR SEQUENCE ── -->
+    <section class="section" id="vendor">
+      <div class="section-header">
+        <div class="overline">03 — Vendor Sequence</div>
+        <h2>Emails — Vendor Partners</h2>
+      </div>
+
+      <!-- V1 -->
+      <div class="email-block" id="v1">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-v">Vendor · Email 1 of [TBD]</span>
+          <div class="email-subject">HR buyers just got a new playbook</div>
+          <div class="email-pre">The HCAIC Toolkit is live. Here's what it changes about how they'll buy.</div>
+        </div>
+        <div class="email-shell" id="es-v1">
+          <iframe src="email-v1-launch.html" scrolling="no" title="Vendor Email 1"
+            onload="scaleEmail(this, 'es-v1', 680)"></iframe>
+        </div>
+      </div>
+
+      <!-- V2 Placeholder -->
+      <div class="email-block" id="v2">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-x">Vendor · Email 2</span>
+          <div class="email-subject" style="color:#9D92AD;">Copy in progress</div>
+        </div>
+        <div class="ph">
+          <div class="ph-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9D92AD" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3>Email 2 — In Progress</h3>
+          <p>Copy not yet written. Will be added to this look book once complete.</p>
+        </div>
+      </div>
+
+      <!-- V3 Placeholder -->
+      <div class="email-block" id="v3">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-x">Vendor · Email 3</span>
+          <div class="email-subject" style="color:#9D92AD;">Copy in progress</div>
+        </div>
+        <div class="ph">
+          <div class="ph-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9D92AD" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </div>
+          <h3>Email 3 — In Progress</h3>
+          <p>Copy not yet written. Will be added to this look book once complete.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 CONFIRMATION & DELIVERY PAGES ── -->
+    <section class="section" id="confirmation">
+      <div class="section-header">
+        <div class="overline">04 — Confirmation &amp; Delivery</div>
+        <h2>Post-Action Pages &amp; Emails</h2>
+      </div>
+
+      <!-- Library Access -->
+      <div class="email-block" id="conf-library">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-conf">Confirmation Page</span>
+          <div class="email-subject">HCAIC Library Access — Thank You</div>
+          <div class="email-pre">Shown after a practitioner completes the resource gate form</div>
+        </div>
+        <div class="page-shell">
+          <iframe src="thankyou.html" scrolling="no" title="Library Thank You"
+            onload="autoHeight(this)"></iframe>
+        </div>
+      </div>
+
+      <!-- Town Hall Registration -->
+      <div class="email-block" id="conf-townhall">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-conf">Registration Page</span>
+          <div class="email-subject">Town Hall Registration</div>
+          <div class="email-pre">Standalone registration page for HCAIC Town Hall sessions</div>
+        </div>
+        <div class="page-shell">
+          <iframe src="townhall-registration.html" scrolling="no" title="Town Hall Registration"
+            onload="autoHeight(this)"></iframe>
+        </div>
+      </div>
+
+      <!-- AI Momentum Report Delivery -->
+      <div class="email-block" id="conf-momentum">
+        <div class="email-meta-row">
+          <span class="seq-tag tag-v">Delivery Email</span>
+          <div class="email-subject">AI Momentum Report — Delivery</div>
+          <div class="email-pre">Sent via MailerLite after someone requests the AI Momentum Report</div>
+        </div>
+        <div class="email-shell" id="es-momentum">
+          <iframe src="mailerlite-momentum-email.html" scrolling="no" title="AI Momentum Report Email"
+            onload="scaleEmail(this, 'es-momentum', 600)"></iframe>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+  function scaleEmail(iframe, shellId, naturalW) {
+    var shell = document.getElementById(shellId);
+    if (!shell) return;
+    try {
+      var doc = iframe.contentDocument || iframe.contentWindow.document;
+      var naturalH = doc.documentElement.scrollHeight || doc.body.scrollHeight;
+      var containerW = shell.offsetWidth;
+      var scale = containerW / naturalW;
+      iframe.style.width = naturalW + 'px';
+      iframe.style.height = naturalH + 'px';
+      iframe.style.transform = 'scale(' + scale + ')';
+      iframe.style.transformOrigin = 'top left';
+      shell.style.height = Math.ceil(naturalH * scale) + 'px';
+    } catch(e) {}
+  }
+
+  function autoHeight(iframe) {
+    try {
+      var doc = iframe.contentDocument || iframe.contentWindow.document;
+      iframe.style.height = (doc.documentElement.scrollHeight || doc.body.scrollHeight) + 'px';
+    } catch(e) {}
+  }
+
+  window.addEventListener('resize', function() {
+    var maps = [
+      { id: 'es-p1', w: 680 },
+      { id: 'es-v1', w: 680 },
+      { id: 'es-momentum', w: 600 }
+    ];
+    maps.forEach(function(m) {
+      var shell = document.getElementById(m.id);
+      if (shell) {
+        var iframe = shell.querySelector('iframe');
+        if (iframe) scaleEmail(iframe, m.id, m.w);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
