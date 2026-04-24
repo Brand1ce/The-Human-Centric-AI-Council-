@@ -103,6 +103,10 @@ function HCAIC_Final() {
   }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen, selectedMember]);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('signup') === '1' && !accessGranted) {
+      setTimeout(() => setGateOpen(true), 400);
+    }
     const hash = window.location.hash;
     if (!hash) return;
     const timer = setTimeout(() => {
