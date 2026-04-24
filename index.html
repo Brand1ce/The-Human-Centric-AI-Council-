@@ -129,6 +129,7 @@ function HCAIC_Final() {
   const handleGateSubmit = () => {
     setAccessGranted(true);
     setGateOpen(false);
+    window.open('thankyou.html', '_blank');
     if (pendingResourceCta) {
       const r = pendingResourceCta;
       setPendingResourceCta(null);
