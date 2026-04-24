@@ -127,14 +127,18 @@ function HCAIC_Final() {
   };
 
   const handleGateSubmit = () => {
-    setAccessGranted(true);
-    setGateOpen(false);
+    // Open thank you page immediately (popup must be triggered by user gesture)
     window.open('thankyou.html', '_blank');
-    if (pendingResourceCta) {
-      const r = pendingResourceCta;
-      setPendingResourceCta(null);
-      setTimeout(() => { if (r.link) window.open(r.link, "_blank"); }, 250);
-    }
+    // Delay state changes so the form POST reaches MailerLite before the form unmounts
+    setTimeout(() => {
+      setAccessGranted(true);
+      setGateOpen(false);
+      if (pendingResourceCta) {
+        const r = pendingResourceCta;
+        setPendingResourceCta(null);
+        setTimeout(() => { if (r.link) window.open(r.link, "_blank"); }, 250);
+      }
+    }, 1000);
   };
 
   // Brand tokens
