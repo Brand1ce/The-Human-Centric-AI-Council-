@@ -193,14 +193,7 @@
   <a href="#li-promos-v" class="sub">Vendor Promos</a>
   <a href="#li-carousels" class="sub">Carousels</a>
   <div class="sb-group">Confirmation</div>
-  <a href="#conf-library" class="sub">Library Access</a>
-  <a href="#conf-apply" class="sub">Apply to Council</a>
-  <a href="#conf-kco" class="sub">Work with Kyle &amp; Co</a>
-  <a href="#conf-townhall-ty" class="sub">Town Hall — Confirmed</a>
-  <a href="#conf-underwriter" class="sub">Underwriter</a>
-  <a href="#conf-momentum-ty" class="sub">Momentum Report</a>
-  <a href="#conf-townhall-reg" class="sub">Town Hall — Registration</a>
-  <a href="#conf-momentum-email" class="sub">Momentum — Email</a>
+  <a href="#confirmation">Confirmation Pages</a>
 </aside>
 
 <!-- ── MAIN ── -->
@@ -391,100 +384,34 @@
         <h2>Post-Action Pages &amp; Emails</h2>
       </div>
 
-      <!-- Row 1 -->
-      <div class="conf-grid">
-        <div class="conf-card" id="conf-library">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">Library Access — Thank You</div>
-            <div class="conf-pre">After the resource gate form</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="https://kyleandco.com/aicouncil/thankyou.html" title="Library Thank You" style="height:1200px;"></iframe>
-          </div>
-        </div>
-        <div class="conf-card" id="conf-apply">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">Apply to the Council — Received</div>
-            <div class="conf-pre">After submitting a Council application</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="thankyou-apply.html" title="Apply Confirmation" style="height:1000px;"></iframe>
+      <div class="seq-col" style="max-width:100%;">
+        <div class="seq-col-header">
+          <div class="seq-col-label">
+            <span class="seq-tag tag-c" id="conf-tab-tag">Confirmation Page</span>
+            <div class="email-tabs">
+              <button class="etab active done" onclick="switchConf(1,this)">1</button>
+              <button class="etab done" onclick="switchConf(2,this)">2</button>
+              <button class="etab done" onclick="switchConf(3,this)">3</button>
+              <button class="etab done" onclick="switchConf(4,this)">4</button>
+              <button class="etab done" onclick="switchConf(5,this)">5</button>
+              <button class="etab done" onclick="switchConf(6,this)">6</button>
+              <button class="etab done" onclick="switchConf(7,this)">7</button>
+              <button class="etab done" onclick="switchConf(8,this)">8</button>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="conf-grid" style="margin-top:1.5rem;">
-        <div class="conf-card" id="conf-kco">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">Work with Kyle &amp; Co — Received</div>
-            <div class="conf-pre">After the Kyle &amp; Co inquiry form</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="thankyou-kco.html" title="K&Co Confirmation" style="height:900px;"></iframe>
-          </div>
+        <div class="seq-subject">
+          <div class="seq-subj-line" id="conf-subj">Library Access — Thank You</div>
+          <div class="seq-preheader" id="conf-pre">After the resource gate form</div>
         </div>
-        <div class="conf-card" id="conf-townhall-ty">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">Town Hall — You're Registered</div>
-            <div class="conf-pre">After town hall registration form</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="thankyou-townhall.html" title="Town Hall Confirmation" style="height:1000px;"></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 3 -->
-      <div class="conf-grid" style="margin-top:1.5rem;margin-bottom:3rem;">
-        <div class="conf-card" id="conf-underwriter">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">Underwriter Interest — Received</div>
-            <div class="conf-pre">After the become an underwriter form</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="thankyou-underwriter.html" title="Underwriter Confirmation" style="height:1000px;"></iframe>
-          </div>
-        </div>
-        <div class="conf-card" id="conf-momentum-ty">
-          <div class="conf-meta">
-            <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Confirmation Page</span>
-            <div class="conf-subj">AI Momentum Report — Check Your Inbox</div>
-            <div class="conf-pre">After the AIMM download form</div>
-          </div>
-          <div class="conf-viewer">
-            <iframe src="thankyou-momentum.html" title="Momentum Confirmation" style="height:900px;"></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- Town Hall Registration Form -->
-      <div class="momentum-card" id="conf-townhall-reg">
-        <div class="conf-meta" style="margin-bottom:0.75rem;">
-          <span class="seq-tag tag-c" style="margin-bottom:0.5rem;display:inline-block;">Registration Page</span>
-          <div class="conf-subj">Town Hall Registration Form</div>
-          <div class="conf-pre">Standalone page linked from emails and the Council page</div>
-        </div>
-        <div class="momentum-viewer" style="height:600px;">
-          <iframe src="townhall-registration.html" title="Town Hall Registration" style="height:1600px;"></iframe>
-        </div>
-      </div>
-
-      <!-- AI Momentum Report Delivery Email -->
-      <div class="momentum-card" id="conf-momentum-email">
-        <div class="conf-meta" style="margin-bottom:0.75rem;">
-          <span class="seq-tag tag-v" style="margin-bottom:0.5rem;display:inline-block;">Delivery Email</span>
-          <div class="conf-subj">AI Momentum Report — Delivery Email</div>
-          <div class="conf-pre">Sent via MailerLite after the AIMM download form</div>
-        </div>
-        <div class="momentum-viewer">
-          <iframe src="mailerlite-momentum-email.html" title="AI Momentum Report Email" style="height:900px;"></iframe>
-        </div>
+        <div class="email-slide active" id="conf-slide-1"><div class="email-scroll"><iframe src="https://kyleandco.com/aicouncil/thankyou.html" title="Library Thank You" style="height:1300px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-2"><div class="email-scroll"><iframe src="thankyou-apply.html" title="Apply Confirmation" style="height:1000px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-3"><div class="email-scroll"><iframe src="thankyou-kco.html" title="K&Co Confirmation" style="height:900px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-4"><div class="email-scroll"><iframe src="thankyou-townhall.html" title="Town Hall Confirmation" style="height:1000px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-5"><div class="email-scroll"><iframe src="thankyou-underwriter.html" title="Underwriter Confirmation" style="height:1000px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-6"><div class="email-scroll"><iframe src="thankyou-momentum.html" title="Momentum Confirmation" style="height:900px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-7"><div class="email-scroll"><iframe src="townhall-registration.html" title="Town Hall Registration" style="height:1600px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-8"><div class="email-scroll"><iframe src="mailerlite-momentum-email.html" title="Momentum Delivery Email" style="height:900px;"></iframe></div></div>
       </div>
 
     </section>
@@ -646,6 +573,33 @@
       } catch(e) {}
     }
     measure();
+  }
+
+  var confItems = {
+    1: { tag: 'Confirmation Page', type: 'tag-c', s: 'Library Access — Thank You', p: 'After the resource gate form' },
+    2: { tag: 'Confirmation Page', type: 'tag-c', s: 'Apply to the Council — Received', p: 'After submitting a Council application' },
+    3: { tag: 'Confirmation Page', type: 'tag-c', s: 'Work with Kyle & Co — Received', p: 'After the Kyle & Co inquiry form' },
+    4: { tag: 'Confirmation Page', type: 'tag-c', s: 'Town Hall — You\'re Registered', p: 'After the town hall registration form' },
+    5: { tag: 'Confirmation Page', type: 'tag-c', s: 'Underwriter Interest — Received', p: 'After the become an underwriter form' },
+    6: { tag: 'Confirmation Page', type: 'tag-c', s: 'AI Momentum Report — Check Your Inbox', p: 'After the AIMM download form' },
+    7: { tag: 'Registration Page', type: 'tag-c', s: 'Town Hall Registration Form', p: 'Standalone page linked from emails and the Council page' },
+    8: { tag: 'Delivery Email',    type: 'tag-v', s: 'AI Momentum Report — Delivery Email', p: 'Sent via MailerLite after the AIMM download form' },
+  };
+
+  function switchConf(num, btn) {
+    for (var n = 1; n <= 8; n++) {
+      var el = document.getElementById('conf-slide-' + n);
+      if (el) el.classList.remove('active');
+    }
+    document.getElementById('conf-slide-' + num).classList.add('active');
+    btn.closest('.email-tabs').querySelectorAll('.etab').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var info = confItems[num];
+    document.getElementById('conf-subj').textContent = info.s;
+    document.getElementById('conf-pre').textContent = info.p;
+    var tagEl = document.getElementById('conf-tab-tag');
+    tagEl.textContent = info.tag;
+    tagEl.className = 'seq-tag ' + info.type;
   }
 
   var subjects = {
