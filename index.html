@@ -35,6 +35,7 @@ function HCAIC_Final() {
   const [selectedResource, setSelectedResource] = useState(null);
   const [widgetDismissed, setWidgetDismissed] = useState(false);
   const [momentumOpen, setMomentumOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
   const [accessGranted, setAccessGranted] = useState(false);
   const [gateOpen, setGateOpen] = useState(false);
   const [pendingResourceCta, setPendingResourceCta] = useState(null);
@@ -93,13 +94,13 @@ function HCAIC_Final() {
   }, []);
 
   useEffect(() => {
-    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen || momentumDownloadOpen) {
+    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen || momentumDownloadOpen || selectedMember) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen]);
+  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen, selectedMember]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -287,18 +288,174 @@ function HCAIC_Final() {
   ];
 
   const members = [
-    { name: 'Kyle Lagunas', role: 'Founder, Kyle & Co · Executive Director, HCAIC', photo: '' },
-    { name: 'Alicia Miller', role: 'Lead, Change Management Workstream', photo: '' },
-    { name: 'Susan Jackson', role: 'Co-Lead, Responsible AI', photo: '' },
-    { name: 'Tara Torres', role: 'Co-Lead, Responsible AI', photo: '' },
-    { name: 'Lydia', role: 'Lead, Solution Decision Framework', photo: '' },
-    { name: 'Matt Charney', role: 'HCAIC Advisor · MediaBistro', photo: '' },
-    { name: 'Sarah Smart', role: 'Steering Committee · HorizonHuman', photo: '' },
-    { name: 'Jake', role: 'Research, Kyle & Co', photo: '' },
-    { name: 'Brandice Payne', role: 'Strategic Marketing, Kyle & Co', photo: '' },
-    { name: 'Rachel Bourne', role: 'AI Literacy Contributor', photo: '' },
-    { name: 'Melissa Laswell', role: 'AI Literacy Contributor', photo: '' },
-    { name: '+ 30 more', role: 'Senior HR practitioners', photo: '' },
+    {
+      name: 'Rachel Bourne',
+      role: 'Host, The Shift Show',
+      photo: 'member-headshots/rachel-bourne.jpg',
+      linkedin: 'https://www.linkedin.com/in/rachel-bourne/',
+      bio: 'Global HR executive and talent strategist with 20 years of Fortune 500 transformation experience. Host of The Shift Show, where she translates AI, automation, and future-of-work trends into practical career strategy. Systems thinker focused on designing work for the people doing it. Co-lead on the HCAIC AI Literacy Toolkit.',
+    },
+    {
+      name: 'Dustin Cann',
+      role: 'Sr Director, Cisco TA',
+      photo: 'member-headshots/dustin-cann.jpg',
+      linkedin: 'https://www.linkedin.com/in/dustincann/',
+      bio: "Senior Director of Strategy and Operations for Cisco's Join & Connect talent acquisition organization. Drives strategy, planning, recruiting operations, technology transformation, enablement, and hiring compliance. Two decades consulting on talent management software before moving in-house at AWS, Splunk, and Cisco.",
+    },
+    {
+      name: 'Kelly Cartwright',
+      role: 'Former VP People, Splunk',
+      photo: 'member-headshots/kelly-cartwright.jpg',
+      linkedin: 'https://www.linkedin.com/in/kelly-cartwright-6a91ab/',
+      bio: 'Former VP of People Acquisition, Technology & Operations at Splunk. Led global workforce strategy, HR tech transformation, and post-acquisition integration with Cisco. Previously Head of TA Technology & Enablement Strategy at AWS. Board advisor at Acadian Ventures.',
+    },
+    {
+      name: 'Tiffany Clark',
+      role: 'VP Global People Solutions',
+      photo: 'member-headshots/tiffany-clark.jpg',
+      linkedin: 'https://www.linkedin.com/in/tiffany-clark1/',
+      bio: 'VP of Global People Solutions & Advisory. Leads HR service delivery across multinational organizations with deep Workday and ServiceNow expertise. Central to large-scale M&A integration work, aligning people operations through complexity and change.',
+    },
+    {
+      name: 'Amy Cropper',
+      role: 'VP Talent Acquisition, Tricentis',
+      photo: 'member-headshots/amy-cropper.jpg',
+      linkedin: 'https://www.linkedin.com/in/amycropper/',
+      bio: '25+ years aligning TA strategy, technology, and operations to scale at Fortune Global 500s including Accenture and Amazon. Now VP of Talent Acquisition at Tricentis, an AI-powered continuous testing company. Delivers top talent during high-growth and transformation cycles.',
+    },
+    {
+      name: 'Martha Curioni',
+      role: 'People Insights, Procore',
+      photo: 'member-headshots/martha-curioni.jpg',
+      linkedin: 'https://www.linkedin.com/in/marthacurioni/',
+      bio: 'People Insights Partner at Procore. Connects workforce data to business strategy — translating HR analytics into decisions leaders actually act on. Data science + HR background, with prior roles at Deloitte and IQVIA. Led a restructuring that delivered $20M+ in savings.',
+    },
+    {
+      name: 'Adam Dayan',
+      role: 'HR Strategist, NYC',
+      photo: 'member-headshots/adam-dayan.jpg',
+      linkedin: 'https://www.linkedin.com/in/adamdayan/',
+      bio: 'New York-based HR strategist. Combines positive psychology principles with data-driven analytics to design people-first solutions that strengthen culture and performance. 10+ years in talent management and organizational development. Advocate for responsible, ethical AI adoption in HR.',
+    },
+    {
+      name: 'Susan Jackson',
+      role: 'Talent Ops, Estée Lauder',
+      photo: 'member-headshots/susan-jackson.jpg',
+      linkedin: 'https://www.linkedin.com/in/jacksonsusan/',
+      bio: 'Talent Operations, Strategy & Insights Leader at The Estée Lauder Companies. Drives enterprise-wide talent transformation and technology implementation. Featured speaker on TA technology, innovation, and the evolving role of HR. Co-lead on the HCAIC Responsible AI Framework.',
+    },
+    {
+      name: 'Sarika Lamont',
+      role: 'VP People & Culture, Vidyard',
+      photo: 'member-headshots/sarika-lamont.jpg',
+      linkedin: 'https://www.linkedin.com/in/sarikal/',
+      bio: 'VP of People and Culture at Vidyard, leading AI and automation transformation alongside HR, DEI, and culture. 20+ years in management consulting and talent strategy. Previously Chief Talent Officer at a global public SaaS company covering seven countries.',
+    },
+    {
+      name: 'Melissa Laswell',
+      role: 'Talent Acquisition Leader',
+      photo: 'member-headshots/melissa-laswell.jpg',
+      linkedin: 'https://www.linkedin.com/in/melissalaswell/',
+      bio: 'Two decades leading talent acquisition, talent management, and organizational development at Apple, Walmart, and Pitney Bowes. Champions responsible, people-first technology that enhances the talent experience. Co-lead on the HCAIC AI Literacy Toolkit.',
+    },
+    {
+      name: 'Logan Marsh',
+      role: 'Head of TA, Calendly',
+      photo: 'member-headshots/logan-marsh.jpg',
+      linkedin: 'https://www.linkedin.com/in/loganmarsh/',
+      bio: 'Head of Talent Acquisition at Calendly. 17 years in TA with 12 in leadership, supporting the growth of businesses scaling to 3,000+ employees globally. Previously at Amazon, Microsoft, Okta, DocuSign, and Stripe. Known for combining operational excellence with deep commitment to candidate experience.',
+    },
+    {
+      name: 'Alicia Miller',
+      role: 'Change Mgmt Lead, HCAIC',
+      photo: 'member-headshots/alicia-miller.jpg',
+      linkedin: 'https://www.linkedin.com/in/alicia-miller-18a24410/',
+      bio: 'Strategy-first transformation leader with 15+ years in innovation and data analytics. Co-founded a global behavioral insights community across 30+ countries. MA in Industrial/Organizational Psychology from the University of Maryland. Lead on the HCAIC Change Management & Adoption ebook.',
+    },
+    {
+      name: 'Daniel Morales',
+      role: 'People AI, Chainlink Labs',
+      photo: 'member-headshots/daniel-morales.jpg',
+      linkedin: 'https://www.linkedin.com/in/danielcmorales/',
+      bio: "Senior leader in People AI & Tech Enablement at Chainlink Labs. Embeds AI across the People organization to simplify complexity and enable scale. Previously scaled Better.com's recruiting from 600 to 8,000 in under two years. Systems-first approach to people operations.",
+    },
+    {
+      name: 'Bill Musman',
+      role: 'Founder, Sixth Man Group',
+      photo: 'member-headshots/bill-musman.png',
+      linkedin: 'https://www.linkedin.com/in/billmusman/',
+      bio: 'Founder of Sixth Man Human Capital Group. 25+ years designing and scaling global recruiting organizations across APAC, EMEA, India, LATAM, and North America. BS in Computer Science; bridges HR and technology with rare depth across platforms, automation, and analytics.',
+    },
+    {
+      name: 'Bruce Nichols',
+      role: 'Fortune 100 HR Exec',
+      photo: 'member-headshots/bruce-nichols.png',
+      linkedin: 'https://www.linkedin.com/in/brucernichols/',
+      bio: 'Fortune 100 HR executive across insurance, banking, tech, and renewable energy. Interim/fractional CHRO for companies from startups to large enterprises. Delivered millions in savings through talent optimization at Liberty Mutual. Norwich University graduate and former US Army officer.',
+    },
+    {
+      name: 'Tushar Pandit',
+      role: '3x CPO, Board Advisor',
+      photo: 'member-headshots/tushar-pandit.jpg',
+      linkedin: 'https://www.linkedin.com/in/tusharpandit/',
+      bio: '3x Chief People Officer, C-suite executive coach, and board advisor with 25+ years across human capital and enterprise transformation. Board roles at Kinfolk, ChangeEngine, and People Tech Advisors. Advocate for purpose-driven leadership across global tech and PE-backed firms.',
+    },
+    {
+      name: 'Bob Pulver',
+      role: 'Founder, Elevate Your AIQ',
+      photo: 'member-headshots/bob-pulver.jpg',
+      linkedin: 'https://www.linkedin.com/in/bobpulver/',
+      bio: "Technology strategist and AI ethics advocate. Former IBM Global Program Leader for Watson's Cognitive Build and Principal Analyst at Talent Tech Labs. Now leads Elevate Your AIQ, his advisory practice focused on ethical AI use. Certified independent AI auditor and podcast host.",
+    },
+    {
+      name: 'Meghan Rhatigan',
+      role: 'VP TA Experience, Marriott',
+      photo: 'member-headshots/meghan-rhatigan.jpg',
+      linkedin: 'https://www.linkedin.com/in/meghanrhatigan/',
+      bio: 'VP of Talent Acquisition Experience at Marriott International, leading TA Technology, Strategy, and Enablement. 15+ years at Marriott transforming high-volume hiring, leading integrations (Starwood), and introducing AI and automation to hourly hiring. BA in Human Resources and Political Science, Marymount.',
+    },
+    {
+      name: 'Manjuri Sinha',
+      role: 'VP HR, Miro',
+      photo: 'member-headshots/manjuri-sinha.jpg',
+      linkedin: 'https://www.linkedin.com/in/manjurisinha/',
+      bio: 'VP HR and Global Head of GTM Org Success & People Partners at Miro. 21+ years in people and business success across high-growth tech and SaaS. Two-time Talent100 awardee. Featured in Times Square as a global thought leader on AI transformation in HR.',
+    },
+    {
+      name: 'Sarah Smart',
+      role: 'Co-Founder, HorizonHuman',
+      photo: 'member-headshots/sarah-smart.jpg',
+      linkedin: 'https://www.linkedin.com/in/sarahsmart/',
+      bio: "Co-Founder of HorizonHuman, designing HR transformation initiatives and evaluating AI and automation solutions. Previously led JPMorgan Chase's TA Product Organization and Hilton's Global Recruiting Function. MA in Organizational Behavior from Columbia. HCAIC Steering Committee.",
+    },
+    {
+      name: 'Tara Torres',
+      role: 'Sr Manager, Coinbase',
+      photo: 'member-headshots/tara-torres.jpg',
+      linkedin: 'https://www.linkedin.com/in/taratorres/',
+      bio: 'Senior Manager of Talent Strategy and Programs at Coinbase, leading initiatives at the intersection of talent, technology, and AI. 20+ years transforming recruiting operations at Amazon, Stripe, and JPMorgan Chase. Co-lead on the HCAIC Responsible AI Framework.',
+    },
+    {
+      name: 'Adam Treitler',
+      role: 'HR Systems Dir, Related',
+      photo: 'member-headshots/adam-treitler.jpg',
+      linkedin: 'https://www.linkedin.com/in/adam-treitler/',
+      bio: 'Director, Head of HR Systems, Operations & Analytics at Related Companies, leading people infrastructure across a $70B property portfolio. Previously held HR Analytics and Technology roles at Pandora Jewelry, Twitter (X), and ViacomCBS. Specializes in AI-enabled workforce transformation.',
+    },
+    {
+      name: 'Kate Warman',
+      role: 'Enterprise TA & HR Ops',
+      photo: 'member-headshots/kate-warman.jpg',
+      linkedin: 'https://www.linkedin.com/in/katewarman/',
+      bio: 'Senior enterprise talent acquisition and HR operations leader. Led matrixed global TA organizations with 300+ resources, $50M+ budgets, and 8,000+ hires annually across 25+ countries. Expertise in AI-driven recruitment, ATS/CRM optimization, and TA transformation.',
+    },
+    {
+      name: 'Allie Wehling',
+      role: 'Selection & Assessment, Cisco',
+      photo: 'member-headshots/allie-wehling.jpg',
+      linkedin: 'https://www.linkedin.com/in/allie-wehling/',
+      bio: 'Leads Selection & Assessment Strategy at Cisco. Applied Industrial Organizational Psychologist (MS, University of Baltimore) designing assessment strategies that identify and retain top talent. Previously Principal Solution Architect at HireVue and consultant at Deloitte.',
+    },
   ];
 
   const underwriters = ['Workday', 'Findem', 'Warden AI', 'Humanly', 'GoodTime', 'Rival', 'isolved', 'Glider', 'CodeSignal', 'Gem', 'HiBob', 'SmartRecruiters', 'Indeed'];
@@ -882,7 +1039,7 @@ function HCAIC_Final() {
             </h2>
           </div>
           <p style={{ fontSize: '1.05rem', lineHeight: 1.6, color: C.slate, maxWidth: '52ch', paddingBottom: '0.5rem' }}>
-              Forty-plus senior HR leaders who have found traction with AI inside their own organizations. Every framework on this site carries their fingerprints. When we say practitioner-led, these are the practitioners.
+              Senior HR leaders who have found traction with AI inside their own organizations. Every framework on this site carries their fingerprints. When we say practitioner-led, these are the practitioners.
           </p>
         </div>
 
@@ -892,7 +1049,7 @@ function HCAIC_Final() {
             const bg = bgColors[i % bgColors.length];
             const initials = m.name.startsWith('+') ? '+' : m.name.split(' ').map(n => n[0]).join('').slice(0, 2);
             return (
-              <div key={i} className="member-card" style={{ textAlign: 'center', cursor: 'default' }}>
+              <div key={i} className="member-card" onClick={() => setSelectedMember(m)} style={{ textAlign: 'center', cursor: 'pointer' }}>
                 <div
                   className="avatar"
                   style={{
@@ -1933,6 +2090,87 @@ function HCAIC_Final() {
       )}
 
       {/* AI MOMENTUM MODAL */}
+      {selectedMember && (
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedMember(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(23, 35, 57, 0.6)',
+            zIndex: 220,
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'center',
+            padding: '4rem 2rem',
+            overflowY: 'auto',
+            animation: 'fadeUp 0.3s ease-out',
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: C.ivory,
+              maxWidth: '640px',
+              width: '100%',
+              borderRadius: '8px',
+              padding: '2.75rem 2.75rem 2.25rem',
+              position: 'relative',
+              boxShadow: '0 30px 80px rgba(23, 35, 57, 0.3)',
+            }}
+          >
+            <button
+              onClick={() => setSelectedMember(null)}
+              style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: 'transparent', border: 'none', fontSize: '1.5rem', color: C.slate, cursor: 'pointer', padding: '0.4rem 0.7rem' }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+
+            <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.75rem' }}>
+              <div style={{ width: '96px', height: '96px', borderRadius: '50%', overflow: 'hidden', flexShrink: 0, background: `linear-gradient(135deg, ${C.lilac}, ${C.lilac}99)` }}>
+                {selectedMember.photo ? (
+                  <img src={selectedMember.photo} alt={selectedMember.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                ) : null}
+              </div>
+              <div>
+                <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.35rem' }}>
+                  {selectedMember.role}
+                </div>
+                <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy }}>
+                  {selectedMember.name}
+                </h3>
+              </div>
+            </div>
+
+            <p style={{ fontSize: '0.98rem', lineHeight: 1.65, color: C.slate, marginBottom: '1.75rem' }}>
+              {selectedMember.bio}
+            </p>
+
+            {selectedMember.linkedin && (
+              <a
+                href={selectedMember.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: C.navy,
+                  fontSize: '0.88rem',
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  borderBottom: `1px solid ${C.navy}`,
+                  paddingBottom: '2px',
+                }}
+              >
+                View LinkedIn profile <span>→</span>
+              </a>
+            )}
+          </div>
+        </div>
+      )}
+
       {momentumOpen && (
         <div
           className="modal-overlay"
