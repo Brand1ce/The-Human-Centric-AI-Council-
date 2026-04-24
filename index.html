@@ -937,11 +937,15 @@ function HCAIC_Final() {
       {/* HOW THIS IS FUNDED — honest vendor section */}
       <section style={{ padding: '6rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
         <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.5rem' }}>
-          We couldn't do this work without the support of our underwriters
+          The partners funding this work
         </div>
-        <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: '3.5rem', maxWidth: '26ch', lineHeight: 1.05 }}>
-          The deal between <span className="serif-italic" style={{ color: C.lilac }}>practitioners</span> and <span className="serif-italic" style={{ color: C.lilac }}>vendors.</span>
+        <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 400, letterSpacing: '-0.02em', marginBottom: '2rem', maxWidth: '26ch', lineHeight: 1.05 }}>
+          Who's <span className="serif-italic" style={{ color: C.lilac }}>standing with</span> the field.
         </h2>
+
+        <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: C.slate, marginBottom: '3.5rem', maxWidth: '62ch' }}>
+          Thirteen underwriters fund this work, join practitioner dialogue, and help us keep everything the Council publishes free and open to every HR team. Here's how the model works — what they do, and what they don't.
+        </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
           <div style={{ borderTop: `2px solid ${C.navy}`, paddingTop: '2rem' }}>
@@ -1009,13 +1013,13 @@ function HCAIC_Final() {
         <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <span>Research Report · Kyle &amp; Co</span>
+              <span>One more resource · From Kyle &amp; Co</span>
             </div>
             <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '1.25rem', color: C.ivory }}>
               AI is not about maturity.<br /><span className="serif-italic" style={{ color: C.cream }}>It's about momentum.</span>
             </h2>
             <p style={{ fontSize: '0.95rem', lineHeight: 1.65, color: 'rgba(247,241,234,0.8)', marginBottom: '2rem', maxWidth: '50ch' }}>
-              The AI Momentum Model reframes how HR teams think about AI adoption. Not a finish line, but a force to be built. This Kyle &amp; Co research report introduces the model, the nine archetypes, and what it takes to move from stalled to building.
+              A companion resource — not Council work, but it pairs with it. The HCAIC frameworks tell you what to do. The AI Momentum Report, from Kyle &amp; Co, tells you where you actually are: nine archetypes, three drivers, and a diagnostic for what's holding your AI work back.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
               <button onClick={() => setMomentumDownloadOpen(true)} style={{ background: C.cream, color: C.navyDark, padding: '0.95rem 1.75rem', borderRadius: '100px', border: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -1085,14 +1089,14 @@ function HCAIC_Final() {
       {/* TRIPLE CTA */}
       <section id="join" style={{ padding: '7rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
         <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '3.5rem', maxWidth: '24ch' }}>
-          Three ways to <span className="serif-italic" style={{ color: C.lilac }}>be part of this.</span>
+          Where <span className="serif-italic" style={{ color: C.lilac }}>you</span> come in.
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
           {[
             {
-              label: 'If you lead HR',
-              title: 'Apply to the Council',
-              sub: 'Join Cohort 2. Monthly working sessions with senior peers who are making AI work. Shape the frameworks the rest of the market will end up using.',
+              label: 'HR leaders doing the work',
+              title: 'Shape what the field builds next.',
+              sub: 'Join Cohort Two. Monthly working sessions with senior peers making AI work inside their organizations. Author the frameworks the rest of the field will end up using.',
               cta: 'Apply',
               primary: true,
               bg: C.navy,
@@ -1101,9 +1105,9 @@ function HCAIC_Final() {
               onClick: () => setApplyOpen(true),
             },
             {
-              label: 'If you sell HR tech',
-              title: 'Become an underwriter',
-              sub: '13 partners fund the work today. Underwriters support the mission and join market-level dialogue. They do not steer it.',
+              label: 'HR tech vendors',
+              title: 'Back the work. Stand in the conversation.',
+              sub: 'Thirteen partners fund the Council today. Underwriters join market-level dialogue with the practitioners they sell to. They do not steer the work.',
               cta: 'Start the conversation',
               primary: false,
               bg: C.ivory,
@@ -1113,9 +1117,9 @@ function HCAIC_Final() {
               onClick: () => setUnderwriterOpen(true),
             },
             {
-              label: 'If you need to operationalize this',
-              title: 'Work with Kyle & Co',
-              sub: 'Implementation, advisory, and program design for HR teams putting the frameworks into practice.',
+              label: 'Teams putting this into practice',
+              title: 'Turn the frameworks into execution.',
+              sub: "Implementation, advisory, and program design from Kyle & Co for HR teams operationalizing the Council's work.",
               cta: 'Talk to us',
               primary: false,
               bg: C.cream,
