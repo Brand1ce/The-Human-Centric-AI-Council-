@@ -413,6 +413,7 @@
               <button class="etab done" onclick="switchConf(6,this)">6</button>
               <button class="etab done" onclick="switchConf(7,this)">7</button>
               <button class="etab done" onclick="switchConf(8,this)">8</button>
+              <button class="etab done" onclick="switchConf(9,this)">9</button>
             </div>
           </div>
         </div>
@@ -428,6 +429,7 @@
         <div class="email-slide" id="conf-slide-6"><div class="email-scroll"><iframe src="thankyou-momentum.html" title="Momentum Confirmation" style="height:900px;"></iframe></div></div>
         <div class="email-slide" id="conf-slide-7"><div class="email-scroll"><iframe src="townhall-registration.html" title="Town Hall Registration" style="height:1500px;"></iframe></div></div>
         <div class="email-slide" id="conf-slide-8"><div class="email-scroll"><iframe src="mailerlite-momentum-email.html" title="Momentum Delivery Email" style="height:900px;"></iframe></div></div>
+        <div class="email-slide" id="conf-slide-9"><div class="email-scroll"><iframe src="mailerlite-email-template.html" title="Library Access Delivery Email" style="height:1000px;"></iframe></div></div>
       </div>
 
     </section>
@@ -600,10 +602,11 @@
     6: { tag: 'Confirmation Page', type: 'tag-c', s: 'AI Momentum Report — Check Your Inbox', p: 'After the AIMM download form' },
     7: { tag: 'Registration Page', type: 'tag-c', s: 'Town Hall Registration Form', p: 'Standalone page linked from emails and the Council page' },
     8: { tag: 'Delivery Email',    type: 'tag-v', s: 'AI Momentum Report — Delivery Email', p: 'Sent via MailerLite after the AIMM download form' },
+    9: { tag: 'Delivery Email',    type: 'tag-v', s: 'HCAIC Library Access — Delivery Email', p: 'Sent via MailerLite after toolkit signup' },
   };
 
   function switchConf(num, btn) {
-    for (var n = 1; n <= 8; n++) {
+    for (var n = 1; n <= 9; n++) {
       var el = document.getElementById('conf-slide-' + n);
       if (el) el.classList.remove('active');
     }
