@@ -871,15 +871,15 @@ function HCAIC_Final() {
                 If you lead HR and have moved AI work forward, <span className="serif-italic" style={{ color: C.cream }}>we want you in the room.</span>
               </div>
             </div>
-            <a
-              href="#"
-              data-apply-council
+            <button
+              onClick={() => setApplyOpen(true)}
               style={{
                 background: C.cream,
                 color: C.navy,
                 padding: '1rem 1.9rem',
                 borderRadius: '100px',
-                textDecoration: 'none',
+                border: 'none',
+                cursor: 'pointer',
                 fontSize: '0.9rem',
                 fontWeight: 500,
                 display: 'inline-flex',
@@ -890,7 +890,7 @@ function HCAIC_Final() {
               className="link-arrow"
             >
               Apply to join the Council <span>→</span>
-            </a>
+            </button>
           </div>
         </div>
       </section>
