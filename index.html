@@ -467,7 +467,7 @@ function HCAIC_Final() {
     },
   ];
 
-  const underwriters = ['Workday', 'Findem', 'Warden AI', 'Humanly', 'GoodTime', 'Rival', 'isolved', 'Glider', 'CodeSignal', 'Gem', 'HiBob', 'SmartRecruiters', 'Indeed'];
+  const underwriters = ['Workday', 'Findem', 'Warden AI', 'Humanly', 'GoodTime', 'Rival', 'isolved', 'Glider', 'CodeSignal', 'Gem', 'HiBob', 'SmartRecruiters'];
 
   // EDITABLE: upcoming town halls, webinars, and replays
   // status values: 'upcoming' | 'replay' | 'live'
@@ -1110,7 +1110,7 @@ function HCAIC_Final() {
         </h2>
 
         <p style={{ fontSize: '1.05rem', lineHeight: 1.65, color: C.slate, marginBottom: '3.5rem', maxWidth: '62ch' }}>
-          Thirteen underwriters fund this work, join practitioner dialogue, and help us keep everything the Council publishes free and open to every HR team. Here's how the model works — what they do, and what they don't.
+          Twelve underwriters fund this work, join practitioner dialogue, and help us keep everything the Council publishes free and open to every HR team. Here's how the model works — what they do, and what they don't.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
@@ -1156,7 +1156,7 @@ function HCAIC_Final() {
         <div style={{ padding: '2.5rem 3rem', background: C.navy, color: C.ivory, borderRadius: '6px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div className="mono" style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.7 }}>
-              2026 Underwriters · 13 partners
+              2026 Underwriters · 12 partners
             </div>
             <a href="#vendor-cta" className="underline-grow" style={{ color: C.cream, fontSize: '0.85rem', textDecoration: 'none' }}>
               Become an underwriter →
@@ -1164,11 +1164,8 @@ function HCAIC_Final() {
           </div>
           <div style={{ overflow: 'hidden' }}>
             <div className="marquee">
-              {[...underwriters, ...underwriters].map((name, i) => (
-                <span key={i} className="display" style={{ fontSize: '1.75rem', fontWeight: 300, letterSpacing: '-0.01em', color: C.ivory, opacity: 0.9 }}>
-                  {name}
-                </span>
-              ))}
+              <img src="underwriter-logos.svg" alt="HCAIC 2026 Underwriters" style={{ height: '44px', width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }} />
+              <img src="underwriter-logos.svg" alt="HCAIC 2026 Underwriters" style={{ height: '44px', width: 'auto', display: 'block', filter: 'brightness(0) invert(1)' }} />
             </div>
           </div>
         </div>
@@ -1273,7 +1270,7 @@ function HCAIC_Final() {
             {
               label: 'HR tech vendors',
               title: 'Back the work. Stand in the conversation.',
-              sub: 'Thirteen partners fund the Council today. Underwriters join market-level dialogue with the practitioners they sell to. They do not steer the work.',
+              sub: 'Twelve partners fund the Council today. Underwriters join market-level dialogue with the practitioners they sell to. They do not steer the work.',
               cta: 'Start the conversation',
               primary: false,
               bg: C.ivory,
