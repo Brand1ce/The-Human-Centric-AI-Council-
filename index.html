@@ -1746,7 +1746,7 @@ function HCAIC_Final() {
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>
                   Cohort 2 is open to senior HR practitioners who have moved AI work forward inside their organizations. Monthly working sessions, framework co-creation, and a peer group that does not exist anywhere else.
                 </p>
-                <form action={ML_APPLY_URL} method="post" target="ml-submit-frame" onSubmit={() => setApplySubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_APPLY_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setApplySubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <input required type="text" name="fields[name]" placeholder="Full name" style={gateInput(C)} />
                   <input required type="email" name="fields[email]" placeholder="Work email" style={gateInput(C)} />
                   <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
@@ -1861,7 +1861,7 @@ function HCAIC_Final() {
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>
                   Implementation, advisory, and program design for HR teams putting the Council's frameworks into practice. Tell us where you're starting from.
                 </p>
-                <form action={ML_KCO_URL} method="post" target="ml-submit-frame" onSubmit={() => setKcoSubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_KCO_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setKcoSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -1935,7 +1935,7 @@ function HCAIC_Final() {
                 <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Town Hall · May 12, 2026 · 1:00pm ET</div>
                 <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>Cohort Zero Toolkit Launch</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The Council walks through all four frameworks, why they exist, and how HR teams are putting them to work. Open to the full community.</p>
-                <form action={ML_TOWNHALL_URL} method="post" target="ml-submit-frame" onSubmit={() => setTownhallSubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_TOWNHALL_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setTownhallSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -2012,7 +2012,7 @@ function HCAIC_Final() {
 
                 <div style={{ borderTop: `1px solid rgba(39,55,82,0.12)`, paddingTop: '1.75rem' }}>
                   <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '1rem' }}>Start the conversation</div>
-                  <form action={ML_UNDERWRITER_URL} method="post" target="ml-submit-frame" onSubmit={() => setUnderwriterSubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                  <form action={ML_UNDERWRITER_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setUnderwriterSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                       <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                       <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -2072,7 +2072,7 @@ function HCAIC_Final() {
                 <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Research Report · Kyle &amp; Co</div>
                 <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>The AI Momentum Report</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The model, the nine archetypes, and what it takes to build momentum. Research from Kyle &amp; Co, informed by work with senior HR leaders.</p>
-                <form action={ML_MOMENTUM_URL} method="post" target="ml-submit-frame" onSubmit={() => setMomentumDownloadSubmitted(true)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_MOMENTUM_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setMomentumDownloadSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
