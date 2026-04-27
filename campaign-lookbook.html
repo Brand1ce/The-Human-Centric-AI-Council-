@@ -166,6 +166,76 @@
     .li-carousel-slide { background: #f5f5f5; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(39,55,82,0.07); aspect-ratio: 1; }
     .li-carousel-slide iframe { width: 100%; height: 100%; border: none; display: block; }
     .li-slide-num { font-size: 0.6rem; color: #9D92AD; text-align: center; padding: 0.3rem 0; }
+    /* ── FEEDBACK PANEL ─────────────────────── */
+    .fb-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 300;
+      background: #273752; color: #F7F1EA;
+      border: none; border-radius: 100px;
+      padding: 0.65rem 1.25rem; font-size: 0.78rem; font-weight: 600;
+      font-family: inherit; cursor: pointer; letter-spacing: 0.03em;
+      box-shadow: 0 4px 16px rgba(39,55,82,0.25);
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.15s;
+    }
+    .fb-btn:hover { background: #1E2C42; }
+    .fb-btn .fb-count {
+      background: #FDECCD; color: #273752;
+      border-radius: 100px; font-size: 0.68rem; font-weight: 700;
+      padding: 0.1rem 0.45rem; min-width: 1.2rem; text-align: center;
+    }
+    .fb-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(23,35,57,0.4); z-index: 301;
+    }
+    .fb-overlay.open { display: block; }
+    .fb-panel {
+      position: fixed; top: 0; right: -440px; width: 420px; height: 100vh;
+      background: #fff; z-index: 302; display: flex; flex-direction: column;
+      box-shadow: -8px 0 40px rgba(23,35,57,0.15);
+      transition: right 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .fb-panel.open { right: 0; }
+    .fb-header {
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(39,55,82,0.1);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .fb-header h3 { font-size: 0.88rem; font-weight: 600; color: #273752; }
+    .fb-close { background: none; border: none; font-size: 1.4rem; color: #9D92AD; cursor: pointer; padding: 0.2rem 0.5rem; }
+    .fb-close:hover { color: #273752; }
+    .fb-feed {
+      flex: 1; overflow-y: auto; padding: 1rem 1.5rem;
+    }
+    .fb-feed::-webkit-scrollbar { width: 4px; }
+    .fb-feed::-webkit-scrollbar-thumb { background: rgba(39,55,82,0.15); border-radius: 2px; }
+    .fb-empty { text-align: center; padding: 3rem 1rem; color: #9D92AD; font-size: 0.82rem; }
+    .fb-card {
+      background: #F7F1EA; border-radius: 8px; padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .fb-card-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
+    .fb-card-name { font-size: 0.75rem; font-weight: 600; color: #273752; }
+    .fb-card-section { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9D92AD; }
+    .fb-card-time { font-size: 0.65rem; color: #9D92AD; }
+    .fb-card-body { font-size: 0.82rem; line-height: 1.55; color: #555961; }
+    .fb-form {
+      border-top: 1px solid rgba(39,55,82,0.1); padding: 1rem 1.5rem 1.25rem; flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .fb-form-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: #9D92AD; font-weight: 600; margin-bottom: 0.2rem; }
+    .fb-form input, .fb-form select, .fb-form textarea {
+      width: 100%; padding: 0.6rem 0.75rem; border: 1.5px solid rgba(39,55,82,0.15);
+      border-radius: 6px; font-size: 0.82rem; color: #273752; font-family: inherit;
+      background: #fff; outline: none;
+    }
+    .fb-form input:focus, .fb-form select:focus, .fb-form textarea:focus { border-color: #9D92AD; }
+    .fb-form textarea { resize: vertical; min-height: 72px; }
+    .fb-submit {
+      background: #273752; color: #F7F1EA; border: none; border-radius: 100px;
+      padding: 0.65rem 1.25rem; font-size: 0.82rem; font-weight: 600;
+      font-family: inherit; cursor: pointer; align-self: flex-start;
+    }
+    .fb-submit:disabled { opacity: 0.5; cursor: default; }
+    .fb-status { font-size: 0.75rem; color: #9D92AD; }
   </style>
 </head>
 <body>
@@ -575,7 +645,145 @@
   </div><!-- /content -->
 </main>
 
+<!-- ── FEEDBACK ── -->
+<div class="fb-overlay" id="fb-overlay" onclick="closeFeedback()"></div>
+<div class="fb-panel" id="fb-panel">
+  <div class="fb-header">
+    <h3>Feedback <span id="fb-header-count" style="color:#9D92AD;font-weight:400;"></span></h3>
+    <button class="fb-close" onclick="closeFeedback()">×</button>
+  </div>
+  <div class="fb-feed" id="fb-feed">
+    <div class="fb-empty" id="fb-empty">No feedback yet.</div>
+  </div>
+  <div class="fb-form">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div>
+        <div class="fb-form-label">Name</div>
+        <input type="text" id="fb-name" placeholder="Your name" />
+      </div>
+      <div>
+        <div class="fb-form-label">Section</div>
+        <select id="fb-section">
+          <option value="General">General</option>
+          <option value="Brand Identity">Brand Identity</option>
+          <option value="Council Page">Council Page</option>
+          <option value="Town Hall Landing">Town Hall Landing</option>
+          <option value="Toolkit Pages">Toolkit Pages</option>
+          <option value="Practitioner Emails">Practitioner Emails</option>
+          <option value="Vendor Emails">Vendor Emails</option>
+          <option value="Confirmation Pages">Confirmation Pages</option>
+          <option value="LinkedIn Assets">LinkedIn Assets</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div class="fb-form-label">Comment</div>
+      <textarea id="fb-comment" placeholder="What do you think?"></textarea>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button class="fb-submit" id="fb-submit" onclick="submitFeedback()">Post feedback</button>
+      <span class="fb-status" id="fb-status"></span>
+    </div>
+  </div>
+</div>
+
+<button class="fb-btn" onclick="openFeedback()">
+  💬 Feedback <span class="fb-count" id="fb-btn-count" style="display:none;"></span>
+</button>
+
 <script>
+  // ── FEEDBACK CONFIG ─────────────────────────────────────────────────────
+  var JSONBIN_KEY    = 'PASTE_API_KEY_HERE';
+  var JSONBIN_BIN_ID = 'PASTE_BIN_ID_HERE';
+  var JSONBIN_URL    = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
+
+  var fbItems = [];
+
+  function openFeedback() {
+    document.getElementById('fb-panel').classList.add('open');
+    document.getElementById('fb-overlay').classList.add('open');
+    loadFeedback();
+  }
+  function closeFeedback() {
+    document.getElementById('fb-panel').classList.remove('open');
+    document.getElementById('fb-overlay').classList.remove('open');
+  }
+
+  function loadFeedback() {
+    if (JSONBIN_BIN_ID === 'PASTE_BIN_ID_HERE') {
+      document.getElementById('fb-empty').textContent = 'Add your JSONBin API key and bin ID to enable feedback.';
+      return;
+    }
+    document.getElementById('fb-empty').textContent = 'Loading…';
+    fetch(JSONBIN_URL + '/latest', { headers: { 'X-ACCESS-KEY': JSONBIN_KEY } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        fbItems = (data.record && data.record.feedback) || [];
+        renderFeedback();
+      })
+      .catch(function() {
+        document.getElementById('fb-empty').textContent = 'Could not load feedback. Check your API key.';
+      });
+  }
+
+  function renderFeedback() {
+    var feed = document.getElementById('fb-feed');
+    var empty = document.getElementById('fb-empty');
+    var count = fbItems.length;
+    document.getElementById('fb-header-count').textContent = count ? '(' + count + ')' : '';
+    var btn = document.getElementById('fb-btn-count');
+    if (count) { btn.textContent = count; btn.style.display = 'inline-block'; }
+    else { btn.style.display = 'none'; }
+    if (!count) { empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    var html = '';
+    fbItems.slice().reverse().forEach(function(item) {
+      var d = new Date(item.ts);
+      var time = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      html += '<div class="fb-card">' +
+        '<div class="fb-card-meta">' +
+          '<span><span class="fb-card-name">' + esc(item.name) + '</span>&nbsp;&nbsp;<span class="fb-card-section">' + esc(item.section) + '</span></span>' +
+          '<span class="fb-card-time">' + time + '</span>' +
+        '</div>' +
+        '<div class="fb-card-body">' + esc(item.comment) + '</div>' +
+      '</div>';
+    });
+    feed.innerHTML = html + '<div class="fb-empty" id="fb-empty" style="display:none;"></div>';
+  }
+
+  function submitFeedback() {
+    if (JSONBIN_BIN_ID === 'PASTE_BIN_ID_HERE') return;
+    var name = document.getElementById('fb-name').value.trim();
+    var section = document.getElementById('fb-section').value;
+    var comment = document.getElementById('fb-comment').value.trim();
+    if (!name || !comment) { document.getElementById('fb-status').textContent = 'Name and comment required.'; return; }
+    var btn = document.getElementById('fb-submit');
+    var status = document.getElementById('fb-status');
+    btn.disabled = true; status.textContent = 'Saving…';
+    var newItem = { name: name, section: section, comment: comment, ts: new Date().toISOString() };
+    var updated = { feedback: fbItems.concat([newItem]) };
+    fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-ACCESS-KEY': JSONBIN_KEY },
+      body: JSON.stringify(updated)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() {
+      fbItems.push(newItem);
+      renderFeedback();
+      document.getElementById('fb-comment').value = '';
+      status.textContent = 'Posted ✓';
+      setTimeout(function() { status.textContent = ''; }, 2500);
+    })
+    .catch(function() { status.textContent = 'Error — try again.'; })
+    .finally(function() { btn.disabled = false; });
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── RETRY HEIGHT ─────────────────────────────────────────────────────────
   // Retry height measurement until images have loaded (up to 3s)
   function autoH(iframe) {
     var tries = 0;
