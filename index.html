@@ -760,7 +760,7 @@ function HCAIC_Final() {
         {/* Access all CTA */}
         <div style={{ marginBottom: '2.5rem' }}>
           <button
-            onClick={() => { if (accessGranted) { window.alert('[Preview] Full toolkit access'); } else { setGateOpen(true); } }}
+            onClick={() => { if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
             style={{ padding: '0.95rem 2rem', background: C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
           >
             Access the Full Toolkit →
