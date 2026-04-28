@@ -84,6 +84,7 @@
         <option value="Consultant">Consultant</option>
         <option value="Other">Other</option>
       </select>
+      <input type="hidden" name="fields[variant]" id="variant-field" value="" />
       <input type="hidden" name="ml-submit" value="1" />
       <input type="hidden" name="anticsrf" value="true" />
       <button type="submit" class="btn" id="submit-btn">Access the Toolkit →</button>
@@ -100,6 +101,10 @@
 <iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
 
 <script>
+  // Capture variant tag from URL (?v=a) and inject into hidden field
+  var variant = new URLSearchParams(window.location.search).get('v');
+  if (variant) document.getElementById('variant-field').value = variant;
+
   document.getElementById('signup-form').addEventListener('submit', function() {
     var btn = document.getElementById('submit-btn');
     btn.disabled = true;
