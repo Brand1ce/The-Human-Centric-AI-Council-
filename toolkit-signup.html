@@ -74,6 +74,16 @@
         <input required type="text" name="fields[job_title]" placeholder="Title" />
         <input required type="text" name="fields[company]" placeholder="Company" />
       </div>
+      <select required name="fields[role]" style="width:100%;padding:0.75rem 1rem;border:1px solid rgba(39,55,82,0.18);border-radius:8px;font-size:0.9rem;font-family:inherit;color:#273752;background:#fff;outline:none;appearance:none;">
+        <option value="" disabled selected>Your role</option>
+        <option value="HR Practitioner">HR Practitioner</option>
+        <option value="HR Leader">HR Leader</option>
+        <option value="People Analytics">People Analytics</option>
+        <option value="TA">TA</option>
+        <option value="Vendor">Vendor</option>
+        <option value="Consultant">Consultant</option>
+        <option value="Other">Other</option>
+      </select>
       <input type="hidden" name="ml-submit" value="1" />
       <input type="hidden" name="anticsrf" value="true" />
       <button type="submit" class="btn" id="submit-btn">Access the Toolkit →</button>
