@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<title>Access the HCAIC AI Transformation Toolkit</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F7F1EA; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #273752; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+
+  .card { background: #fff; border-radius: 12px; padding: 3rem 3rem 2.5rem; max-width: 520px; width: 100%; box-shadow: 0 2px 24px rgba(39,55,82,0.08); }
+
+  .brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
+  .brand-mark { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #273752; border-radius: 6px; font-family: Georgia, serif; font-size: 1.1rem; font-style: italic; color: #FDECCD; flex-shrink: 0; }
+  .brand-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9D92AD; font-weight: 500; }
+
+  h1 { font-size: 1.7rem; font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: #273752; margin-bottom: 0.6rem; }
+  h1 em { font-style: italic; color: #9D92AD; }
+  .sub { font-size: 0.9rem; line-height: 1.6; color: #555961; margin-bottom: 2rem; }
+
+  .resources { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 2rem; }
+  .resource { font-size: 0.82rem; color: #555961; padding: 0.5rem 0; border-bottom: 1px solid rgba(39,55,82,0.08); display: flex; align-items: baseline; gap: 0.5rem; }
+  .resource:last-child { border-bottom: none; }
+  .resource-dot { width: 5px; height: 5px; border-radius: 50%; background: #9D92AD; flex-shrink: 0; position: relative; top: -1px; }
+
+  form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  input, select { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(39,55,82,0.18); border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #273752; background: #fff; outline: none; transition: border-color 0.15s; }
+  input:focus { border-color: #273752; }
+  input::placeholder { color: #9D92AD; }
+
+  .btn { margin-top: 0.25rem; background: #273752; color: #F7F1EA; border: none; border-radius: 100px; padding: 1rem 1.5rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; cursor: pointer; width: 100%; transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.88; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .note { font-size: 0.75rem; color: #9D92AD; text-align: center; margin-top: 0.75rem; }
+
+  .success { text-align: center; padding: 1.5rem 0; }
+  .success h2 { font-size: 1.4rem; font-weight: 400; color: #273752; margin-bottom: 0.75rem; }
+  .success p { font-size: 0.9rem; color: #555961; line-height: 1.6; }
+
+  @media (max-width: 480px) {
+    .card { padding: 2rem 1.5rem; }
+    .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">
+    <span class="brand-mark">&amp;</span>
+    <span class="brand-label">The Human-Centric AI Council</span>
+  </div>
+
+  <div id="form-view">
+    <h1>The AI Transformation<br /><em>Toolkit.</em></h1>
+    <p class="sub">Four practitioner-built resources for HR leaders navigating AI. Free, no paywall — one signup unlocks everything.</p>
+
+    <div class="resources">
+      <div class="resource"><span class="resource-dot"></span>AI Education &amp; Literacy Toolkit</div>
+      <div class="resource"><span class="resource-dot"></span>AI Change Management &amp; Adoption eBook</div>
+      <div class="resource"><span class="resource-dot"></span>AI Solution Evaluation &amp; Design Framework</div>
+      <div class="resource"><span class="resource-dot"></span>Responsible AI Transformation Framework</div>
+    </div>
+
+    <form id="signup-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/185316851276842065/subscribe" method="post" target="ml-submit-frame">
+      <div class="row">
+        <input required type="text" name="fields[name]" placeholder="First name" />
+        <input required type="text" name="fields[last_name]" placeholder="Last name" />
+      </div>
+      <input required type="email" name="fields[email]" placeholder="Work email" />
+      <div class="row">
+        <input required type="text" name="fields[job_title]" placeholder="Title" />
+        <input required type="text" name="fields[company]" placeholder="Company" />
+      </div>
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
+      <button type="submit" class="btn" id="submit-btn">Access the Toolkit →</button>
+      <p class="note">Free to our community, always.</p>
+    </form>
+  </div>
+
+  <div id="success-view" class="success" style="display:none;">
+    <h2>You're in.</h2>
+    <p>Taking you to the toolkit now&hellip;</p>
+  </div>
+</div>
+
+<iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
+
+<script>
+  document.getElementById('signup-form').addEventListener('submit', function() {
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    setTimeout(function() {
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success-view').style.display = 'block';
+      setTimeout(function() {
+        window.location.href = 'thankyou.html';
+      }, 1200);
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>
