@@ -49,6 +49,7 @@ function HCAIC_Final() {
   const [underwriterSubmitted, setUnderwriterSubmitted] = useState(false);
   const [momentumDownloadOpen, setMomentumDownloadOpen] = useState(false);
   const [momentumDownloadSubmitted, setMomentumDownloadSubmitted] = useState(false);
+  const [pillarOpen, setPillarOpen] = useState(null);
 
   // AI Momentum Model content (from Kyle & Co research report)
   const momentumDrivers = [
@@ -94,13 +95,13 @@ function HCAIC_Final() {
   }, []);
 
   useEffect(() => {
-    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen || momentumDownloadOpen || selectedMember) {
+    if (selectedResource || momentumOpen || gateOpen || applyOpen || kcoOpen || townhallOpen || underwriterOpen || momentumDownloadOpen || selectedMember || pillarOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen, selectedMember]);
+  }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen, selectedMember, pillarOpen]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -715,17 +716,18 @@ function HCAIC_Final() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {[
-                { n: '01', name: 'AI Literacy & Education', blurb: 'Role-specific tools and a practitioner learning community.' },
-                { n: '02', name: 'AI Safety & Trust', blurb: 'Practical standards for fairness, transparency, and accountability.' },
-                { n: '03', name: 'AI Value Realization', blurb: 'Connecting solutions to real business outcomes and ROI.' },
-                { n: '04', name: 'AI Transformation & Scale', blurb: 'Responsible rollout, workforce impact, and cross-functional collaboration.' },
-                { n: '05', name: 'AI Future-Ready Strategy', blurb: 'Trends at the intersection of HR and AI — and what to do about them.' },
+                { n: '01', name: 'AI Literacy & Education', blurb: 'Structured learning and resources to build HR confidence and clarity around AI.', full: 'Provide structured learning, experience-derived resources, and foundational knowledge to help HR professionals build confidence and clarity around AI within the functions and within the purview of HR. This work aims to demystify AI, break through market noise, and empower teams with the knowledge and understanding needed to engage meaningfully in AI conversations and initiatives.' },
+                { n: '02', name: 'AI Trust & Safety', blurb: 'Practical tools to evaluate AI through fairness, transparency, and accountability.', full: 'Equip HR leaders with practical tools and guidance to evaluate AI solutions through a lens of fairness, transparency, and accountability. This includes resources on bias mitigation, ethical AI adoption, and curated updates on global regulations — positioning HR as a responsible steward of AI use across the employee lifecycle.' },
+                { n: '03', name: 'AI Value Realization', blurb: 'Frameworks for defining business problems, building cases, and demonstrating AI ROI.', full: 'Support HR in making the case for AI by defining real business problems, articulating ROI, and highlighting AI\'s impact on outcomes like efficiency, experience, and business alignment. This pillar includes frameworks for vendor evaluation, business case development, and a living repository of AI use cases and success stories.' },
+                { n: '04', name: 'AI Adoption & Change Management', blurb: 'Practical roadmaps to pilot, scale, and manage workforce impact of AI adoption.', full: 'Guide HR through the responsible implementation of AI, from piloting new tools to scaling their use across functions. Emphasis is placed on practical adoption roadmaps, stakeholder alignment, and managing the workforce impact — including talent acquisition, reskilling, and job transformation.' },
+                { n: '05', name: 'Forward-Thinking & Future-Ready AI', blurb: 'Curated insights on emerging trends to help HR anticipate and lead what\'s next.', full: 'Explore and interpret emerging technology trends to help HR leaders anticipate what\'s next. Through curated insights and conversations with technologists and scientific experts, this pillar ensures HR stays ahead of market shifts — and shapes the future of work and workforce strategy with confidence.' },
               ].map((p) => (
                 <div key={p.n} style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', padding: '1rem 1.25rem', borderRadius: '6px', background: 'rgba(247,241,234,0.06)', borderLeft: `2px solid ${C.lilac}` }}>
                   <span className="mono" style={{ fontSize: '0.6rem', color: C.lilac, fontWeight: 500, flexShrink: 0, paddingTop: '0.2rem' }}>{p.n}</span>
-                  <div>
+                  <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '0.88rem', fontWeight: 500, color: C.ivory, marginBottom: '0.2rem' }}>{p.name}</div>
                     <div style={{ fontSize: '0.78rem', color: 'rgba(247,241,234,0.6)', lineHeight: 1.5 }}>{p.blurb}</div>
+                    <button onClick={() => setPillarOpen(p)} style={{ marginTop: '0.5rem', background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontSize: '0.72rem', color: C.lilac, fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', opacity: 0.85 }}>Read more →</button>
                   </div>
                 </div>
               ))}
@@ -2171,6 +2173,17 @@ function HCAIC_Final() {
                 View LinkedIn profile <span>→</span>
               </a>
             )}
+          </div>
+        </div>
+      )}
+
+      {pillarOpen && (
+        <div className="modal-overlay" onClick={() => setPillarOpen(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(23,35,57,0.6)', zIndex: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', animation: 'fadeUp 0.3s ease-out' }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ background: C.navy, borderRadius: '12px', padding: '2.5rem', maxWidth: '560px', width: '100%', position: 'relative' }}>
+            <button onClick={() => setPillarOpen(null)} style={{ position: 'absolute', top: '1.25rem', right: '1.25rem', background: 'none', border: 'none', color: C.lilac, cursor: 'pointer', fontSize: '1.25rem', lineHeight: 1 }}>×</button>
+            <div className="mono" style={{ fontSize: '0.6rem', color: C.lilac, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>{pillarOpen.n} · Pillar</div>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 500, color: C.ivory, letterSpacing: '-0.01em', marginBottom: '1.25rem', lineHeight: 1.2 }}>{pillarOpen.name}</h3>
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.75, color: 'rgba(247,241,234,0.8)' }}>{pillarOpen.full}</p>
           </div>
         </div>
       )}
