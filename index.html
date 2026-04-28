@@ -682,7 +682,7 @@ function HCAIC_Final() {
             }}
             className="link-arrow"
           >
-            Access the Toolkit <span>→</span>
+            Explore the Toolkit <span>→</span>
           </a>
           <a href="#work" className="underline-grow" style={{ color: C.navy, textDecoration: 'none', fontSize: '0.95rem', fontWeight: 500 }}>
             What the Council is building in 2026
@@ -761,7 +761,10 @@ function HCAIC_Final() {
         {/* Access all CTA */}
         <div style={{ marginBottom: '2.5rem' }}>
           <button
-            onClick={() => { if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
+            onClick={() => {
+              const v = sessionStorage.getItem('hcaic_variant');
+              window.location.href = 'toolkit-signup.html' + (v ? '?v=' + v : '');
+            }}
             style={{ padding: '0.95rem 2rem', background: C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
           >
             Access the Full Toolkit →
