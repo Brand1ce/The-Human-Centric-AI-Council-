@@ -204,6 +204,7 @@ function HCAIC_Final() {
       kind: 'interactive',
       format: 'Hosted on CodeSignal',
       authors: 'AI Literacy Workstream',
+      subtitle: 'Powered by CodeSignal',
       length: 'Applied course + pathways',
       short: 'Role-based AI literacy pathways, hosted as an applied learning course on CodeSignal.',
       long: "Most AI literacy content stops at definitions. This one starts where the work starts: what HR teams need to know, at what level, by role. Pathways for HR generalists, TA, HRBPs, and HR leaders. Built with CodeSignal so learners don't read about AI in the abstract, they use it in context.",
@@ -218,6 +219,7 @@ function HCAIC_Final() {
       kind: 'interactive',
       format: 'Interactive Figma workbook',
       authors: 'Tara Torres + Susan Jackson',
+      subtitle: '',
       length: 'Interactive workbook',
       short: 'A practitioner-led framework for implementation, hosted as an interactive Figma workbook.',
       long: "Responsible AI principles are easy. Operationalizing them is where teams get stuck. This workbook walks HR teams through the implementation decisions that principles alone don't solve: where human oversight belongs, how to document model risk, what to put in an AI use policy, and how to run governance without stalling the work. Hosted as an interactive Figma workbook so teams can move through it at their own pace.",
@@ -232,6 +234,7 @@ function HCAIC_Final() {
       kind: 'download',
       format: 'eBook · PDF',
       authors: 'Alicia Miller',
+      subtitle: '',
       length: '48 pages · PDF',
       short: "How AI transformation is different, and what that means for the teams leading it.",
       long: "Traditional change management assumes the change is known. AI change is not. Outputs are probabilistic. Trust is fragile. The work itself keeps shifting. This eBook addresses what that means for adoption in practice: sequencing, communication, resistance patterns, role evolution, and the cultural conditions that separate real scale from permanent pilot purgatory.",
@@ -257,6 +260,7 @@ function HCAIC_Final() {
       kind: 'download',
       format: 'eBook · PDF',
       authors: 'Lydia',
+      subtitle: '',
       length: 'eBook · PDF',
       short: 'Build, buy, borrow, or bot. A decision framework that accounts for what you already own.',
       long: "The five-level AI maturity model most vendors won't show you, paired with a decision framework that accounts for the tech you already have. Walk through your use case and land on a reasoned path: build it, buy it, borrow a capability from an existing stack, or deploy a bot. Built to make procurement conversations defensible.",
@@ -854,9 +858,11 @@ function HCAIC_Final() {
                 <p style={{ fontSize: '0.92rem', lineHeight: 1.55, color: C.slate, maxWidth: '64ch' }}>
                   {r.short}
                 </p>
-                <div className="mono" style={{ fontSize: '0.7rem', color: C.slate, opacity: 0.65, marginTop: '0.6rem', letterSpacing: '0.05em' }}>
-                  Led by {r.authors} · {r.format}
-                </div>
+                {r.subtitle ? (
+                  <div className="mono" style={{ fontSize: '0.7rem', color: C.slate, opacity: 0.65, marginTop: '0.6rem', letterSpacing: '0.05em' }}>
+                    {r.subtitle}
+                  </div>
+                ) : null}
               </div>
               <div style={{ textAlign: 'right' }}>
                 <span className="mono" style={{ fontSize: '0.78rem', color: r.kind === 'interactive' ? C.navyMid : C.navy, fontWeight: 600, letterSpacing: '0.04em', borderBottom: `1px solid ${r.kind === 'interactive' ? C.navyMid : C.navy}`, paddingBottom: '1px' }}>
