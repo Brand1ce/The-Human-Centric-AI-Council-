@@ -54,6 +54,7 @@
   </div>
 
   <div id="form-view">
+    <a href="https://kyleandco.com/aicouncil#library" style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:#9D92AD;text-decoration:none;margin-bottom:1.5rem;">← Back to the toolkit</a>
     <h1>The AI Transformation<br /><em>Toolkit.</em></h1>
     <p class="sub">Four practitioner-built resources for HR leaders navigating AI. Free, no paywall — one signup unlocks everything.</p>
 
@@ -110,10 +111,11 @@
     btn.disabled = true;
     btn.textContent = 'Sending…';
     setTimeout(function() {
+      localStorage.setItem('hcaic_access', '1');
       document.getElementById('form-view').style.display = 'none';
       document.getElementById('success-view').style.display = 'block';
       setTimeout(function() {
-        window.location.href = 'thankyou.html';
+        window.location.href = 'https://kyleandco.com/aicouncil#library';
       }, 1200);
     }, 1000);
   });

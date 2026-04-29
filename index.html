@@ -36,7 +36,7 @@ function HCAIC_Final() {
   const [widgetDismissed, setWidgetDismissed] = useState(false);
   const [momentumOpen, setMomentumOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [accessGranted, setAccessGranted] = useState(false);
+  const [accessGranted, setAccessGranted] = useState(() => localStorage.getItem('hcaic_access') === '1');
   const [gateOpen, setGateOpen] = useState(false);
   const [pendingResourceCta, setPendingResourceCta] = useState(null);
   const [applyOpen, setApplyOpen] = useState(false);
@@ -136,6 +136,7 @@ function HCAIC_Final() {
     window.open('thankyou.html', '_blank');
     // Delay state changes so the form POST reaches MailerLite before the form unmounts
     setTimeout(() => {
+      localStorage.setItem('hcaic_access', '1');
       setAccessGranted(true);
       setGateOpen(false);
       if (pendingResourceCta) {
