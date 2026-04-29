@@ -105,9 +105,12 @@
 <iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
 
 <script>
-  // Capture variant tag from URL (?v=a) and inject into hidden field
+  // Capture variant tag from URL (?v=a), persist in sessionStorage, and inject into hidden field
   var variant = new URLSearchParams(window.location.search).get('v');
-  if (variant) document.getElementById('variant-field').value = variant;
+  if (variant) {
+    sessionStorage.setItem('hcaic_variant', variant);
+    document.getElementById('variant-field').value = variant;
+  }
 
   document.getElementById('signup-form').addEventListener('submit', function() {
     var btn = document.getElementById('submit-btn');
