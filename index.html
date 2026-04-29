@@ -36,7 +36,7 @@ function HCAIC_Final() {
   const [widgetDismissed, setWidgetDismissed] = useState(false);
   const [momentumOpen, setMomentumOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [accessGranted, setAccessGranted] = useState(() => localStorage.getItem('hcaic_access') === '1');
+  const [accessGranted, setAccessGranted] = useState(false);
   const [gateOpen, setGateOpen] = useState(false);
   const [pendingResourceCta, setPendingResourceCta] = useState(null);
   const [applyOpen, setApplyOpen] = useState(false);
@@ -104,6 +104,7 @@ function HCAIC_Final() {
   }, [selectedResource, momentumOpen, gateOpen, applyOpen, kcoOpen, townhallOpen, underwriterOpen, momentumDownloadOpen, selectedMember, pillarOpen]);
 
   useEffect(() => {
+    if (localStorage.getItem('hcaic_access') === '1') setAccessGranted(true);
     const params = new URLSearchParams(window.location.search);
     const hash = window.location.hash;
     // Save variant tag to sessionStorage so it survives modal open
