@@ -117,6 +117,10 @@ function HCAIC_Final() {
       setTimeout(() => setTownhallOpen(true), 400);
       return;
     }
+    if (hash === '#apply') {
+      setTimeout(() => setApplyOpen(true), 400);
+      return;
+    }
     if (!hash) return;
     const timer = setTimeout(() => {
       const el = document.querySelector(hash);
