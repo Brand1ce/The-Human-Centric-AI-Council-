@@ -588,25 +588,27 @@ function HCAIC_Final() {
           </a>
         </div>
         <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', fontSize: '0.85rem' }}>
-          <a href="#library" style={{ color: C.navy, textDecoration: 'none' }}>The AI Transformation Toolkit</a>
-          <a href="#work" style={{ color: C.navy, textDecoration: 'none' }}>2026 Work</a>
-          <a href="#members" style={{ color: C.navy, textDecoration: 'none' }}>Members</a>
-          <a href="#join" style={{ color: C.navy, textDecoration: 'none' }}>How to Participate</a>
-          <a
-            href="#join"
+          <button onClick={() => document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>The AI Transformation Toolkit</button>
+          <button onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>2026 Work</button>
+          <button onClick={() => document.querySelector('#members')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>Members</button>
+          <button onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>How to Participate</button>
+          <button
+            onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
               background: C.navy,
               color: C.ivory,
               padding: '0.65rem 1.3rem',
               borderRadius: '100px',
-              textDecoration: 'none',
+              border: 'none',
+              cursor: 'pointer',
               fontSize: '0.8rem',
               fontWeight: 500,
               letterSpacing: '0.02em',
+              fontFamily: 'inherit',
             }}
           >
             Join the Council
-          </a>
+          </button>
         </div>
       </nav>
 
