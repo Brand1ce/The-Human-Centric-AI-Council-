@@ -113,6 +113,10 @@ function HCAIC_Final() {
       setTimeout(() => setGateOpen(true), 400);
       return;
     }
+    if (hash === '#register') {
+      setTimeout(() => setTownhallOpen(true), 400);
+      return;
+    }
     if (!hash) return;
     const timer = setTimeout(() => {
       const el = document.querySelector(hash);
