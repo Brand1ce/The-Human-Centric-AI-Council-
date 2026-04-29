@@ -1,0 +1,389 @@
+<style>
+.hcaic-post {
+  --navy: #273752;
+  --navy-dark: #172339;
+  --navy-mid: #2D5C94;
+  --lilac: #9D92AD;
+  --ivory: #F7F1EA;
+  --slate: #555961;
+  --cream: #FDECCD;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--navy);
+  line-height: 1.6;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* META */
+.hcaic-post .post-meta {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500;
+  display: flex; gap: 0.85rem; align-items: center; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.hcaic-post .post-meta .tag {
+  background: var(--cream); color: var(--navy-dark);
+  padding: 0.3rem 0.7rem; border-radius: 100px;
+  letter-spacing: 0.12em; font-weight: 600;
+}
+.hcaic-post .post-meta .dot { color: rgba(39,55,82,0.3); }
+
+/* TITLE */
+.hcaic-post h1.post-title {
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05; letter-spacing: -0.025em;
+  margin: 0 0 1.5rem; color: var(--navy);
+}
+.hcaic-post h1.post-title em { font-style: italic; color: var(--lilac); }
+
+.hcaic-post .byline {
+  display: flex; gap: 0.6rem; align-items: center;
+  margin-bottom: 2.5rem;
+  color: var(--slate); font-size: 0.92rem;
+}
+.hcaic-post .byline .author { color: var(--navy); font-weight: 500; }
+
+/* HERO */
+.hcaic-post .hero-image {
+  margin: 0 0 3rem;
+  border-radius: 8px; overflow: hidden;
+  aspect-ratio: 1600/656;
+}
+.hcaic-post .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* BODY TEXT */
+.hcaic-post p {
+  font-size: 1.05rem; line-height: 1.75;
+  color: #3a4558; margin: 0 0 1.4rem;
+}
+.hcaic-post p.lede {
+  font-size: 1.25rem; line-height: 1.6;
+  color: var(--navy); margin-bottom: 1.75rem; font-weight: 400;
+}
+.hcaic-post p.lede em { font-style: italic; color: var(--lilac); }
+
+/* SECTION HEADERS */
+.hcaic-post .sec-kicker {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin: 0 0 1rem;
+}
+.hcaic-post h2.sec {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400;
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin: 0 0 0.5rem; color: var(--navy);
+}
+.hcaic-post h2.sec em { font-style: italic; color: var(--lilac); }
+.hcaic-post .sec-lead {
+  font-style: italic; color: var(--slate);
+  font-size: 1rem; margin: 0 0 2rem;
+}
+
+/* INLINE FIGURES */
+.hcaic-post figure.inline { margin: 2.5rem 0; }
+.hcaic-post figure.inline .img-wrap {
+  background: var(--ivory); border-radius: 8px; overflow: hidden;
+  aspect-ratio: 1600/1088; max-width: 720px; margin: 0 auto;
+}
+.hcaic-post figure.inline.wide .img-wrap { max-width: 100%; }
+.hcaic-post figure.inline img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hcaic-post figure.inline figcaption {
+  margin-top: 0.85rem; text-align: center;
+  font-size: 0.78rem; color: var(--slate);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+
+/* PULL QUOTE */
+.hcaic-post .pullquote {
+  border-left: 3px solid var(--cream);
+  padding: 1.5rem 2rem; margin: 2.5rem 0;
+  background: rgba(253,236,205,0.25);
+  border-radius: 0 6px 6px 0;
+}
+.hcaic-post .pullquote p {
+  font-size: 1.2rem; font-style: italic; font-weight: 400;
+  color: var(--navy); margin: 0; line-height: 1.45;
+}
+
+/* DIVIDER */
+.hcaic-post .rule { border: none; border-top: 1px solid rgba(39,55,82,0.12); margin: 4rem 0; }
+
+/* LEADER PILLS */
+.hcaic-post .leaders { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0 0 2rem; }
+.hcaic-post .leader {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: white; border: 1px solid rgba(39,55,82,0.1);
+  padding: 0.5rem 1rem 0.5rem 0.5rem; border-radius: 100px;
+}
+.hcaic-post .leader .avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--lilac); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 500;
+  overflow: hidden; flex-shrink: 0;
+}
+.hcaic-post .leader .avatar img { width: 100%; height: 100%; object-fit: cover; }
+.hcaic-post .leader .meta { line-height: 1.25; }
+.hcaic-post .leader .name { font-weight: 500; color: var(--navy); font-size: 0.88rem; }
+.hcaic-post .leader .role { color: var(--slate); font-size: 0.74rem; }
+
+/* CTA BLOCK */
+.hcaic-post .cta-block {
+  background: var(--navy); color: var(--ivory);
+  border-radius: 12px; padding: 3rem; margin: 4rem 0 0;
+}
+.hcaic-post .cta-block h3 {
+  font-size: 1.6rem; font-weight: 400; margin: 0 0 0.5rem; letter-spacing: -0.01em;
+  color: var(--ivory);
+}
+.hcaic-post .cta-block h3 em { font-style: italic; color: var(--cream); }
+.hcaic-post .cta-block > p {
+  color: rgba(247,241,234,0.8); margin: 0 0 1.75rem; font-size: 0.95rem;
+}
+.hcaic-post .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.hcaic-post .cta-row a {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.85rem 1.5rem; border-radius: 100px;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+}
+.hcaic-post .cta-row a.primary { background: var(--cream); color: var(--navy-dark); }
+.hcaic-post .cta-row a.primary:hover { background: #f5e0b5; }
+.hcaic-post .cta-row a.secondary {
+  background: transparent; color: var(--ivory);
+  border: 1px solid rgba(247,241,234,0.4);
+}
+.hcaic-post .cta-row a.secondary:hover { background: rgba(247,241,234,0.08); }
+
+/* FADE IN */
+.hcaic-post .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.hcaic-post .fade-in.visible { opacity: 1; transform: none; }
+
+@media (max-width: 700px) {
+  .hcaic-post .cta-block { padding: 2rem 1.5rem; }
+  .hcaic-post .pullquote { padding: 1.25rem 1.5rem; margin: 2rem 0; }
+}
+</style>
+
+<div class="hcaic-post">
+
+  <!-- META + TITLE -->
+  <div class="post-meta">
+    <span class="tag">Toolkit Launch</span>
+    <span>April 29, 2026</span>
+    <span class="dot">·</span>
+    <span>6 min read</span>
+  </div>
+
+  <h1 class="post-title">We Built the Foundation.<br /><em>Now Here It Is.</em></h1>
+
+  <div class="byline">
+    <span class="author">Kyle &amp; Co</span>
+    <span>·</span>
+    <span>The Human-Centric AI Council</span>
+  </div>
+
+  <!-- HERO IMAGE — replace src with your WordPress media URL -->
+  <figure class="hero-image">
+    <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-hero.png" alt="HCAIC Transformation Toolkit Launch" />
+  </figure>
+
+  <!-- OPENING -->
+  <p class="lede">Most of the conversation about AI in HR is happening at 30,000 feet. Big claims. Vague promises. A lot of noise about what AI <em>could</em> do, and very little honest guidance on how HR leaders are supposed to actually lead through it.</p>
+
+  <p>That gap is exactly why the Human-Centric AI Council exists.</p>
+
+  <p>When we launched HCAIC, we weren't interested in adding to the noise. We were interested in building something useful — a body of work that HR leaders could actually put to work as AI moved from conversation to operations. Something grounded in practitioner experience, not vendor ambition.</p>
+
+  <p>That work is now done. And today, we're making it available.</p>
+
+  <!-- TOOLKIT INTRO -->
+  <h2 class="sec">Introducing the HCAIC Transformation Toolkit</h2>
+
+  <p>The HCAIC Transformation Toolkit is a set of four interconnected resources, developed over the past year by council members who have lived the challenges these tools are designed to address.</p>
+
+  <p>Together, they cover the full arc of what HR needs before AI can be scaled responsibly: literacy, change management, evaluation discipline, and governance.</p>
+
+  <p>These aren't white papers written to check a box. They're working tools. Built by practitioners, for practitioners.</p>
+
+  <p>Here's what's in the toolkit.</p>
+
+  <figure class="inline wide fade-in">
+    <div class="img-wrap">
+      <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-full-toolkit.png" alt="The full HCAIC Transformation Toolkit — all four resources" />
+    </div>
+  </figure>
+
+  <hr class="rule" />
+
+  <!-- RESOURCE 01 -->
+  <section class="fade-in">
+    <p class="sec-kicker">Resource 01</p>
+    <h2 class="sec">AI Literacy Toolkit &amp; <em>Applied Learning Course</em></h2>
+    <p class="sec-lead">Led by Rachel Bourne and Melissa Laswell · Powered by CodeSignal</p>
+
+    <div class="leaders">
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-rachel-bourne.jpg" alt="Rachel Bourne" /></div>
+        <div class="meta"><div class="name">Rachel Bourne</div><div class="role">Host, The Shift Show</div></div>
+      </div>
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-melissa-laswell.jpg" alt="Melissa Laswell" /></div>
+        <div class="meta"><div class="name">Melissa Laswell</div><div class="role">Head of Exec Recruiting, Blue Origin</div></div>
+      </div>
+    </div>
+
+    <figure class="inline">
+      <div class="img-wrap">
+        <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-literacy.png" alt="AI Literacy &amp; Education" />
+      </div>
+    </figure>
+
+    <p>AI literacy isn't a training problem. It's a leadership problem.</p>
+
+    <p>HR leaders are being asked to evaluate vendors, govern AI systems, support workforce adaptation, and make consequential decisions about technology — all without a clear foundation for understanding what AI actually does (or doesn't do). The gap isn't at the practitioner level. It's at the top.</p>
+
+    <p>The AI Literacy Toolkit gives HR leaders the foundation to ask better questions, make better decisions, and lead with credibility in the conversations where AI is on the table.</p>
+
+    <p>The applied learning course (powered by CodeSignal) translates that foundation into a structured, actionable experience — not a one-time training event, but a capability-building resource leaders can use and return to as the technology keeps evolving.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- RESOURCE 02 -->
+  <section class="fade-in">
+    <p class="sec-kicker">Resource 02</p>
+    <h2 class="sec">AI Change Management <em>Ebook</em></h2>
+    <p class="sec-lead">Led by Alicia Miller</p>
+
+    <div class="leaders">
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-alicia-miller.jpg" alt="Alicia Miller" /></div>
+        <div class="meta"><div class="name">Alicia Miller</div><div class="role">Change Mgmt Lead, HCAIC</div></div>
+      </div>
+    </div>
+
+    <figure class="inline">
+      <div class="img-wrap">
+        <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-change-mgmt.png" alt="AI Change Management &amp; Adoption" />
+      </div>
+    </figure>
+
+    <p>Most AI rollouts don't fail because of the technology. They fail because organizations treat AI like a software upgrade — and it isn't one.</p>
+
+    <p>AI changes work. It changes expectations, workflows, trust, and how decisions get made. Traditional change management rhythms are too slow and too static to absorb that kind of continuous disruption. Leaders want speed and measurable outcomes. Employees want clarity and stability. The technology keeps moving. All three tensions are real, and they don't resolve on their own.</p>
+
+    <div class="pullquote">
+      <p>"All three tensions are real, and they don't resolve on their own."</p>
+    </div>
+
+    <p>Alicia Miller led the development of this ebook to give HR leaders a practical framework for navigating that complexity: how to build trust, support adoption, and help people adapt as AI reshapes the work around them. If your AI efforts are stalling in pilot — or struggling to make it past pilot at all — this is the resource to start with.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- RESOURCE 03 -->
+  <section class="fade-in">
+    <p class="sec-kicker">Resource 03</p>
+    <h2 class="sec">AI Solution Evaluation <em>&amp; Design Framework</em></h2>
+    <p class="sec-lead">Led by Lydia Wu</p>
+
+    <div class="leaders">
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-lydia-wu.jpeg" alt="Lydia Wu" /></div>
+        <div class="meta"><div class="name">Lydia Wu</div><div class="role">AI Solution Strategy, HCAIC</div></div>
+      </div>
+    </div>
+
+    <figure class="inline">
+      <div class="img-wrap">
+        <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-solution.png" alt="AI Solution Decision Framework" />
+      </div>
+    </figure>
+
+    <p>The most expensive AI mistake HR organizations make isn't choosing the wrong vendor. It's committing to the wrong path.</p>
+
+    <p>AI decisions in HR aren't just procurement decisions anymore. They're architectural decisions — about data, governance, workflows, capability ownership, and how work gets done. Whether to buy, build, configure, or partner isn't just a budget question. It's a question about what kind of organization you're designing, and what you'll be living with for years.</p>
+
+    <p>Lydia Wu led the development of a framework that helps HR leaders think through exactly that: not just what use case they're pursuing, but what kind of decision they're actually making and what the tradeoffs of different approaches look like in practice. This is the resource to use before you sign anything — and before you scope anything.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- RESOURCE 04 -->
+  <section class="fade-in">
+    <p class="sec-kicker">Resource 04</p>
+    <h2 class="sec">Responsible AI <em>Transformation Framework</em></h2>
+    <p class="sec-lead">Led by Susan Jackson and Tara Torres</p>
+
+    <div class="leaders">
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-susan-jackson.jpg" alt="Susan Jackson" /></div>
+        <div class="meta"><div class="name">Susan Jackson</div><div class="role">Talent Ops, Estée Lauder</div></div>
+      </div>
+      <div class="leader">
+        <div class="avatar"><img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/headshot-tara-torres.jpg" alt="Tara Torres" /></div>
+        <div class="meta"><div class="name">Tara Torres</div><div class="role">Sr Manager, Coinbase</div></div>
+      </div>
+    </div>
+
+    <figure class="inline">
+      <div class="img-wrap">
+        <img src="REPLACE_WITH_WORDPRESS_MEDIA_URL/blog-responsible.png" alt="Responsible AI Implementation Framework" />
+      </div>
+    </figure>
+
+    <p>Most HR teams are no longer debating whether to use AI. They're trying to figure out how to use it safely, effectively, and without breaking trust — and delivering on all three at once is genuinely hard.</p>
+
+    <p>Responsible AI in HR isn't a compliance exercise. It's not a checklist (though checklists have their place). It's an operating discipline. Susan Jackson and Tara Torres built this framework to help HR leaders move from vague principles to real accountability — covering governance, transparency, employee trust, and the kind of responsible decision-making that lets AI create value without creating harm.</p>
+
+    <p>This is the resource HR needs not just at the start of an AI journey, but throughout it.</p>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- WHY THESE FOUR -->
+  <section class="fade-in">
+    <h2 class="sec">Why These Four, <em>Why Now</em></h2>
+
+    <p>These four resources aren't random. They map directly to the sequence of challenges HR faces when AI moves from aspiration to action.</p>
+
+    <p>Before HR can scale AI, it needs to understand it. Before it can make good AI decisions, it needs better ways to evaluate opportunities and tradeoffs. Before AI can create value, organizations need the change management, trust, governance, and responsible transformation infrastructure to support it.</p>
+
+    <p>The HCAIC Transformation Toolkit was built in that order, with that logic. It's a foundation, not a finish line.</p>
+  </section>
+
+  <!-- WHAT'S NEXT -->
+  <section class="fade-in">
+    <h2 class="sec">What's Next</h2>
+
+    <p>Year One was about building the foundation HR needs to engage AI with clarity, confidence, and practical discipline.</p>
+
+    <p>Year Two is about putting that foundation to work.</p>
+
+    <p>We're heading into the next phase of the council's work — more applied, more grounded in real-world implementation, and more focused on what AI transformation actually looks like inside organizations that are getting it right. That includes case studies, more peer-to-peer learning, new workstreams, and a 2026 agenda built around the questions HR leaders are actively wrestling with right now.</p>
+
+    <p>If you're a senior HR leader who wants to be part of shaping that work — not just consuming it — we want to hear from you.</p>
+  </section>
+
+  <!-- CTA BLOCK — update hrefs to match your WordPress page URLs -->
+  <div class="cta-block fade-in">
+    <h3>Three ways to <em>engage</em></h3>
+    <p>Download the toolkit, register for the launch town hall, or apply to join the Council.</p>
+    <div class="cta-row">
+      <a href="/toolkit-signup" class="primary">Access the Toolkit →</a>
+      <a href="/townhall-registration" class="secondary">Register for Town Hall</a>
+      <a href="/#join" class="secondary">Apply to Join HCAIC</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.hcaic-post .fade-in').forEach(function(el) { observer.observe(el); });
+})();
+</script>
