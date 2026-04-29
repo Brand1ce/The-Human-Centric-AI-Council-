@@ -775,11 +775,13 @@ function HCAIC_Final() {
         <div style={{ marginBottom: '2.5rem' }}>
           <button
             onClick={() => { if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
-            style={{ padding: '0.95rem 2rem', background: C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
+            style={{ padding: '0.95rem 2rem', background: accessGranted ? C.lilac : C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
           >
-            Access the Full Toolkit →
+            {accessGranted ? 'Browse the Toolkit ↓' : 'Access the Full Toolkit →'}
           </button>
-          <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: C.slate, opacity: 0.75 }}>Everything the Council publishes is free to use — thanks to our Underwriters.</p>
+          <p style={{ marginTop: '0.65rem', fontSize: '0.8rem', color: C.slate, opacity: 0.75 }}>
+            {accessGranted ? 'You already have access — click any resource below to open it.' : 'Everything the Council publishes is free to use — thanks to our Underwriters.'}
+          </p>
         </div>
 
         {/* Filter bar */}
