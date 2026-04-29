@@ -211,6 +211,7 @@ function HCAIC_Final() {
       whatYouGet: ['Role-based pathways for HR archetypes', 'Applied learning on the CodeSignal platform', 'Manager enablement kit for rollout', 'Measurement guidance for literacy programs'],
       link: 'http://codesignal.com/learn/try/hcaic_ai_literacy?utm_campaign=HCAIC-AI-Literacy-Course_Q1_27_&utm_medium=website&utm_source=HCAIC&utm_content=access-resources',
       ctaLabel: 'Learn more',
+      modalCta: 'Access the Course',
     },
     {
       id: 'responsible',
@@ -226,6 +227,7 @@ function HCAIC_Final() {
       whatYouGet: ['Governance operating model template', 'HR AI risk index starter', 'Human oversight decision tree', 'Policy language teams can adapt'],
       link: 'https://kyleandco-hcaic-responsibleaiframework.figma.site',
       ctaLabel: 'Learn more',
+      modalCta: 'Access the Workbook',
     },
     {
       id: 'change',
@@ -241,6 +243,7 @@ function HCAIC_Final() {
       whatYouGet: ['Adoption sequencing model', 'Resistance pattern diagnostics', 'Cultural readiness checklist', 'Role evolution frameworks for 6 HR functions'],
       link: 'https://kyleandco.com/wp-content/uploads/2026/04/Change-Management-Adoption_eBook_Kyle-and-Co.pdf',
       ctaLabel: 'Learn more',
+      modalCta: 'Access the eBook',
       interactivePreview: {
         title: 'Interactive readiness diagnostic',
         description: 'Answer ten questions about your change readiness, sequencing plans, and cultural conditions. Get a personalized output: where you are, what to work on next, and which patterns from the eBook apply to your situation.',
@@ -267,6 +270,7 @@ function HCAIC_Final() {
       whatYouGet: ['Five-level AI maturity model', 'Acquisition path decision logic', 'Build/buy/borrow/bot criteria', 'Shareable output for procurement conversations'],
       link: 'https://kyleandco.com/wp-content/uploads/2026/04/AI-Solution-Evaluation-and-Design-Framework.pdf',
       ctaLabel: 'Learn more',
+      modalCta: 'Access the Framework',
       interactivePreview: {
         title: 'Interactive build / buy / borrow / bot decision tree',
         description: 'Walk through your use case: existing tech stack, problem type, and risk tolerance. Land on a reasoned path plus a side-by-side comparison of your options. Output is shareable so procurement and finance can see the reasoning, not just the conclusion.',
@@ -1585,7 +1589,7 @@ function HCAIC_Final() {
                   fontFamily: 'inherit',
                 }}
               >
-                {selectedResource.ctaLabel} <span>→</span>
+                {selectedResource.modalCta || selectedResource.ctaLabel} <span>→</span>
               </button>
               {!accessGranted && (
                 <span style={{ fontSize: '0.78rem', color: C.slate, lineHeight: 1.4, maxWidth: '26ch' }}>
