@@ -601,11 +601,24 @@ function HCAIC_Final() {
         .modal-overlay { backdrop-filter: blur(8px); }
       `}</style>
 
+      {/* ANNOUNCEMENT TICKER */}
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, background: C.navy, overflow: 'hidden', height: '36px', display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', animation: 'marqueeScroll 28s linear infinite', whiteSpace: 'nowrap', willChange: 'transform' }}>
+          {[0,1,2].map(i => (
+            <a key={i} href="https://kyleandco.com/ai-toolkit-for-hr-leaders/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '2rem', paddingRight: '4rem', fontSize: '0.72rem', letterSpacing: '0.08em', color: C.ivory }}>
+              <span style={{ color: C.cream, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.65rem' }}>New post</span>
+              <span style={{ opacity: 0.85 }}>Finally: A Practical AI Transformation Toolkit Built for HR Leaders</span>
+              <span style={{ color: C.lilac }}>Read Kyle's take →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
       {/* NAV */}
       <nav
         style={{
           position: 'fixed',
-          top: 0,
+          top: '36px',
           left: 0,
           right: 0,
           padding: scrolled ? '0.9rem 2.5rem' : '1.5rem 2.5rem',
