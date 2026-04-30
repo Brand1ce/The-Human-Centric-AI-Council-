@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>HCAIC — Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F7F1EA; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #273752; min-height: 100vh; padding: 3rem 2rem; }
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(39,55,82,0.12); }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .brand-mark { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #273752; border-radius: 6px; font-family: Georgia, serif; font-size: 1.1rem; font-style: italic; color: #FDECCD; }
+  .brand-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9D92AD; font-weight: 500; }
+  .last-updated { font-size: 0.75rem; color: #9D92AD; }
+
+  .section-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9D92AD; font-weight: 600; margin-bottom: 1rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+  .card { background: #fff; border-radius: 10px; padding: 1.5rem; border-top: 3px solid #273752; }
+  .card.ebook { border-top-color: #9D92AD; }
+  .card.framework { border-top-color: #FDECCD; }
+  .card.workbook { border-top-color: #2D5C94; }
+  .card-name { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9D92AD; margin-bottom: 0.5rem; }
+  .card-count { font-size: 3rem; font-weight: 300; color: #273752; line-height: 1; letter-spacing: -0.03em; }
+  .card-label { font-size: 0.8rem; color: #555961; margin-top: 0.35rem; }
+
+  .total-bar { background: #273752; border-radius: 10px; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
+  .total-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,241,234,0.6); }
+  .total-count { font-size: 2.5rem; font-weight: 300; color: #F7F1EA; letter-spacing: -0.03em; }
+
+  .refresh-btn { display: inline-block; background: #273752; color: #F7F1EA; border: none; border-radius: 100px; padding: 0.6rem 1.25rem; font-size: 0.8rem; font-family: inherit; cursor: pointer; font-weight: 500; }
+  .refresh-btn:hover { opacity: 0.85; }
+
+  .loading { color: #9D92AD; font-size: 0.9rem; }
+  .error { color: #c0392b; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand">
+      <span class="brand-mark">&amp;</span>
+      <div>
+        <div style="font-size:0.88rem;font-weight:600;color:#273752;">HCAIC Dashboard</div>
+        <div class="brand-label">Thank-you page · Resource clicks</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span class="last-updated" id="last-updated">Loading…</span>
+      <button class="refresh-btn" onclick="loadData()">Refresh ↺</button>
+    </div>
+  </div>
+
+  <div class="section-label">Clicks by resource</div>
+
+  <div class="cards" id="cards">
+    <div class="loading">Loading…</div>
+  </div>
+
+  <div class="total-bar">
+    <div class="total-label">Total resource clicks</div>
+    <div class="total-count" id="total">—</div>
+  </div>
+
+  <div style="font-size:0.78rem;color:#9D92AD;line-height:1.6;">
+    Tracked on <a href="https://kyleandco.com/aicouncil/thankyou.html" style="color:#9D92AD;">kyleandco.com/aicouncil/thankyou.html</a> ·
+    For full analytics visit <a href="https://analytics.google.com" target="_blank" style="color:#9D92AD;">GA4 → Events → resource_download</a>
+  </div>
+
+</div>
+
+<script>
+  var KEY = '$2a$10$prZqMqXbtmzSXZyh1nHLcOt1RcJbDCcAgppQ/6J2Brax5qLkY8Ggm';
+  var URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d/latest';
+
+  var RESOURCES = [
+    { key: 'course',    label: 'AI Literacy',          sub: 'CodeSignal course',           cls: 'course' },
+    { key: 'ebook',     label: 'Change Management',     sub: 'eBook · PDF',                 cls: 'ebook' },
+    { key: 'framework', label: 'Solution Framework',    sub: 'Framework · PDF',             cls: 'framework' },
+    { key: 'workbook',  label: 'Responsible AI',        sub: 'Interactive Figma workbook',  cls: 'workbook' },
+  ];
+
+  function loadData() {
+    document.getElementById('last-updated').textContent = 'Loading…';
+    fetch(URL, { headers: { 'X-ACCESS-KEY': KEY } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var counts = data.record;
+        var total = 0;
+        var html = '';
+        RESOURCES.forEach(function(r) {
+          var n = counts[r.key] || 0;
+          total += n;
+          html += '<div class="card ' + r.cls + '">' +
+            '<div class="card-name">' + r.label + '</div>' +
+            '<div class="card-count">' + n + '</div>' +
+            '<div class="card-label">' + r.sub + '</div>' +
+            '</div>';
+        });
+        document.getElementById('cards').innerHTML = html;
+        document.getElementById('total').textContent = total;
+        document.getElementById('last-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+      })
+      .catch(function() {
+        document.getElementById('cards').innerHTML = '<div class="error">Could not load data.</div>';
+        document.getElementById('last-updated').textContent = 'Error';
+      });
+  }
+
+  loadData();
+</script>
+</body>
+</html>
