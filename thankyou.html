@@ -130,6 +130,7 @@
   var CLICKS_URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d';
 
   function trackClick(resource) {
+    if (window.gtag) window.gtag('event', 'resource_download', { resource_name: resource });
     fetch(CLICKS_URL + '/latest', { headers: { 'X-ACCESS-KEY': CLICKS_KEY } })
       .then(function(r) { return r.json(); })
       .then(function(data) {

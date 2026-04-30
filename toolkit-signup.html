@@ -120,6 +120,7 @@
   }
 
   document.getElementById('signup-form').addEventListener('submit', function() {
+    if (window.gtag) window.gtag('event', 'form_submit', { form_name: 'toolkit_signup', variant: variant || 'direct' });
     var btn = document.getElementById('submit-btn');
     btn.disabled = true;
     btn.textContent = 'Sending…';

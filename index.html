@@ -139,7 +139,10 @@ function HCAIC_Final() {
   }, []);
 
   // CTA handler: first click shows email gate, subsequent clicks go straight through
+  const track = (event, params) => { if (window.gtag) window.gtag('event', event, params || {}); };
+
   const handleResourceCta = (resource) => {
+    track('resource_cta_click', { resource_name: resource.title, has_access: accessGranted });
     if (accessGranted) {
       if (resource.link) window.open(resource.link, "_blank");
     } else {
@@ -149,6 +152,7 @@ function HCAIC_Final() {
   };
 
   const handleGateSubmit = () => {
+    track('form_submit', { form_name: 'toolkit_gate', variant: sessionStorage.getItem('hcaic_variant') || 'organic' });
     // Open thank you page immediately (popup must be triggered by user gesture)
     window.open('thankyou.html', '_blank');
     // Delay state changes so the form POST reaches MailerLite before the form unmounts
@@ -747,7 +751,7 @@ function HCAIC_Final() {
                   <div style={{ flex: 1 }}>
                     <div style={{ fontSize: '0.88rem', fontWeight: 500, color: C.ivory, marginBottom: '0.2rem' }}>{p.name}</div>
                     <div style={{ fontSize: '0.78rem', color: 'rgba(247,241,234,0.6)', lineHeight: 1.5 }}>{p.blurb}</div>
-                    <button onClick={() => setPillarOpen(p)} style={{ marginTop: '0.5rem', background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontSize: '0.72rem', color: C.lilac, fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', opacity: 0.85 }}>Read more →</button>
+                    <button onClick={() => { track('pillar_open', { pillar_name: p.name }); setPillarOpen(p); }} style={{ marginTop: '0.5rem', background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontSize: '0.72rem', color: C.lilac, fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: '0.25rem', opacity: 0.85 }}>Read more →</button>
                   </div>
                 </div>
               ))}
@@ -782,7 +786,7 @@ function HCAIC_Final() {
         {/* Access all CTA */}
         <div style={{ marginBottom: '2.5rem' }}>
           <button
-            onClick={() => { if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
+            onClick={() => { track('toolkit_cta_click', { has_access: accessGranted }); if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
             style={{ padding: '0.95rem 2rem', background: accessGranted ? C.lilac : C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
           >
             {accessGranted ? 'Browse the Toolkit ↓' : 'Access the Full Toolkit →'}
@@ -830,7 +834,7 @@ function HCAIC_Final() {
             <div
               key={r.id}
               className="resource-row"
-              onClick={() => setSelectedResource(r)}
+              onClick={() => { track('resource_open', { resource_name: r.title, resource_type: r.tag }); setSelectedResource(r); }}
               style={{
                 display: 'grid',
                 gridTemplateColumns: '60px 160px 1fr 150px 60px',
@@ -1773,7 +1777,7 @@ function HCAIC_Final() {
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>
                   Cohort 2 is open to senior HR practitioners who have moved AI work forward inside their organizations. Monthly working sessions, framework co-creation, and a peer group that does not exist anywhere else.
                 </p>
-                <form action={ML_APPLY_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setApplySubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_APPLY_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'apply'}); setTimeout(() => setApplySubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <input required type="text" name="fields[name]" placeholder="Full name" style={gateInput(C)} />
                   <input required type="email" name="fields[email]" placeholder="Work email" style={gateInput(C)} />
                   <input required type="text" name="fields[company]" placeholder="Company" style={gateInput(C)} />
@@ -1888,7 +1892,7 @@ function HCAIC_Final() {
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>
                   Implementation, advisory, and program design for HR teams putting the Council's frameworks into practice. Tell us where you're starting from.
                 </p>
-                <form action={ML_KCO_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setKcoSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_KCO_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'kco'}); setTimeout(() => setKcoSubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -1962,7 +1966,7 @@ function HCAIC_Final() {
                 <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Town Hall · May 12, 2026 · 1:00pm ET</div>
                 <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>Cohort Zero Toolkit Launch</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The Council walks through all four frameworks, why they exist, and how HR teams are putting them to work. Open to the full community.</p>
-                <form action={ML_TOWNHALL_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setTownhallSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_TOWNHALL_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'townhall'}); setTimeout(() => setTownhallSubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -2039,7 +2043,7 @@ function HCAIC_Final() {
 
                 <div style={{ borderTop: `1px solid rgba(39,55,82,0.12)`, paddingTop: '1.75rem' }}>
                   <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '1rem' }}>Start the conversation</div>
-                  <form action={ML_UNDERWRITER_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setUnderwriterSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                  <form action={ML_UNDERWRITER_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'underwriter'}); setTimeout(() => setUnderwriterSubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                       <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                       <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
@@ -2099,7 +2103,7 @@ function HCAIC_Final() {
                 <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Research Report · Kyle &amp; Co</div>
                 <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>The AI Momentum Report</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The model, the nine archetypes, and what it takes to build momentum. Research from Kyle &amp; Co, informed by work with senior HR leaders.</p>
-                <form action={ML_MOMENTUM_URL} method="post" target="ml-submit-frame" onSubmit={() => setTimeout(() => setMomentumDownloadSubmitted(true), 1000)} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <form action={ML_MOMENTUM_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'momentum_report'}); setTimeout(() => setMomentumDownloadSubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                     <input required type="text" name="fields[name]" placeholder="First name" style={gateInput(C)} />
                     <input required type="text" name="fields[last_name]" placeholder="Last name" style={gateInput(C)} />
