@@ -67,7 +67,7 @@
       <p class="resource-tag">Start here · Applied course · ~2–4 hours</p>
       <h2>AI Literacy Toolkit</h2>
       <p>Open this first. Build shared AI fluency across your HR team — generalists, TA, HRBPs, leaders — so the conversations and decisions that follow happen on solid ground. Applied learning with CodeSignal, not just reading.</p>
-      <a class="btn" href="http://codesignal.com/learn/try/hcaic_ai_literacy?utm_campaign=HCAIC-AI-Literacy-Course_Q1_27_&utm_medium=website&utm_source=HCAIC&utm_content=access-resources" target="_blank" rel="noopener noreferrer">Launch on CodeSignal →</a>
+      <a class="btn" href="http://codesignal.com/learn/try/hcaic_ai_literacy?utm_campaign=HCAIC-AI-Literacy-Course_Q1_27_&utm_medium=website&utm_source=HCAIC&utm_content=access-resources" target="_blank" rel="noopener noreferrer" onclick="trackClick('course')">Launch on CodeSignal →</a>
       <p class="external-note" style="font-size: 0.78rem; color: #9D92AD; margin-top: 0.6rem;">Opens on CodeSignal. You'll create a free account to access the course.</p>
     </div>
 
@@ -75,21 +75,21 @@
       <p class="resource-tag">Next · eBook · PDF</p>
       <h2>AI Change Management &amp; Adoption</h2>
       <p>Use this when you're planning or mid-way through an AI rollout. Adoption sequencing, resistance patterns, cultural readiness, and role evolution across 6 HR functions. Built for the teams leading the change.</p>
-      <a class="btn" href="https://kyleandco.com/wp-content/uploads/2026/04/Change-Management-Adoption_eBook_Kyle-and-Co.pdf" target="_blank" rel="noopener noreferrer">Download the ebook →</a>
+      <a class="btn" href="https://kyleandco.com/wp-content/uploads/2026/04/Change-Management-Adoption_eBook_Kyle-and-Co.pdf" target="_blank" rel="noopener noreferrer" onclick="trackClick('ebook')">Download the ebook →</a>
     </div>
 
     <div class="resource r3">
       <p class="resource-tag">When a use case lands · Framework · PDF</p>
       <h2>Solution Decision Framework</h2>
       <p>Use this when a use case hits your desk. Walk it through build–buy–borrow–bot, account for what you already own, and land on a reasoned path your procurement team can actually use.</p>
-      <a class="btn" href="https://kyleandco.com/wp-content/uploads/2026/04/AI-Solution-Evaluation-and-Design-Framework.pdf" target="_blank" rel="noopener noreferrer">Download the framework →</a>
+      <a class="btn" href="https://kyleandco.com/wp-content/uploads/2026/04/AI-Solution-Evaluation-and-Design-Framework.pdf" target="_blank" rel="noopener noreferrer" onclick="trackClick('framework')">Download the framework →</a>
     </div>
 
     <div class="resource r4">
       <p class="resource-tag">Before a pilot ships · Interactive workbook · Figma</p>
       <h2>Responsible AI Framework</h2>
       <p>Use this when you're designing a pilot or implementation. Governance, human oversight, model risk documentation, and policy language — operationalized as a Figma workbook your legal and IT partners can work inside.</p>
-      <a class="btn" href="https://kyleandco-hcaic-responsibleaiframework.figma.site" target="_blank" rel="noopener noreferrer">Open the workbook →</a>
+      <a class="btn" href="https://kyleandco-hcaic-responsibleaiframework.figma.site" target="_blank" rel="noopener noreferrer" onclick="trackClick('workbook')">Open the workbook →</a>
     </div>
 
   </div>
@@ -116,5 +116,25 @@
   </div>
 
 </div>
+
+<script>
+  var CLICKS_KEY = '$2a$10$prZqMqXbtmzSXZyh1nHLcOt1RcJbDCcAgppQ/6J2Brax5qLkY8Ggm';
+  var CLICKS_URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d';
+
+  function trackClick(resource) {
+    fetch(CLICKS_URL + '/latest', { headers: { 'X-ACCESS-KEY': CLICKS_KEY } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var counts = data.record;
+        counts[resource] = (counts[resource] || 0) + 1;
+        fetch(CLICKS_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'X-ACCESS-KEY': CLICKS_KEY },
+          body: JSON.stringify(counts)
+        });
+      })
+      .catch(function() {});
+  }
+</script>
 </body>
 </html>
