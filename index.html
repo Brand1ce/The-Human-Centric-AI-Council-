@@ -154,8 +154,22 @@ function HCAIC_Final() {
   // CTA handler: first click shows email gate, subsequent clicks go straight through
   const track = (event, params) => { if (window.gtag) window.gtag('event', event, params || {}); };
 
+  const CLICKS_KEY = '$2a$10$prZqMqXbtmzSXZyh1nHLcOt1RcJbDCcAgppQ/6J2Brax5qLkY8Ggm';
+  const CLICKS_URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d';
+  const RESOURCE_KEY_MAP = { literacy: 'course', responsible: 'workbook', change: 'ebook', decision: 'framework' };
+
   const handleResourceCta = (resource) => {
     track('resource_cta_click', { resource_name: resource.title });
+    const binKey = RESOURCE_KEY_MAP[resource.id];
+    if (binKey) {
+      fetch(CLICKS_URL + '/latest', { headers: { 'X-ACCESS-KEY': CLICKS_KEY } })
+        .then(r => r.json())
+        .then(data => {
+          const counts = data.record;
+          counts[binKey] = (counts[binKey] || 0) + 1;
+          fetch(CLICKS_URL, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-ACCESS-KEY': CLICKS_KEY }, body: JSON.stringify(counts) });
+        }).catch(() => {});
+    }
     if (resource.link) window.open(resource.link, "_blank");
   };
 
