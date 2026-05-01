@@ -57,7 +57,7 @@ function HCAIC_Final() {
   const [widgetDismissed, setWidgetDismissed] = useState(false);
   const [momentumOpen, setMomentumOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [accessGranted, setAccessGranted] = useState(false);
+  const [accessGranted] = useState(true);
   const [gateOpen, setGateOpen] = useState(false);
   const [pendingResourceCta, setPendingResourceCta] = useState(null);
   const [applyOpen, setApplyOpen] = useState(false);
@@ -155,13 +155,8 @@ function HCAIC_Final() {
   const track = (event, params) => { if (window.gtag) window.gtag('event', event, params || {}); };
 
   const handleResourceCta = (resource) => {
-    track('resource_cta_click', { resource_name: resource.title, has_access: accessGranted });
-    if (accessGranted) {
-      if (resource.link) window.open(resource.link, "_blank");
-    } else {
-      setPendingResourceCta(resource);
-      setGateOpen(true);
-    }
+    track('resource_cta_click', { resource_name: resource.title });
+    if (resource.link) window.open(resource.link, "_blank");
   };
 
   const handleGateSubmit = () => {
@@ -812,7 +807,7 @@ function HCAIC_Final() {
         {/* Access all CTA */}
         <div style={{ marginBottom: '2.5rem' }}>
           <button
-            onClick={() => { track('toolkit_cta_click', { has_access: accessGranted }); if (accessGranted) { document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); } else { setGateOpen(true); } }}
+            onClick={() => { track('toolkit_cta_click', {}); document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' }); }}
             style={{ padding: '0.95rem 2rem', background: accessGranted ? C.lilac : C.navy, color: C.ivory, border: 'none', borderRadius: '100px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', letterSpacing: '0.01em' }}
           >
             {accessGranted ? 'Browse the Toolkit ↓' : 'Access the Full Toolkit →'}
