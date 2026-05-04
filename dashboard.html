@@ -75,7 +75,7 @@
 
 <script>
   var KEY = '$2a$10$prZqMqXbtmzSXZyh1nHLcOt1RcJbDCcAgppQ/6J2Brax5qLkY8Ggm';
-  var URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d/latest';
+  var BIN_URL = 'https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d/latest';
 
   var RESOURCES = [
     { key: 'course',    label: 'AI Literacy',          sub: 'CodeSignal course',           cls: 'course' },
@@ -86,7 +86,7 @@
 
   function loadData() {
     document.getElementById('last-updated').textContent = 'Loading…';
-    fetch(URL, { headers: { 'X-ACCESS-KEY': KEY } })
+    fetch(BIN_URL, { headers: { 'X-ACCESS-KEY': KEY } })
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var counts = data.record;
