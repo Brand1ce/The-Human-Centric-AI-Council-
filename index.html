@@ -525,7 +525,7 @@ function HCAIC_Final() {
       status: 'upcoming',
       type: 'Town Hall',
       title: 'Cohort Zero Toolkit Launch',
-      date: 'May 12, 2026 · 1:00pm ET',
+      date: 'May 28, 2026 · 1:00pm ET',
       summary: 'The Council walks through all four frameworks, why they exist, and how HR teams are putting them to work.',
       cta: 'Register',
       onClick: () => setTownhallOpen(true),
@@ -2006,12 +2006,12 @@ function HCAIC_Final() {
             {townhallSubmitted ? (
               <div style={{ padding: '2rem 0' }}>
                 <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1rem' }}>You're registered</div>
-                <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '1rem' }}>See you May 12.</h3>
+                <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '1rem' }}>See you May 28.</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.6, color: C.slate }}>A calendar invite and joining link will be sent to your email. The session runs 1:00–2:00pm ET.</p>
               </div>
             ) : (
               <>
-                <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Town Hall · May 12, 2026 · 1:00pm ET</div>
+                <div className="mono" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.slate, marginBottom: '0.75rem' }}>Town Hall · May 28, 2026 · 1:00pm ET</div>
                 <h3 className="display" style={{ fontSize: '1.75rem', fontWeight: 500, lineHeight: 1.1, letterSpacing: '-0.01em', color: C.navy, marginBottom: '0.75rem' }}>Cohort Zero Toolkit Launch</h3>
                 <p style={{ fontSize: '0.93rem', lineHeight: 1.55, color: C.slate, marginBottom: '1.75rem' }}>The Council walks through all four frameworks, why they exist, and how HR teams are putting them to work. Open to the full community.</p>
                 <form action={ML_TOWNHALL_URL} method="post" target="ml-submit-frame" onSubmit={() => { track('form_submit', {form_name: 'townhall'}); setTimeout(() => setTownhallSubmitted(true), 1000); }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
