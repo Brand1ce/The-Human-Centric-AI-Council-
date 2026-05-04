@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Activity Is Easy to Measure, Impact Is Not — Kyle & Co</title>
+<meta name="description" content="What a conversation with Symphony Talent's CEO reminded me about the gap TA still hasn't closed." />
+<meta property="og:title" content="Activity Is Easy to Measure, Impact Is Not" />
+<meta property="og:description" content="What a conversation with Symphony Talent's CEO reminded me about the gap TA still hasn't closed." />
+<meta property="og:url" content="https://kyleandco.com/blog/activity-is-easy-to-measure" />
+<meta property="og:type" content="article" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H95H1WFLGC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H95H1WFLGC');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #273752; --cream: #FDECCD; --ivory: #F7F1EA;
+    --lilac: #9D92AD; --slate: #555961;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--navy); -webkit-font-smoothing: antialiased; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(247,241,234,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(39,55,82,0.08);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--navy); }
+  .nav-mark { width: 30px; height: 30px; background: var(--navy); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--cream); font-style: italic; }
+  .nav-name { font-size: 0.85rem; font-weight: 600; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.82rem; }
+  .nav-links a { color: var(--navy); text-decoration: none; opacity: 0.65; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-back { opacity: 1 !important; display: flex; align-items: center; gap: 0.4rem; }
+
+  /* HERO */
+  .hero { background: var(--navy); padding: 5rem 2.5rem 4rem; }
+  .hero-inner { max-width: 780px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--lilac); font-weight: 500; margin-bottom: 2rem;
+  }
+  .hero-tag::before { content: ''; width: 20px; height: 1px; background: var(--lilac); display: inline-block; }
+  .hero h1 {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.05; letter-spacing: -0.025em;
+    color: var(--ivory); margin-bottom: 1.25rem;
+  }
+  .hero-sub { font-size: 1.1rem; line-height: 1.65; color: rgba(247,241,234,0.65); max-width: 58ch; margin-bottom: 2.5rem; }
+  .hero-meta { display: flex; align-items: center; gap: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(247,241,234,0.1); }
+  .hero-author { display: flex; align-items: center; gap: 0.75rem; }
+  .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--lilac); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 0.9rem; color: var(--ivory); font-weight: 500; }
+  .author-name { font-size: 0.85rem; font-weight: 600; color: var(--ivory); }
+  .author-title { font-size: 0.75rem; color: rgba(247,241,234,0.5); }
+  .hero-date { font-size: 0.78rem; color: rgba(247,241,234,0.4); padding-left: 1.5rem; border-left: 1px solid rgba(247,241,234,0.12); }
+
+  /* BODY */
+  .article-wrap { max-width: 780px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
+  .article-body { max-width: 660px; }
+
+  p { font-size: 1.05rem; line-height: 1.8; color: var(--slate); margin-bottom: 1.5rem; }
+  p strong { color: var(--navy); font-weight: 600; }
+  p em { font-style: italic; }
+
+  h2 {
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 1.75rem; line-height: 1.15;
+    letter-spacing: -0.02em; color: var(--navy);
+    margin: 3rem 0 1.25rem;
+  }
+
+  .pullquote {
+    border-left: 3px solid var(--lilac);
+    margin: 2.5rem 0; padding: 1.25rem 1.75rem;
+    background: rgba(157,146,173,0.06); border-radius: 0 6px 6px 0;
+  }
+  .pullquote p {
+    font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 400;
+    line-height: 1.55; color: var(--navy); margin: 0;
+  }
+
+  .callout {
+    background: var(--cream); border-radius: 8px;
+    padding: 1.5rem 2rem; margin: 2.5rem 0;
+  }
+  .callout p { color: var(--navy); margin: 0; font-size: 0.95rem; }
+  .callout-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lilac); font-weight: 600; margin-bottom: 0.5rem; }
+
+  .research-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--navy); font-weight: 500; text-decoration: none;
+    border-bottom: 1px solid rgba(39,55,82,0.25); padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .research-link:hover { border-color: var(--navy); }
+
+  /* RELATED / CTA */
+  .article-footer { border-top: 1px solid rgba(39,55,82,0.1); padding-top: 3rem; margin-top: 4rem; max-width: 660px; }
+  .article-footer-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem; }
+  .related-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+  .related-card { background: #fff; border-radius: 8px; padding: 1.25rem 1.5rem; border-left: 3px solid var(--navy); text-decoration: none; color: inherit; display: block; transition: opacity 0.2s; }
+  .related-card:hover { opacity: 0.75; }
+  .related-card:nth-child(2) { border-left-color: var(--lilac); }
+  .related-type { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lilac); margin-bottom: 0.35rem; }
+  .related-title { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 500; color: var(--navy); line-height: 1.3; }
+
+  .author-bio {
+    background: var(--navy); border-radius: 10px; padding: 2rem 2.5rem;
+    display: flex; gap: 1.5rem; align-items: flex-start;
+  }
+  .bio-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--lilac); display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.25rem; color: var(--ivory); font-weight: 500; flex-shrink: 0; }
+  .bio-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--ivory); margin-bottom: 0.25rem; }
+  .bio-text p { font-size: 0.82rem; line-height: 1.6; color: rgba(247,241,234,0.65); margin: 0; }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.78rem; color: rgba(247,241,234,0.4); }
+  footer a { font-size: 0.82rem; color: rgba(247,241,234,0.6); text-decoration: none; font-weight: 500; }
+  footer a:hover { color: var(--ivory); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-mark">&amp;</div>
+    <span class="nav-name">Kyle &amp; Co</span>
+  </a>
+  <div class="nav-links">
+    <a href="/insights">Insights</a>
+    <a href="/blog">Blog</a>
+    <a href="/aicouncil">HCAIC</a>
+    <a href="/blog" class="nav-back">← All posts</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Blog · Talent Acquisition</div>
+    <h1>Activity Is Easy to Measure.<br />Impact Is Not.</h1>
+    <p class="hero-sub">What a conversation with Symphony Talent's CEO reminded me about the gap TA still hasn't closed.</p>
+    <div class="hero-meta">
+      <div class="hero-author">
+        <div class="author-avatar">KL</div>
+        <div>
+          <div class="author-name">Kyle Lagunas</div>
+          <div class="author-title">Founder, Kyle &amp; Co · Executive Director, HCAIC</div>
+        </div>
+      </div>
+      <div class="hero-date">May 2026 · 6 min read</div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE -->
+<div class="article-wrap">
+  <div class="article-body">
+
+    <p>I recently joined Kermit Randa, CEO of Symphony Talent, and Robin Epstein Ludewig — a veteran HR leader who spent nearly three decades shaping talent strategy at organizations like UCLA Health — for a conversation on something I think about constantly: the widening gap between what talent acquisition <em>does</em> and what it can actually <em>prove</em>.</p>
+
+    <p>It was one of those discussions where the hour disappears. And when it was over, I kept coming back to the same through-line: most of the problems we're trying to solve with AI and analytics aren't new problems. They're old problems we never fully solved — and we're now layering expensive technology on top of them.</p>
+
+    <p>That's not a comfortable take. But I think it's the right one.</p>
+
+    <h2>The Funnel Is Broken Before The Data Is Bad</h2>
+
+    <p>One of the first things that came up was visibility — rather, the lack of it.</p>
+
+    <p>Kermit quoted a couple of stats from Symphony Talent's research, including that nearly ninety percent of TA teams say they lack full funnel visibility. More than half say they don't have meaningful data insights. Those numbers aren't surprising to anyone who's worked inside these organizations.</p>
+
+    <p>We dug into exactly this in our <a href="/insights" class="research-link">Quality of Hire research</a>. The organizations that measure it best are the ones that defined it first — across TA, HR, and the business.</p>
+
+    <div class="pullquote">
+      <p>The data problem is downstream of an alignment problem.</p>
+    </div>
+
+    <p>When I was in the practitioner seat, we didn't try to boil the ocean on quality of hire — we didn't have the time or the bandwidth. So we got specific about one thing: My team's job was to deliver interview-quality candidates.</p>
+
+    <p>That was our KPI. Not volume, not pipeline size — people who would actually make it to the recruiter screen.</p>
+
+    <p>It sounds narrow. But it was practical and clarifying. Because once you define that, you can start to have an honest conversation about what branding is attracting, what paid advertising is converting, and what the recruiting team is ultimately delivering to the hiring manager.</p>
+
+    <p>A lot of teams never have that conversation — and it's created a lot of problems when trying to measure ROI. Branding has one definition of quality, recruiting has another, and hiring managers have their own — and few have actually reconciled them.</p>
+
+    <p>That's precisely where the funnel collapses. Not in some dramatic system failure, but in a hundred small moments of "I thought you were tracking that."</p>
+
+    <p>This mirrors what we found in our <a href="/insights" class="research-link">Strategic Workforce Planning research</a>: TA's exclusion from the planning process is one of the most expensive structural problems in HR — and one of the least discussed.</p>
+
+    <p>Robin put a fine point on it: At UCLA Health, she had a rule — you didn't open a req until there was agreement on what a successful candidate looked like. Profile first, then recruit. Sounds obvious. Most teams still aren't doing it.</p>
+
+    <h2>AI Chapter One Was Just More Of The Same, Faster</h2>
+
+    <p>There's been a lot of energy — and a lot of budget — going into AI in talent acquisition. And I'll be honest: Some of what I'm seeing now is genuinely different. Teams are running real pilots with defined problem statements and actual KPIs. That's a meaningful shift from a few years ago, when a "pilot" mostly meant free seats and vague enthusiasm.</p>
+
+    <p>Our research on AI momentum in HR found that nearly half of organizations are still stuck in exploration mode — activity without momentum, cycling through tools while old patterns persist.</p>
+
+    <div class="callout">
+      <div class="callout-label">From the research</div>
+      <p>Nearly half of organizations are stuck in exploration mode — activity without momentum, cycling through tools while old patterns persist. <a href="https://kyleandco.com/aicouncil" class="research-link">Read the AI Momentum Model →</a></p>
+    </div>
+
+    <p>But we should be clear-eyed about where we've been. What I'm calling <em>AI Chapter One</em> was mostly automation dressed up as optimization theater. We cut recruiting teams down to skeleton crews and used AI to scale the most basic elements of the programs that were already running.</p>
+
+    <p>We accelerated the operation. We didn't improve it.</p>
+
+    <p>The result? Higher volume, lower signal. More applicants, more noise, roughly the same outcomes — and in some cases, worse ones, because the flood of low-quality and bot-generated applications has made it harder to find the real candidates inside the pile.</p>
+
+    <div class="pullquote">
+      <p>If you're not clear on what's performing, what exactly are you optimizing?</p>
+    </div>
+
+    <h2>Employer Brand Isn't A Marketing Problem. It's A Performance Problem.</h2>
+
+    <p>Robin said something that I've been repeating since. When she was at UCLA, new managers used to call her and say, <em>"You lied to me. Nobody here talks the way you talk."</em> That stopped happening when they integrated employer brand into everything — not just attraction, but the entire employee experience through year one.</p>
+
+    <p>That's the actual ROI of employer brand — not impressions, not awareness, but whether what you promised in the recruitment process is what people actually experience when they show up.</p>
+
+    <p>Personally, I think we're seeing a surge right now in organizations going back to do real EVP work because the trust gap between employers and workers is real (and it's wide).</p>
+
+    <p>Candidates are doing more research than ever, including through AI-driven platforms, before they ever engage. That means your brand is being interpreted and contextualized in places you don't control.</p>
+
+    <p>The answer isn't more content. It's more honesty, more clarity, more real conversation. Be clear about what you expect from candidates — and what they can expect from you. Be clear about how you use AI in your process.</p>
+
+    <p>Get grounded. The organizations that are winning this right now aren't out-storytelling everyone else. They're just being more coherent.</p>
+
+    <h2>The Big Challenge Is the Big Opportunity: Proving Value</h2>
+
+    <p>Kermit asked both Robin and me what proving TA's value actually looks like to a CFO or a board. I think about this a lot.</p>
+
+    <p>Here's what I know: Data alone doesn't do it. I've never walked into a room and made an impact by reporting survey results. I show what the data reveals, then I go find the story underneath it.</p>
+
+    <p>What are people actually saying? What changed between last year and this year, in their own words? What outcome can I point to that a business leader would recognize as real?</p>
+
+    <p>Robin's point about stay interviews lands here. The organizations that have figured this out aren't asking why people leave. They're asking why people stay — and reporting that back to the business in a way that drives action.</p>
+
+    <p>The other thing I'd add: don't put shine on the apple.</p>
+
+    <p>Executives have lived through enough failed initiatives to know when the numbers are being massaged. Show what isn't working. Show how you're pivoting. Show what you stopped spending money on. That's credibility. That's what earns the trust to keep investing.</p>
+
+    <h2>The Closing Thought I Keep Coming Back To</h2>
+
+    <p>Kermit wrapped the conversation with a line I want to steal: <em>Activity is easy to measure. Impact is not.</em></p>
+
+    <p>The teams that pull ahead won't be the ones doing more. They'll be the ones who can clearly see what's working, prove it to the business, and act on it.</p>
+
+    <div class="pullquote">
+      <p>That's not an AI problem. It's a leadership discipline problem. And it's very much still up for grabs.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER CONTENT -->
+  <div class="article-footer">
+    <div class="article-footer-label">Continue reading</div>
+    <div class="related-grid">
+      <a href="/aicouncil" class="related-card">
+        <div class="related-type">Research · Free</div>
+        <div class="related-title">The HCAIC AI Transformation Toolkit</div>
+      </a>
+      <a href="/insights" class="related-card">
+        <div class="related-type">Research Report</div>
+        <div class="related-title">The AI Momentum Model</div>
+      </a>
+    </div>
+
+    <div class="author-bio">
+      <div class="bio-avatar">KL</div>
+      <div class="bio-text">
+        <h4>Kyle Lagunas</h4>
+        <p>Founder of Kyle &amp; Co and Executive Director of the Human-Centric AI Council. Former IDC analyst and in-house TA leader. Writing about the gap between what HR does and what it can prove — and what to do about it.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Kyle &amp; Co · Where Research Meets Reality.</p>
+  <a href="/blog">← Back to the blog</a>
+</footer>
+
+</body>
+</html>
