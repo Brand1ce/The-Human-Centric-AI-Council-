@@ -30,14 +30,8 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--navy); -webkit-font-smoothing: antialiased; }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 2.5rem;
-    background: rgba(247,241,234,0.95); backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(39,55,82,0.08);
-  }
+  /* NAV — hidden when embedded in WordPress */
+  nav { display: none; }
   .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--navy); }
   .nav-mark { width: 30px; height: 30px; background: var(--navy); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--cream); font-style: italic; }
   .nav-name { font-size: 0.85rem; font-weight: 600; }
@@ -70,8 +64,8 @@
   .hero-date { font-size: 0.78rem; color: rgba(247,241,234,0.4); padding-left: 1.5rem; border-left: 1px solid rgba(247,241,234,0.12); }
 
   /* BODY */
-  .article-wrap { max-width: 780px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
-  .article-body { max-width: 660px; }
+  .article-wrap { max-width: 900px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
+  .article-body { max-width: 780px; }
 
   p { font-size: 1.05rem; line-height: 1.8; color: var(--slate); margin-bottom: 1.5rem; }
   p strong { color: var(--navy); font-weight: 600; }
@@ -164,11 +158,8 @@
   .bio-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--ivory); margin-bottom: 0.25rem; }
   .bio-text p { font-size: 0.82rem; line-height: 1.6; color: rgba(247,241,234,0.65); margin: 0; }
 
-  /* FOOTER */
-  footer { background: var(--navy); padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  footer p { font-size: 0.78rem; color: rgba(247,241,234,0.4); }
-  footer a { font-size: 0.82rem; color: rgba(247,241,234,0.6); text-decoration: none; font-weight: 500; }
-  footer a:hover { color: var(--ivory); }
+  /* FOOTER — hidden when embedded in WordPress */
+  footer { display: none; }
 </style>
 </head>
 <body>
