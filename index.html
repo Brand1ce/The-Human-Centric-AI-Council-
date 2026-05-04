@@ -869,7 +869,20 @@ function HCAIC_Final() {
             <div
               key={r.id}
               className="resource-row"
-              onClick={() => { track('resource_open', { resource_name: r.title, resource_type: r.tag }); setSelectedResource(r); }}
+              onClick={() => {
+                track('resource_open', { resource_name: r.title, resource_type: r.tag });
+                const openKey = RESOURCE_KEY_MAP[r.id] ? RESOURCE_KEY_MAP[r.id] + '_opens' : null;
+                if (openKey) {
+                  fetch(CLICKS_URL + '/latest', { headers: { 'X-ACCESS-KEY': CLICKS_KEY } })
+                    .then(res => res.json())
+                    .then(data => {
+                      const counts = data.record;
+                      counts[openKey] = (counts[openKey] || 0) + 1;
+                      fetch(CLICKS_URL, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-ACCESS-KEY': CLICKS_KEY }, body: JSON.stringify(counts) });
+                    }).catch(() => {});
+                }
+                setSelectedResource(r);
+              }}
               style={{
                 display: 'grid',
                 gridTemplateColumns: '60px 160px 1fr 150px 60px',

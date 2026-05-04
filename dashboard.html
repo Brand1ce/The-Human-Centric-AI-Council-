@@ -93,12 +93,15 @@
         var total = 0;
         var html = '';
         RESOURCES.forEach(function(r) {
-          var n = counts[r.key] || 0;
-          total += n;
+          var clicks = counts[r.key] || 0;
+          var opens = counts[r.key + '_opens'] || 0;
+          total += clicks;
           html += '<div class="card ' + r.cls + '">' +
             '<div class="card-name">' + r.label + '</div>' +
-            '<div class="card-count">' + n + '</div>' +
+            '<div class="card-count">' + clicks + '</div>' +
             '<div class="card-label">' + r.sub + '</div>' +
+            '<div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(39,55,82,0.08);font-size:0.72rem;color:#9D92AD;">' +
+            opens + ' modal opens</div>' +
             '</div>';
         });
         document.getElementById('cards').innerHTML = html;
