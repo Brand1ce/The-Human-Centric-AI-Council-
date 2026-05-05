@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>The AI Momentum Report — Kyle & Co</title>
+<meta name="description" content="Nine archetypes. Three drivers. A diagnostic for where your organization actually is with AI — and what's holding momentum back." />
+<meta property="og:title" content="The AI Momentum Report — Kyle & Co" />
+<meta property="og:description" content="Nine archetypes. Three drivers. Find out where you actually are with AI." />
+<meta property="og:url" content="https://kyleandco.com/aicouncil/momentum-report.html" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H95H1WFLGC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H95H1WFLGC');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #273752; --cream: #FDECCD; --ivory: #F7F1EA; --lilac: #9D92AD; --slate: #555961; }
+  body { font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--navy); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+  /* HERO */
+  .hero { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+  .hero-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 24px; height: 1px; background: var(--lilac); display: inline-block; }
+  .hero h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2.25rem, 6vw, 3.75rem); line-height: 1.05; letter-spacing: -0.025em; color: var(--ivory); margin-bottom: 1.25rem; }
+  .hero h1 em { font-style: italic; color: var(--cream); }
+  .hero-sub { font-size: 1rem; line-height: 1.7; color: rgba(247,241,234,0.7); max-width: 44ch; margin: 0 auto 2.5rem; }
+  .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid rgba(247,241,234,0.1); }
+  .hero-stat-num { font-family: 'Fraunces', serif; font-size: 2.25rem; font-weight: 500; color: var(--cream); line-height: 1; letter-spacing: -0.03em; }
+  .hero-stat-label { font-size: 0.75rem; color: rgba(247,241,234,0.5); margin-top: 0.3rem; }
+
+  /* FORM CARD */
+  .form-section { max-width: 540px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+  .form-card { background: #fff; border-radius: 12px; padding: 2.5rem; box-shadow: 0 2px 24px rgba(39,55,82,0.08); }
+  .form-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 600; margin-bottom: 0.75rem; }
+  .form-title { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .form-desc { font-size: 0.88rem; line-height: 1.6; color: var(--slate); margin-bottom: 1.75rem; }
+
+  form { display: flex; flex-direction: column; gap: 0.75rem; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  input, select { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(39,55,82,0.18); border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: var(--navy); background: #fff; outline: none; transition: border-color 0.15s; }
+  input:focus, select:focus { border-color: var(--navy); }
+  input::placeholder { color: var(--lilac); }
+  .btn { margin-top: 0.25rem; background: var(--navy); color: var(--ivory); border: none; border-radius: 100px; padding: 1rem 1.5rem; font-size: 0.95rem; font-weight: 500; font-family: inherit; cursor: pointer; width: 100%; transition: opacity 0.15s; }
+  .btn:hover { opacity: 0.88; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+  .form-note { font-size: 0.72rem; color: var(--lilac); text-align: center; margin-top: 0.75rem; }
+
+  /* SUCCESS */
+  .success { text-align: center; padding: 1.5rem 0; display: none; }
+  .success h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 500; color: var(--navy); margin-bottom: 0.75rem; }
+  .success p { font-size: 0.9rem; color: var(--slate); line-height: 1.6; margin-bottom: 1.5rem; }
+  .btn-outline { display: inline-block; border: 1.5px solid var(--navy); color: var(--navy); padding: 0.75rem 1.5rem; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-decoration: none; }
+
+  /* WHAT YOU GET */
+  .what-section { background: #F0EBE3; padding: 3rem 2rem; }
+  .what-inner { max-width: 540px; margin: 0 auto; }
+  .what-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 600; margin-bottom: 1.25rem; }
+  .what-items { display: flex; flex-direction: column; gap: 0.85rem; }
+  .what-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .what-num { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; color: var(--lilac); flex-shrink: 0; width: 1.5rem; }
+  .what-text { font-size: 0.9rem; line-height: 1.55; color: var(--slate); padding-top: 0.1rem; }
+  .what-text strong { color: var(--navy); font-weight: 600; }
+
+  /* ASSESSMENT CTA */
+  .assess-section { max-width: 540px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+  .assess-card { background: var(--cream); border-radius: 10px; padding: 1.75rem 2rem; text-align: center; }
+  .assess-card p { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 600; margin-bottom: 0.5rem; }
+  .assess-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 500; color: var(--navy); margin-bottom: 0.6rem; }
+  .assess-card span { font-size: 0.85rem; color: var(--slate); display: block; margin-bottom: 1.25rem; }
+  .btn-navy { display: inline-block; background: var(--navy); color: var(--ivory); padding: 0.75rem 1.5rem; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-decoration: none; }
+
+  /* FOOTER */
+  footer { background: var(--navy); padding: 2rem; text-align: center; }
+  footer p { font-size: 0.78rem; color: rgba(247,241,234,0.4); }
+  footer a { color: rgba(247,241,234,0.5); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Kyle &amp; Co Research</div>
+  <h1>The AI Momentum<br /><em>Report.</em></h1>
+  <p class="hero-sub">Nine archetypes. Three drivers. A diagnostic for where your organization actually is with AI — and what's holding momentum back.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">9</div>
+      <div class="hero-stat-label">HR archetypes mapped</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Core momentum drivers</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">Free</div>
+      <div class="hero-stat-label">No paywall</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-section">
+  <div class="form-card">
+    <div id="form-view">
+      <div class="form-label">Get the report</div>
+      <h2 class="form-title">Send me the AI Momentum Report</h2>
+      <p class="form-desc">Original research from Kyle &amp; Co on how HR organizations are actually moving with AI — what's working, what's stalling, and where real momentum is building.</p>
+
+      <form id="momentum-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/185372908239979993/subscribe" method="post" target="ml-submit-frame">
+        <div class="row">
+          <input required type="text" name="fields[name]" placeholder="First name" />
+          <input required type="text" name="fields[last_name]" placeholder="Last name" />
+        </div>
+        <input required type="email" name="fields[email]" placeholder="Work email" />
+        <div class="row">
+          <input required type="text" name="fields[job_title]" placeholder="Title" />
+          <input required type="text" name="fields[company]" placeholder="Company" />
+        </div>
+        <select required name="fields[role]" style="appearance:none;">
+          <option value="" disabled selected>Your role</option>
+          <option value="HR Practitioner">HR Practitioner</option>
+          <option value="HR Leader">HR Leader</option>
+          <option value="People Analytics">People Analytics</option>
+          <option value="TA">TA</option>
+          <option value="Vendor">Vendor</option>
+          <option value="Consultant">Consultant</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+        <button type="submit" class="btn" id="submit-btn">Send me the report →</button>
+        <p class="form-note">Free research from Kyle &amp; Co. No spam, ever.</p>
+      </form>
+    </div>
+
+    <div class="success" id="success-view">
+      <h3>Report on its way.</h3>
+      <p>Check your inbox — the AI Momentum Report is headed to you now. While you wait, find your archetype.</p>
+      <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" class="btn-outline">Take the assessment →</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<div class="what-section">
+  <div class="what-inner">
+    <div class="what-label">What's inside</div>
+    <div class="what-items">
+      <div class="what-item">
+        <div class="what-num">01</div>
+        <div class="what-text"><strong>The AI Momentum Model</strong> — A reframe of AI adoption in HR: not maturity as a finish line, but momentum as a force to be built.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num">02</div>
+        <div class="what-text"><strong>Nine HR archetypes</strong> — Where organizations actually land, what drives them, and what's keeping them stuck.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num">03</div>
+        <div class="what-text"><strong>Three momentum drivers</strong> — Capability, posture, and investment. The levers that determine whether AI work moves or stalls.</div>
+      </div>
+      <div class="what-item">
+        <div class="what-num">04</div>
+        <div class="what-text"><strong>A diagnostic</strong> — Find your archetype in under 10 minutes. Available as an interactive assessment.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSESSMENT CTA -->
+<div class="assess-section">
+  <div class="assess-card">
+    <p>Also free</p>
+    <h3>Take the Archetype Assessment</h3>
+    <span>Find your archetype in under 10 minutes. See exactly where you are — and what to do next.</span>
+    <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" class="btn-navy">Take the assessment →</a>
+  </div>
+</div>
+
+<iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
+
+<footer>
+  <p>Kyle &amp; Co · Where Research Meets Reality · <a href="https://kyleandco.com">kyleandco.com</a></p>
+</footer>
+
+<script>
+  document.getElementById('momentum-form').addEventListener('submit', function() {
+    if (window.gtag) window.gtag('event', 'form_submit', { form_name: 'momentum_report_landing' });
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    setTimeout(function() {
+      document.getElementById('form-view').style.display = 'none';
+      var s = document.getElementById('success-view');
+      s.style.display = 'block';
+    }, 1000);
+  });
+</script>
+
+</body>
+</html>
