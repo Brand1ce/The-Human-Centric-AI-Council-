@@ -322,15 +322,10 @@
       >
 
         <div class="form-fields" id="form-fields">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="first-name">First Name</label>
-              <input type="text" id="first-name" name="fields[name]" placeholder="First" required />
-            </div>
-            <div class="form-group">
-              <label for="last-name">Last Name</label>
-              <input type="text" id="last-name" name="fields[last_name]" placeholder="Last" required />
-            </div>
+
+          <div class="form-group">
+            <label for="first-name">Name</label>
+            <input type="text" id="first-name" name="fields[name]" placeholder="Your name" required />
           </div>
 
           <div class="form-group">
@@ -339,18 +334,8 @@
           </div>
 
           <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="fields[title]" placeholder="Your role" />
-          </div>
-
-          <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" id="company" name="fields[company]" placeholder="Where you work" />
-          </div>
-
-          <div class="form-group">
             <label for="role-type">Role</label>
-            <select id="role-type" name="fields[persona]">
+            <select id="role-type" name="fields[persona]" required>
               <option value="">Select your role</option>
               <option value="HR leader / exec">HR leader / exec</option>
               <option value="HR business partner">HR business partner</option>
