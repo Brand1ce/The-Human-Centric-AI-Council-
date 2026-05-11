@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kyle & Co//HCAIC Town Hall//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20260528T170000Z
+DTEND:20260528T174500Z
+SUMMARY:HCAIC AI Transformation Toolkit Town Hall
+DESCRIPTION:A live walkthrough of the four HCAIC frameworks with the practitioners who built them. Free — recording sent to every registrant.\n\nhttps://kyleandco.com/aicouncil
+LOCATION:Virtual
+STATUS:CONFIRMED
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR
