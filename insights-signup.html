@@ -15,152 +15,202 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Inter', sans-serif;
-    background: #9D92AD;
+    background: #F7F1EA;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2.5rem 1.5rem;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .page { max-width: 520px; width: 100%; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 2px 32px rgba(39,55,82,0.08);
+    overflow: hidden;
+  }
 
-  /* Brand mark */
-  .brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; }
-  .brand img { height: 28px; width: auto; }
+  /* Hero band */
+  .card-hero {
+    background: #273752;
+    padding: 2.5rem 2.75rem 2.25rem;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 0.65rem;
+    margin-bottom: 1.75rem;
+    text-decoration: none;
+  }
+  .brand img { height: 26px; width: auto; }
 
-  /* Heading */
+  .eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 500; margin-bottom: 0.75rem;
+  }
   h1 {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(1.75rem, 5vw, 2.25rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: #1a1a1a;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #F7F1EA;
     margin-bottom: 0.75rem;
   }
-  .sub { font-size: 0.95rem; line-height: 1.6; color: #2a2a2a; margin-bottom: 2rem; }
+  h1 em { font-style: italic; color: #FDECCD; }
+  .hero-sub {
+    font-size: 0.9rem; line-height: 1.65;
+    color: rgba(247,241,234,0.7); max-width: 44ch;
+  }
 
-  /* Form */
-  form { display: flex; flex-direction: column; gap: 0.75rem; }
+  /* Form area */
+  .card-body { padding: 2.25rem 2.75rem 2.5rem; }
+
+  form { display: flex; flex-direction: column; gap: 0.7rem; }
+
   input[type="text"],
   input[type="email"] {
     width: 100%;
-    padding: 1rem 1.1rem;
-    border: 1.5px solid rgba(255,255,255,0.6);
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(39,55,82,0.16);
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: inherit;
-    color: #1a1a1a;
+    color: #273752;
     background: #fff;
     outline: none;
     transition: border-color 0.15s;
   }
   input:focus { border-color: #273752; }
-  input::placeholder { color: #888; }
+  input::placeholder { color: #9D92AD; }
 
-  /* Permissions section */
-  .permissions { margin-top: 0.5rem; }
-  .permissions-title { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.5rem; }
-  .permissions-note { font-size: 0.85rem; line-height: 1.55; color: #2a2a2a; margin-bottom: 1.25rem; }
-
-  .checkbox-group { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
-  .checkbox-label {
-    display: flex; align-items: center; gap: 0.75rem;
-    font-size: 0.95rem; font-weight: 700; color: #1a1a1a;
+  /* Persona selector */
+  .persona-section {
+    margin-top: 0.5rem;
+    padding: 1.25rem;
+    background: #F7F1EA;
+    border-radius: 10px;
+  }
+  .persona-label {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 600; margin-bottom: 0.85rem;
+  }
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .persona-option {
+    display: flex; align-items: center; gap: 0.6rem;
     cursor: pointer;
   }
-  .checkbox-label input[type="checkbox"] {
-    width: 22px; height: 22px;
-    border: 2px solid rgba(255,255,255,0.8);
+  .persona-option input[type="checkbox"] {
+    width: 16px; height: 16px;
+    border: 1.5px solid rgba(39,55,82,0.25);
     border-radius: 4px;
-    background: rgba(255,255,255,0.9);
     cursor: pointer;
     accent-color: #273752;
     flex-shrink: 0;
     padding: 0;
   }
+  .persona-option span {
+    font-size: 0.85rem; font-weight: 500; color: #273752;
+  }
+
+  .permissions-note {
+    font-size: 0.75rem; line-height: 1.55;
+    color: #9D92AD; margin-top: 1rem;
+  }
 
   .btn {
+    margin-top: 0.5rem;
     background: #273752;
     color: #F7F1EA;
     border: none;
     border-radius: 100px;
-    padding: 1rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.95rem 1.5rem;
+    font-size: 0.9rem;
     font-weight: 500;
     font-family: inherit;
     cursor: pointer;
     width: 100%;
     transition: opacity 0.15s;
+    letter-spacing: 0.01em;
   }
   .btn:hover { opacity: 0.88; }
   .btn:disabled { opacity: 0.5; cursor: default; }
 
   /* Success */
-  .success { text-align: center; padding: 2rem 0; display: none; }
-  .success h2 { font-size: 1.4rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.75rem; }
-  .success p { font-size: 0.9rem; color: #2a2a2a; line-height: 1.6; }
+  .success { text-align: center; padding: 3rem 2rem; display: none; }
+  .success h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem; font-weight: 400;
+    color: #273752; margin-bottom: 0.75rem;
+  }
+  .success h2 em { font-style: italic; color: #9D92AD; }
+  .success p { font-size: 0.88rem; color: #555961; line-height: 1.65; }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="card">
 
-  <!-- Brand mark using the branded ampersand -->
-  <div class="brand">
-    <a href="https://kyleandco.com" style="display:inline-flex;align-items:center;gap:0.6rem;text-decoration:none;">
+  <div class="card-hero">
+    <a href="https://kyleandco.com" class="brand">
       <img src="https://kyleandco.com/aicouncil/favicon.png" alt="Kyle & Co" />
     </a>
+    <div class="eyebrow">Kyle &amp; Co · Insights</div>
+    <h1>Research that moves<br /><em>the work forward.</em></h1>
+    <p class="hero-sub">Get first access to research, frameworks, and practitioner perspectives on AI in HR — direct from Kyle &amp; Co.</p>
   </div>
 
-  <div id="form-view">
-    <h1>Sign up for insight that moves the industry forward</h1>
-    <p class="sub">Get first access to our launch, latest insights, and upcoming events.</p>
+  <div class="card-body">
+    <div id="form-view">
+      <form id="insights-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
 
-    <form id="insights-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
+        <input required type="text" name="fields[name]" placeholder="First name" />
+        <input required type="email" name="fields[email]" placeholder="Work email" />
+        <input type="text" name="fields[company]" placeholder="Company" />
 
-      <input required type="text" name="fields[name]" placeholder="Name" />
-      <input required type="email" name="fields[email]" placeholder="Email" />
-      <input type="text" name="fields[company]" placeholder="Company" />
-
-      <div class="permissions">
-        <div class="permissions-title">Marketing Permissions</div>
-        <p class="permissions-note">We'll only use your email to share updates and information from Kyle &amp; Co. You can unsubscribe at any time.</p>
-
-        <div class="checkbox-group">
-          <label class="checkbox-label">
-            <input type="checkbox" name="fields[practitioners]" value="yes" />
-            Practitioners
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="fields[vendors]" value="yes" />
-            Vendors
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="fields[consultants]" value="yes" />
-            Consultants
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="fields[press]" value="yes" />
-            Press
-          </label>
+        <div class="persona-section">
+          <div class="persona-label">I'm a —</div>
+          <div class="persona-grid">
+            <label class="persona-option">
+              <input type="checkbox" name="fields[practitioners]" value="yes" />
+              <span>Practitioner</span>
+            </label>
+            <label class="persona-option">
+              <input type="checkbox" name="fields[vendors]" value="yes" />
+              <span>Vendor</span>
+            </label>
+            <label class="persona-option">
+              <input type="checkbox" name="fields[consultants]" value="yes" />
+              <span>Consultant</span>
+            </label>
+            <label class="persona-option">
+              <input type="checkbox" name="fields[press]" value="yes" />
+              <span>Press</span>
+            </label>
+          </div>
+          <p class="permissions-note">We'll only use your email to share updates and information from Kyle &amp; Co. Unsubscribe anytime.</p>
         </div>
-      </div>
 
-      <input type="hidden" name="ml-submit" value="1" />
-      <input type="hidden" name="anticsrf" value="true" />
-      <button type="submit" class="btn" id="submit-btn">Join the community →</button>
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+        <button type="submit" class="btn" id="submit-btn">Join the community →</button>
 
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <div class="success" id="success-view">
-    <h2>You're in.</h2>
-    <p>Welcome to the community. Expect research and perspectives worth your time — nothing else.</p>
+    <div class="success" id="success-view">
+      <h2>You're in.<br /><em>Welcome.</em></h2>
+      <p>Expect research and perspectives worth your time — nothing else.</p>
+    </div>
   </div>
 
 </div>
