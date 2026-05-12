@@ -7,9 +7,9 @@ BEGIN:VEVENT
 DTSTART:20260528T170000Z
 DTEND:20260528T174500Z
 SUMMARY:HCAIC AI Transformation Toolkit Town Hall
-DESCRIPTION:A live walkthrough of the four HCAIC frameworks with the practitioners who built them. Free — recording sent to every registrant.\n\nhttps://kyleandco.com/aicouncil
-LOCATION:Virtual
+DESCRIPTION:For the past year\, the Human-Centric AI Council has been building a connected body of work to help HR engage AI with more clarity\, confidence\, and practical discipline. Four frameworks — AI Literacy\, Change Management\, Solution Evaluation\, and Responsible AI — built by the practitioners closest to the work.\n\nOn May 28\, the framework leads walk through what we built\, why we started here\, and how to put it to use.\n\nWhat to expect:\n- What each framework is for\, why it belongs in the sequence\, and where HR tends to get stuck\n- How the four resources work together — modular\, but not disconnected\n- Direct questions from practitioners working through this right now\n\nHosted by Kyle Lagunas\, Executive Director of HCAIC. Joined by the 4 framework leads behind Cohort Zero: Change Management\, AI Literacy (powered by CodeSignal)\, Solution Evaluation\, and Responsible AI Implementation.\n\nBring a question. The harder ones are the most useful.\n\nFull toolkit access and the session recording go out to every registrant after we wrap.\n\nhttps://kyleandco.com/aicouncil
+LOCATION:Virtual — watch at https://kyleandco.com/live/
 STATUS:CONFIRMED
-SEQUENCE:0
+SEQUENCE:1
 END:VEVENT
 END:VCALENDAR
