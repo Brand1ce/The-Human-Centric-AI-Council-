@@ -226,8 +226,11 @@ figure.inline figcaption {
   margin-bottom: 2rem; line-height: 1.6;
 }
 .subscribe-form {
-  display: flex; gap: 0.5rem; max-width: 440px; margin: 0 auto 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem; max-width: 540px; margin: 0 auto 1rem;
 }
+.subscribe-form input[type="hidden"] { display: none; }
 .subscribe-form input[type="email"] {
   flex: 1; padding: 0.85rem 1.25rem;
   background: rgba(247,241,234,0.08);
@@ -271,8 +274,9 @@ figure.inline figcaption {
 @media (max-width: 700px) {
   .topbar { padding: 0 1.25rem; }
   .topbar-nav { display: none; }
-  .subscribe-form { flex-direction: column; }
-  .subscribe-form input[type="email"] { border-radius: 8px; }
+  .subscribe-form { grid-template-columns: 1fr; }
+  .subscribe-form input[type="text"],
+  .subscribe-form input[type="email"],
   .subscribe-form button { border-radius: 8px; }
   article.post { padding: 2.5rem 1.25rem 0; }
   .cta-block { padding: 2rem 1.5rem; }
@@ -491,7 +495,10 @@ figure.inline figcaption {
     <h3>Don't miss what's<br /><em>next.</em></h3>
     <p>New analysis, takes, and practitioner perspectives — straight to your inbox. No noise, no vendor pitches. Just the work.</p>
     <form class="subscribe-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
-      <input type="email" name="fields[email]" placeholder="Your email address" required />
+      <input type="text" name="fields[name]" placeholder="First name" required />
+      <input type="email" name="fields[email]" placeholder="Work email" required />
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
       <button type="submit">Subscribe →</button>
     </form>
     <iframe name="ml-submit-frame" style="display:none;"></iframe>
