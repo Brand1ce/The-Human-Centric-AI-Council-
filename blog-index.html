@@ -95,6 +95,78 @@ body {
   color: var(--navy); letter-spacing: 0.04em;
 }
 
+/* — HERO SUBSCRIBE BTN — */
+.hero-subscribe-btn {
+  display: inline-flex; align-items: center;
+  margin-top: 2rem;
+  background: var(--cream); color: var(--navy-dark);
+  text-decoration: none; font-size: 0.85rem; font-weight: 600;
+  padding: 0.85rem 1.75rem; border-radius: 100px;
+  transition: background 0.15s;
+}
+.hero-subscribe-btn:hover { background: #f5e0b5; }
+
+/* — SUBSCRIBE FOOTER — */
+.subscribe-footer {
+  background: var(--navy);
+  padding: 5rem 2.5rem 0;
+}
+.subscribe-inner {
+  max-width: 560px; margin: 0 auto; text-align: center;
+}
+.subscribe-kicker {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1rem;
+}
+.subscribe-footer h3 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300;
+  color: var(--ivory); letter-spacing: -0.02em;
+  line-height: 1.15; margin-bottom: 0.75rem;
+}
+.subscribe-footer h3 em { font-style: italic; color: var(--cream); }
+.subscribe-footer > .subscribe-inner > p {
+  font-size: 0.92rem; color: rgba(247,241,234,0.6);
+  margin-bottom: 2rem; line-height: 1.6;
+}
+.subscribe-form {
+  display: grid; grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem; max-width: 540px; margin: 0 auto 1rem;
+}
+.subscribe-form input[type="hidden"] { display: none; }
+.subscribe-form input[type="text"],
+.subscribe-form input[type="email"] {
+  padding: 0.85rem 1.25rem;
+  background: rgba(247,241,234,0.08);
+  border: 1px solid rgba(247,241,234,0.2);
+  border-radius: 100px; color: var(--ivory);
+  font-size: 0.88rem; font-family: inherit;
+  outline: none;
+}
+.subscribe-form input::placeholder { color: rgba(247,241,234,0.35); }
+.subscribe-form button {
+  background: var(--cream); color: var(--navy-dark);
+  border: none; border-radius: 100px;
+  padding: 0.85rem 1.5rem; font-size: 0.85rem;
+  font-weight: 600; font-family: inherit;
+  cursor: pointer; white-space: nowrap;
+}
+.subscribe-form button:hover { background: #f5e0b5; }
+.subscribe-note {
+  font-size: 0.7rem; color: rgba(247,241,234,0.35);
+}
+.subscribe-divider {
+  border: none; border-top: 1px solid rgba(247,241,234,0.1);
+  margin: 3rem auto 0; max-width: 560px;
+}
+.page-footer-bar {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.72rem; color: rgba(247,241,234,0.35);
+  flex-wrap: wrap; gap: 0.75rem; padding: 2rem 0 3rem;
+}
+.page-footer-bar a { color: rgba(247,241,234,0.5); text-decoration: none; }
+.page-footer-bar a:hover { color: var(--ivory); }
+
 /* — FILTER BAR — */
 .filter-bar {
   background: var(--ivory);
@@ -212,14 +284,6 @@ body {
   font-size: 1rem;
 }
 
-/* — FOOTER — */
-.page-footer {
-  background: var(--navy); color: rgba(247,241,234,0.6);
-  padding: 2rem 4rem;
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.75rem; flex-wrap: wrap; gap: 1rem;
-}
-.page-footer a { color: var(--cream); text-decoration: none; }
 
 /* — FADE IN — */
 .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
@@ -253,11 +317,11 @@ body {
   <a href="https://kyleandco.com" class="topbar-brand">Kyle &amp; Co</a>
   <div class="topbar-links">
     <a href="https://kyleandco.com">Home</a>
-    <a href="https://kyleandco.com/blog">Insights</a>
+    <a href="#subscribe">Insights Community</a>
     <a href="https://kyleandco.com/aicouncil">AI Council</a>
     <a href="https://kyleandco.com/contact">Contact</a>
   </div>
-  <a href="https://kyleandco.com/aicouncil" class="topbar-cta">Explore the Council →</a>
+  <a href="#subscribe" class="topbar-cta">Subscribe →</a>
 </nav>
 
 <!-- HERO -->
@@ -266,6 +330,7 @@ body {
     <p class="blog-hero-kicker">Kyle &amp; Co · Insights &amp; Analysis</p>
     <h1>Sharp takes on talent,<br /><em>technology, and what's next.</em></h1>
     <p>Analysis and perspective from the team at Kyle &amp; Co — covering HR transformation, TA, and the tools and decisions shaping how organizations lead. Written by practitioners, for practitioners.</p>
+    <a href="#subscribe" class="hero-subscribe-btn">Join the Insights Community →</a>
   </div>
 </div>
 
@@ -547,10 +612,30 @@ body {
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="page-footer">
-  <div>© 2026 Kyle &amp; Co · Human-Centric AI Council</div>
-  <div><a href="https://kyleandco.com/aicouncil">Explore the Council →</a></div>
+<!-- SUBSCRIBE FOOTER -->
+<footer id="subscribe" class="subscribe-footer">
+  <div class="subscribe-inner">
+    <p class="subscribe-kicker">Kyle &amp; Co · Insights Community</p>
+    <h3>Don't miss what's<br /><em>next.</em></h3>
+    <p>New analysis, takes, and practitioner perspectives — straight to your inbox. No noise, no vendor pitches. Just the work.</p>
+    <form class="subscribe-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
+      <input type="text" name="fields[name]" placeholder="First name" required />
+      <input type="email" name="fields[email]" placeholder="Work email" required />
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
+      <button type="submit">Subscribe →</button>
+    </form>
+    <iframe name="ml-submit-frame" style="display:none;"></iframe>
+    <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+  </div>
+  <hr class="subscribe-divider" />
+  <div class="page-footer-bar">
+    <span>© 2026 Kyle &amp; Co</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://kyleandco.com/aicouncil">AI Council</a>
+      <a href="https://kyleandco.com">kyleandco.com</a>
+    </div>
+  </div>
 </footer>
 
 <script>
