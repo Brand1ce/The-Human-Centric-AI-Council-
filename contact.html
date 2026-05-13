@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Get in Touch — Kyle & Co</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H95H1WFLGC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H95H1WFLGC');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F7F1EA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1.5rem 2.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* — NAV — */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: #273752; padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+  }
+  .topbar-brand {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 500; text-decoration: none;
+  }
+  .topbar-nav { display: flex; gap: 1.75rem; align-items: center; }
+  .topbar-nav a {
+    font-size: 0.82rem; color: rgba(247,241,234,0.65);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .topbar-nav a:hover { color: #F7F1EA; }
+
+  /* — CARD — */
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 2px 32px rgba(39,55,82,0.08);
+    overflow: hidden;
+  }
+
+  .card-hero {
+    background: #273752;
+    padding: 2.5rem 2.75rem 2.25rem;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 0.65rem;
+    margin-bottom: 1.75rem; text-decoration: none;
+  }
+  .brand img { height: 26px; width: auto; }
+  .eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 500; margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 400; line-height: 1.1; letter-spacing: -0.02em;
+    color: #F7F1EA; margin-bottom: 0.75rem;
+  }
+  h1 em { font-style: italic; color: #FDECCD; }
+  .hero-sub {
+    font-size: 0.9rem; line-height: 1.65;
+    color: rgba(247,241,234,0.7); max-width: 44ch;
+  }
+
+  /* — FORM — */
+  .card-body { padding: 2.25rem 2.75rem 2.5rem; }
+  form { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%; padding: 0.8rem 1rem;
+    border: 1px solid rgba(39,55,82,0.16);
+    border-radius: 8px; font-size: 0.9rem;
+    font-family: inherit; color: #273752;
+    background: #fff; outline: none;
+    transition: border-color 0.15s;
+  }
+  input:focus, textarea:focus { border-color: #273752; }
+  input::placeholder, textarea::placeholder { color: #9D92AD; }
+  textarea { resize: vertical; line-height: 1.5; }
+
+  .help-section {
+    padding: 1.25rem; background: #F7F1EA; border-radius: 10px;
+  }
+  .help-label {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 600; margin-bottom: 0.85rem;
+  }
+  .help-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+  .help-option {
+    display: flex; align-items: center; gap: 0.6rem;
+    cursor: pointer; font-size: 0.88rem; font-weight: 500; color: #273752;
+  }
+  .help-option input[type="checkbox"] {
+    width: 16px; height: 16px; border-radius: 4px;
+    accent-color: #273752; flex-shrink: 0; cursor: pointer;
+  }
+
+  .btn {
+    margin-top: 0.5rem; background: #273752; color: #F7F1EA;
+    border: none; border-radius: 100px; padding: 0.95rem 1.5rem;
+    font-size: 0.9rem; font-weight: 500; font-family: inherit;
+    cursor: pointer; width: 100%; transition: opacity 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+
+  .success { text-align: center; padding: 3rem 2rem; display: none; }
+  .success h2 {
+    font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 400;
+    color: #273752; margin-bottom: 0.75rem;
+  }
+  .success h2 em { font-style: italic; color: #9D92AD; }
+  .success p { font-size: 0.88rem; color: #555961; line-height: 1.65; }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 0 1.25rem; }
+    .topbar-nav { display: none; }
+    .card-hero, .card-body { padding: 2rem 1.75rem; }
+    .name-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="https://kyleandco.com" class="topbar-brand">Kyle &amp; Co</a>
+  <div class="topbar-nav">
+    <a href="https://kyleandco.com">Home</a>
+    <a href="https://kyleandco.com/blog">Insights</a>
+    <a href="https://kyleandco.com/aicouncil">AI Council</a>
+  </div>
+</nav>
+
+<div class="card">
+  <div class="card-hero">
+    <a href="https://kyleandco.com" class="brand">
+      <img src="https://kyleandco.com/aicouncil/favicon.png" alt="Kyle & Co" />
+    </a>
+    <div class="eyebrow">Kyle &amp; Co · General Inquiry</div>
+    <h1>Let's talk about<br /><em>what you need.</em></h1>
+    <p class="hero-sub">Tell us a little about what you're working on and we'll be in touch.</p>
+  </div>
+
+  <div class="card-body">
+    <div id="form-view">
+      <form id="contact-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/185371122148050837/subscribe" method="post" target="ml-submit-frame">
+
+        <div class="name-row">
+          <input required type="text" name="fields[name]" placeholder="First name" />
+          <input required type="text" name="fields[last_name]" placeholder="Last name" />
+        </div>
+        <input required type="email" name="fields[email]" placeholder="Work email" />
+        <input required type="text" name="fields[company]" placeholder="Company" />
+
+        <div class="help-section">
+          <div class="help-label">What would you like help with?</div>
+          <div class="help-grid">
+            <label class="help-option">
+              <input type="checkbox" name="fields[what_would_you_like_help_with][]" value="General Advisory" />
+              <span>General Advisory</span>
+            </label>
+            <label class="help-option">
+              <input type="checkbox" name="fields[what_would_you_like_help_with][]" value="GTM Strategy" />
+              <span>GTM Strategy</span>
+            </label>
+            <label class="help-option">
+              <input type="checkbox" name="fields[what_would_you_like_help_with][]" value="Field Marketing Activation" />
+              <span>Field Marketing Activation</span>
+            </label>
+            <label class="help-option">
+              <input type="checkbox" name="fields[what_would_you_like_help_with][]" value="Schedule an Analyst Briefing" />
+              <span>Schedule an Analyst Briefing</span>
+            </label>
+          </div>
+        </div>
+
+        <textarea name="fields[anything_else]" placeholder="Anything else we should know? (optional)" rows="3"></textarea>
+
+        <input type="hidden" name="ml-submit" value="1" />
+        <input type="hidden" name="anticsrf" value="true" />
+        <button type="submit" class="btn" id="submit-btn">Send inquiry →</button>
+
+      </form>
+    </div>
+
+    <div class="success" id="success-view">
+      <h2>Message received.<br /><em>We'll be in touch.</em></h2>
+      <p>Expect a response within one business day.</p>
+    </div>
+  </div>
+</div>
+
+<iframe name="ml-submit-frame" title="Form submission" style="display:none;"></iframe>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function() {
+    if (window.gtag) window.gtag('event', 'form_submit', { form_name: 'contact' });
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    setTimeout(function() {
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success-view').style.display = 'block';
+    }, 1000);
+  });
+</script>
+</body>
+</html>
