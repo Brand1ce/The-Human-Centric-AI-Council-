@@ -23,10 +23,33 @@
     background: #F7F1EA;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2.5rem 1.5rem;
+    padding: 5rem 1.5rem 2.5rem;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* — NAV — */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: #273752; padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+  }
+  .topbar-brand {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #9D92AD; font-weight: 500; text-decoration: none;
+  }
+  .topbar-nav { display: flex; gap: 1.75rem; align-items: center; }
+  .topbar-nav a {
+    font-size: 0.82rem; color: rgba(247,241,234,0.65);
+    text-decoration: none; transition: color 0.15s;
+  }
+  .topbar-nav a:hover { color: #F7F1EA; }
+  @media (max-width: 600px) {
+    .topbar { padding: 0 1.25rem; }
+    .topbar-nav { display: none; }
   }
 
   .card {
@@ -158,6 +181,16 @@
 </style>
 </head>
 <body>
+
+<nav class="topbar">
+  <a href="https://kyleandco.com" class="topbar-brand">Kyle &amp; Co</a>
+  <div class="topbar-nav">
+    <a href="https://kyleandco.com">Home</a>
+    <a href="https://kyleandco.com/blog">Insights</a>
+    <a href="https://kyleandco.com/aicouncil">AI Council</a>
+  </div>
+</nav>
+
 <div class="card">
 
   <div class="card-hero">
