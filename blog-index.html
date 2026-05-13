@@ -128,29 +128,54 @@ body {
   font-size: 0.92rem; color: rgba(247,241,234,0.6);
   margin-bottom: 2rem; line-height: 1.6;
 }
-.subscribe-form {
-  display: grid; grid-template-columns: 1fr 1fr auto;
-  gap: 0.5rem; max-width: 540px; margin: 0 auto 1rem;
-}
+.subscribe-form { max-width: 480px; margin: 0 auto 1rem; }
 .subscribe-form input[type="hidden"] { display: none; }
+.subscribe-fields {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
 .subscribe-form input[type="text"],
 .subscribe-form input[type="email"] {
-  padding: 0.85rem 1.25rem;
+  width: 100%; padding: 0.85rem 1.25rem;
   background: rgba(247,241,234,0.08);
   border: 1px solid rgba(247,241,234,0.2);
-  border-radius: 100px; color: var(--ivory);
+  border-radius: 8px; color: var(--ivory);
   font-size: 0.88rem; font-family: inherit;
   outline: none;
 }
 .subscribe-form input::placeholder { color: rgba(247,241,234,0.35); }
+.subscribe-persona { margin-bottom: 1.25rem; text-align: left; }
+.persona-label {
+  font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(247,241,234,0.45); margin-bottom: 0.75rem;
+}
+.persona-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+}
+.persona-option {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: rgba(247,241,234,0.06);
+  border: 1px solid rgba(247,241,234,0.15);
+  border-radius: 6px; padding: 0.6rem 0.75rem;
+  cursor: pointer; font-size: 0.8rem; color: rgba(247,241,234,0.7);
+  transition: background 0.15s;
+}
+.persona-option:hover { background: rgba(247,241,234,0.12); }
+.persona-option input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--cream); flex-shrink: 0; }
 .subscribe-form button {
-  background: var(--cream); color: var(--navy-dark);
-  border: none; border-radius: 100px;
-  padding: 0.85rem 1.5rem; font-size: 0.85rem;
+  width: 100%; background: var(--cream); color: var(--navy-dark);
+  border: none; border-radius: 8px;
+  padding: 0.95rem 1.5rem; font-size: 0.9rem;
   font-weight: 600; font-family: inherit;
-  cursor: pointer; white-space: nowrap;
+  cursor: pointer; margin-top: 0.25rem;
 }
 .subscribe-form button:hover { background: #f5e0b5; }
+.subscribe-success h4 {
+  font-size: 1.4rem; font-weight: 300; color: var(--ivory);
+  margin-bottom: 0.5rem;
+}
+.subscribe-success h4 em { font-style: italic; color: var(--cream); }
+.subscribe-success p { color: rgba(247,241,234,0.6); font-size: 0.9rem; }
 .subscribe-note {
   font-size: 0.7rem; color: rgba(247,241,234,0.35);
 }
@@ -618,15 +643,31 @@ body {
     <p class="subscribe-kicker">Kyle &amp; Co · Insights Community</p>
     <h3>Don't miss what's<br /><em>next.</em></h3>
     <p>New analysis, takes, and practitioner perspectives — straight to your inbox. No noise, no vendor pitches. Just the work.</p>
-    <form class="subscribe-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
-      <input type="text" name="fields[name]" placeholder="First name" required />
-      <input type="email" name="fields[email]" placeholder="Work email" required />
+    <form class="subscribe-form" id="subscribe-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
+      <div class="subscribe-fields">
+        <input type="text" name="fields[name]" placeholder="First name" required />
+        <input type="email" name="fields[email]" placeholder="Work email" required />
+        <input type="text" name="fields[company]" placeholder="Company" />
+      </div>
+      <div class="subscribe-persona">
+        <p class="persona-label">I'm a —</p>
+        <div class="persona-grid">
+          <label class="persona-option"><input type="checkbox" name="fields[practitioners]" value="yes" /><span>Practitioner</span></label>
+          <label class="persona-option"><input type="checkbox" name="fields[vendors]" value="yes" /><span>Vendor</span></label>
+          <label class="persona-option"><input type="checkbox" name="fields[consultants]" value="yes" /><span>Consultant</span></label>
+          <label class="persona-option"><input type="checkbox" name="fields[press]" value="yes" /><span>Press</span></label>
+        </div>
+      </div>
       <input type="hidden" name="ml-submit" value="1" />
       <input type="hidden" name="anticsrf" value="true" />
-      <button type="submit">Subscribe →</button>
+      <button type="submit">Join the community →</button>
     </form>
+    <div class="subscribe-success" id="subscribe-success" style="display:none;">
+      <h4>You're in. <em>Welcome.</em></h4>
+      <p>Expect research and perspectives worth your time — nothing else.</p>
+    </div>
     <iframe name="ml-submit-frame" style="display:none;"></iframe>
-    <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+    <p class="subscribe-note">We'll only use your email to share updates from Kyle &amp; Co. Unsubscribe anytime.</p>
   </div>
   <hr class="subscribe-divider" />
   <div class="page-footer-bar">
@@ -672,6 +713,18 @@ btns.forEach(btn => {
     }
   });
 });
+
+// Subscribe form success state
+const subForm = document.getElementById('subscribe-form');
+const subSuccess = document.getElementById('subscribe-success');
+if (subForm) {
+  subForm.addEventListener('submit', () => {
+    setTimeout(() => {
+      subForm.style.display = 'none';
+      subSuccess.style.display = 'block';
+    }, 1000);
+  });
+}
 
 // Fade-in on scroll
 const observer = new IntersectionObserver((entries) => {
