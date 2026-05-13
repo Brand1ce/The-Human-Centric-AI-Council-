@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Insights & Analysis — Kyle & Co</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #273752;
+  --navy-dark: #172339;
+  --navy-mid: #2D5C94;
+  --lilac: #9D92AD;
+  --ivory: #F7F1EA;
+  --slate: #555961;
+  --cream: #FDECCD;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--ivory);
+  color: var(--navy);
+  line-height: 1.6;
+}
+
+/* — NAV — */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy); padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+}
+.topbar-brand { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 500; text-decoration: none; }
+.topbar-links { display: flex; gap: 2rem; align-items: center; }
+.topbar-links a { font-size: 0.82rem; color: rgba(247,241,234,0.7); text-decoration: none; }
+.topbar-links a:hover { color: var(--ivory); }
+.topbar-cta {
+  background: var(--cream); color: var(--navy-dark);
+  text-decoration: none; font-size: 0.78rem; font-weight: 600;
+  padding: 0.5rem 1.1rem; border-radius: 100px; white-space: nowrap;
+}
+.topbar-cta:hover { background: #f5e0b5; }
+
+/* — HERO — */
+.blog-hero {
+  padding: 9rem 2.5rem 5rem;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+.blog-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(45,92,148,0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+.blog-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+.blog-hero-kicker {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.25rem;
+}
+.blog-hero h1 {
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 300; line-height: 1.0; letter-spacing: -0.03em;
+  color: var(--ivory); margin-bottom: 1.25rem;
+}
+.blog-hero h1 em { font-style: italic; color: var(--cream); }
+.blog-hero p {
+  font-size: 1.05rem; color: rgba(247,241,234,0.65);
+  max-width: 52ch; line-height: 1.7;
+}
+
+/* — FILTER BAR — */
+.filter-bar {
+  background: var(--ivory);
+  border-bottom: 1px solid rgba(39,55,82,0.1);
+  padding: 0 2.5rem;
+  position: sticky; top: 56px; z-index: 90;
+}
+.filter-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; gap: 0.5rem; align-items: center;
+  overflow-x: auto; padding: 1rem 0;
+  scrollbar-width: none;
+}
+.filter-inner::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0;
+  background: none; border: 1px solid rgba(39,55,82,0.18);
+  color: var(--slate); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.45rem 1rem; border-radius: 100px;
+  cursor: pointer; transition: all 0.15s;
+  font-family: inherit;
+}
+.filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+.filter-btn.active {
+  background: var(--navy); border-color: var(--navy);
+  color: var(--ivory);
+}
+
+/* — GRID — */
+.blog-grid-wrap {
+  max-width: 1200px; margin: 0 auto;
+  padding: 4rem 2.5rem 6rem;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* — CARD — */
+.post-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(39,55,82,0.08);
+  display: flex; flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none; color: inherit;
+}
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(39,55,82,0.1);
+}
+.post-card-img {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--navy);
+}
+.post-card-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s;
+}
+.post-card:hover .post-card-img img { transform: scale(1.03); }
+.post-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.post-card-meta {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-bottom: 0.85rem; flex-wrap: wrap;
+}
+.post-card-cat {
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 600; color: var(--navy-dark);
+  background: var(--cream); padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+}
+.post-card-date {
+  font-size: 0.7rem; color: var(--lilac);
+  letter-spacing: 0.06em;
+}
+.post-card-title {
+  font-size: 1.0rem; font-weight: 500; line-height: 1.35;
+  color: var(--navy); margin-bottom: 1rem; flex: 1;
+}
+.post-card-author {
+  font-size: 0.72rem; color: var(--lilac);
+  display: flex; align-items: center; gap: 0.4rem;
+  margin-top: auto;
+}
+.post-card-author::before {
+  content: ''; display: inline-block;
+  width: 16px; height: 1px; background: var(--lilac);
+}
+
+/* — FEATURED CARD (first post, full width) — */
+.post-card.featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+}
+.post-card.featured .post-card-img {
+  width: 50%; flex-shrink: 0; aspect-ratio: auto;
+  min-height: 280px;
+}
+.post-card.featured .post-card-body { padding: 2.5rem; justify-content: center; }
+.post-card.featured .post-card-title {
+  font-size: 1.5rem; line-height: 1.25;
+  font-weight: 400; margin-bottom: 1.25rem;
+}
+
+/* — EMPTY STATE — */
+.no-results {
+  grid-column: 1 / -1; text-align: center;
+  padding: 5rem 0; color: var(--lilac);
+  font-size: 1rem;
+}
+
+/* — FOOTER — */
+.page-footer {
+  background: var(--navy); color: rgba(247,241,234,0.6);
+  padding: 2rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.75rem; flex-wrap: wrap; gap: 1rem;
+}
+.page-footer a { color: var(--cream); text-decoration: none; }
+
+/* — FADE IN — */
+.fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+/* — RESPONSIVE — */
+@media (max-width: 900px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .post-card.featured { flex-direction: column; }
+  .post-card.featured .post-card-img { width: 100%; min-height: 220px; aspect-ratio: 16/9; }
+}
+@media (max-width: 700px) {
+  .topbar { padding: 0 1.25rem; }
+  .topbar-links { display: none; }
+  .blog-hero { padding: 8rem 1.5rem 4rem; }
+  .filter-bar { padding: 0 1.25rem; }
+  .blog-grid-wrap { padding: 2.5rem 1.25rem 4rem; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .post-card.featured { flex-direction: column; }
+  .post-card.featured .post-card-img { width: 100%; min-height: 200px; aspect-ratio: 16/9; }
+  .post-card.featured .post-card-body { padding: 1.5rem; }
+  .post-card.featured .post-card-title { font-size: 1.2rem; }
+  .page-footer { padding: 2rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topbar">
+  <a href="https://kyleandco.com" class="topbar-brand">Kyle &amp; Co</a>
+  <div class="topbar-links">
+    <a href="https://kyleandco.com">Home</a>
+    <a href="https://kyleandco.com/aicouncil">AI Council</a>
+    <a href="https://kyleandco.com/contact">Contact</a>
+  </div>
+  <a href="https://kyleandco.com/aicouncil" class="topbar-cta">Explore the Council →</a>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <p class="blog-hero-kicker">Kyle &amp; Co · Insights &amp; Analysis</p>
+    <h1>The work of figuring<br /><em>AI out. Together.</em></h1>
+    <p>Practitioner perspectives on AI, talent, and the messy reality of leading through transformation. No hype, no easy answers.</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="AI">AI</button>
+    <button class="filter-btn" data-filter="Tech Analysis">Tech Analysis</button>
+    <button class="filter-btn" data-filter="Industry News">Industry News</button>
+    <button class="filter-btn" data-filter="Thought Leadership">Thought Leadership</button>
+    <button class="filter-btn" data-filter="Podcast">Podcast</button>
+    <button class="filter-btn" data-filter="Company News">Company News</button>
+    <button class="filter-btn" data-filter="AI Literacy &amp; Education">AI Literacy</button>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="blog-grid-wrap">
+  <div class="blog-grid" id="blog-grid">
+
+    <a class="post-card featured fade-in" href="https://kyleandco.com/tokenmaxxing-performance-reviews/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/05/Ai-Fluency.png" alt="Tokenmaxxing Performance Reviews" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">May 8, 2026</span></div>
+        <div class="post-card-title">Tokenmaxxing Performance Reviews</div>
+        <div class="post-card-author">Jake Paul</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/activity-is-easy-to-measure-impact-is-not/" data-category="Tech Analysis">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/05/Activity-Is-Easy-to-Measure-Impact-Is-Not-What-a-conversation-with-Symphony-Talents-CEO-reminded-me-about-the-gap-TA-still-hasnt-closed.png" alt="Activity Is Easy to Measure, Impact Is Not" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Tech Analysis</span><span class="post-card-date">May 4, 2026</span></div>
+        <div class="post-card-title">Activity Is Easy to Measure, Impact Is Not</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-toolkit-for-hr-leaders/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/04/featured-image-square.png" alt="AI Toolkit for HR Leaders" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">April 29, 2026</span></div>
+        <div class="post-card-title">AI Toolkit for HR Leaders</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-conversation-hr-growing-up-unleash-transform-2026/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/04/The-AI-Conversation-in-HR-Is-Growing-Up.-Heres-What-That-Looks-Like.png" alt="The AI Conversation in HR Is Growing Up" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">April 13, 2026</span></div>
+        <div class="post-card-title">The AI Conversation in HR Is Growing Up. Here's What That Looks Like</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/hr-build-vs-buy-ai-internal-tools/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/04/The-Build-vs.-Buy-Debate-in-AI-Just-Changed.png" alt="The Build vs. Buy Debate in AI Just Changed" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">April 6, 2026</span></div>
+        <div class="post-card-title">The Build vs. Buy Debate in AI Just Changed</div>
+        <div class="post-card-author">Jake Paul</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/hr-tech-trade-show-roi/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/04/Just-Cant-Quit-You_-Why-Do-Trade-Shows-Still-Exist_.png" alt="Just Can't Quit You: Why Do Trade Shows Still Exist?" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">April 6, 2026</span></div>
+        <div class="post-card-title">Just Can't Quit You: Why Do Trade Shows Still Exist?</div>
+        <div class="post-card-author">Matt Charney</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/unleash-transform-2026-ai-council-reflections/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/What-Transform-Unleash-Got-Right-This-Season-Features-Friends-Coffee-and-HR-Transformation.png" alt="What Transform Unleash Got Right This Season" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">April 6, 2026</span></div>
+        <div class="post-card-title">What Transform Unleash Got Right This Season: Features, Friends, Coffee, and HR Transformation</div>
+        <div class="post-card-author">Brandice Payne</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-catalyst-hr-transformation-kyle-lagunas-itsagt/" data-category="Podcast">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/ITSAGT-Kyle-Peditto.jpg" alt="AI Catalyst for HR Transformation" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Podcast</span><span class="post-card-date">March 13, 2026</span></div>
+        <div class="post-card-title">AI Catalyst for HR Transformation</div>
+        <div class="post-card-author">Kyle and Co.</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-readiness-formula-nobodys-talking-about/" data-category="Podcast">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/Thats-the-AI-Readiness-Formula-Nobodys-Talking-About.jpg" alt="That's the AI Readiness Formula Nobody's Talking About" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Podcast</span><span class="post-card-date">March 13, 2026</span></div>
+        <div class="post-card-title">That's the AI Readiness Formula Nobody's Talking About</div>
+        <div class="post-card-author">Kyle and Co.</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/screening-process-employer-brand-ai-interviewers/" data-category="Thought Leadership">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/Your-Screening-Process-Is-Your-Brand.-AI-Interviewers-Just-Made-That-Harder-to-Ignore.png" alt="Your Screening Process Is Your Brand" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Thought Leadership</span><span class="post-card-date">March 9, 2026</span></div>
+        <div class="post-card-title">Your Screening Process Is Your Brand. AI Interviewers Just Made That Harder to Ignore</div>
+        <div class="post-card-author">Brandice Payne</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/the-ai-layoff-wave-is-a-trap-hrs-hero-moment/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/The-AI-Layoff-Wave-is-a-Trap.-And-Why-This-is-HRs-Hero-Moment-1.jpg" alt="The AI Layoff Wave is a Trap" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">March 9, 2026</span></div>
+        <div class="post-card-title">The AI Layoff Wave is a Trap. And Why This is HR's Hero Moment</div>
+        <div class="post-card-author">Jake Paul</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/managing-risk-in-talent-acquisition-kyle-lagunas-recruiting-future/" data-category="Podcast">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/03/From-Risk-Avoidance-to-Risk-Readiness_-What-AI-Is-Really-Demanding-of-Talent-Leaders-1.jpg" alt="From Risk Avoidance to Risk Readiness" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Podcast</span><span class="post-card-date">March 9, 2026</span></div>
+        <div class="post-card-title">From Risk Avoidance to Risk Readiness: What AI Is Really Demanding of Talent Leaders</div>
+        <div class="post-card-author">Kyle and Co.</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-interviewers-a-look-under-the-hood/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/02/Report-Promo-LinkedIn.png" alt="AI Interviewers: A Look Under the Hood" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">February 13, 2026</span></div>
+        <div class="post-card-title">AI Interviewers: A Look Under the Hood</div>
+        <div class="post-card-author">Jake Paul</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-interviewers-conversational-hiring/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/01/Blog-Images-17.png" alt="AI Interviewers and Conversational Hiring" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">February 10, 2026</span></div>
+        <div class="post-card-title">AI Interviewers and Conversational Hiring</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/ai-talent-acquisition-outcomes-not-tools/" data-category="AI Literacy & Education">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/02/Blog-Images-19.png" alt="AI Talent Acquisition: Outcomes Not Tools" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI Literacy</span><span class="post-card-date">February 4, 2026</span></div>
+        <div class="post-card-title">AI Talent Acquisition: Outcomes Not Tools</div>
+        <div class="post-card-author">Emily Wares</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/2026-trends-shaping-hr/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/01/2026_Isnt_About_Survival._Its_About_Operating_Wi-youtube-cover-1.jpeg" alt="2026 Isn't About Survival" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">January 7, 2026</span></div>
+        <div class="post-card-title">2026 Isn't About Survival. It's About Operating With Intention</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/charneyjoinskyleandco/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/12/Blog-Images-8.png" alt="Charney Joins Kyle and Co" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">December 11, 2025</span></div>
+        <div class="post-card-title">Charney Joins Kyle and Co</div>
+        <div class="post-card-author">Matt Charney</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/charneyandjakeannouncement/" data-category="Company News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/10/Kyle-Co-Matt-Jake-Announcement.png" alt="Charney and Jake Announcement" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Company News</span><span class="post-card-date">December 8, 2025</span></div>
+        <div class="post-card-title">Charney and Jake Announcement</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/what-hr-leaders-in-vegas-and-paris-taught-me-about-risk-governance-and-growing-up-with-ai/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/11/Blog-Images-5.png" alt="What HR Leaders in Vegas and Paris Taught Me" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">November 22, 2025</span></div>
+        <div class="post-card-title">What HR Leaders in Vegas and Paris Taught Me About Risk, Governance, and Growing Up With AI</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/hr-leaders-feeling-lost-in-ai-youre-not-alone-were-climbing-the-ladder-together/" data-category="AI Literacy & Education">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/10/HCAIC-Ed-Lit-Blog-1.png" alt="HR Leaders Feeling Lost in AI" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI Literacy</span><span class="post-card-date">October 7, 2025</span></div>
+        <div class="post-card-title">HR Leaders Feeling Lost in AI? You're Not Alone—We're Climbing the Ladder Together</div>
+        <div class="post-card-author">Human Centric AI Council</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/quality-at-speed-my-take-on-indeeds-talent-scout-indeed-connect-and-career-scout-2/" data-category="Tech Analysis">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/10/Blog-Images.png" alt="Quality at Speed: Indeed's Talent Scout" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Tech Analysis</span><span class="post-card-date">October 6, 2025</span></div>
+        <div class="post-card-title">Quality at Speed: My Take on Indeed's Talent Scout, Indeed Connect, and Career Scout</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/building-ai-momentum-in-hr-why-were-partnering-with-horizonhuman/" data-category="Company News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/09/unnamed-file.png" alt="Building AI Momentum in HR" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Company News</span><span class="post-card-date">September 10, 2025</span></div>
+        <div class="post-card-title">Building AI Momentum in HR: Why We're Partnering With HorizonHuman</div>
+        <div class="post-card-author">Brandice Payne</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/the-greatest-investment-ive-ever-made-meet-the-new-members-of-kyle-co/" data-category="Company News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/09/Screenshot-2025-09-10-131304.png" alt="Meet the New Members of Kyle and Co" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Company News</span><span class="post-card-date">September 10, 2025</span></div>
+        <div class="post-card-title">The Greatest Investment I've Ever Made: Meet the New Members of Kyle &amp; Co</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/goodtime-orchestra-agentic-ai/" data-category="Tech Analysis">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/07/Orchestra.webp" alt="Goodtime Orchestra and Agentic AI" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Tech Analysis</span><span class="post-card-date">July 29, 2025</span></div>
+        <div class="post-card-title">Goodtime Orchestra and Agentic AI</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/launching-the-human-centric-ai-council-empowering-hr-to-lead-ai-with-intention/" data-category="Company News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/07/Ai-Council-hero.webp" alt="Launching the Human-Centric AI Council" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Company News</span><span class="post-card-date">July 21, 2025</span></div>
+        <div class="post-card-title">Launching the Human-Centric AI Council: Empowering HR to Lead AI With Intention</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/big-agentic-announcements-tbd-agentic-outcomeswhy-its-time-to-step-back-and-look-at-the-bigger-picture/" data-category="AI">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/06/robot-chicken.webp" alt="Big Agentic Announcements, TBD Agentic Outcomes" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">July 9, 2025</span></div>
+        <div class="post-card-title">Big Agentic Announcements, TBD Agentic Outcomes: Why It's Time to Step Back and Look at the Bigger Picture</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+    <a class="post-card fade-in" href="https://kyleandco.com/mobley-workday-ai-hr-lawsuit/" data-category="Industry News">
+      <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2025/07/assets_task_01jz37xfqzerybbqfkzhhxcv5b_1751381955_img_2.webp" alt="Mobley v. Workday: AI and HR Lawsuit" loading="lazy" /></div>
+      <div class="post-card-body">
+        <div class="post-card-meta"><span class="post-card-cat">Industry News</span><span class="post-card-date">July 1, 2025</span></div>
+        <div class="post-card-title">Mobley v. Workday: AI and HR Lawsuit</div>
+        <div class="post-card-author">Kyle Lagunas</div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div>© 2026 Kyle &amp; Co · Human-Centric AI Council</div>
+  <div><a href="https://kyleandco.com/aicouncil">Explore the Council →</a></div>
+</footer>
+
+<script>
+// Category filter
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.post-card');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    let visibleCount = 0;
+    cards.forEach((card, i) => {
+      const cat = card.dataset.category;
+      const show = filter === 'all' || cat === filter || (filter === 'AI Literacy &amp; Education' && cat === 'AI Literacy & Education');
+      card.style.display = show ? '' : 'none';
+      // Remove featured class when filtering
+      if (filter !== 'all') card.classList.remove('featured');
+      if (filter === 'all' && i === 0) card.classList.add('featured');
+      if (show) visibleCount++;
+    });
+    // Show/hide empty state
+    let empty = document.querySelector('.no-results');
+    if (visibleCount === 0) {
+      if (!empty) {
+        empty = document.createElement('div');
+        empty.className = 'no-results';
+        empty.textContent = 'No posts in this category yet.';
+        document.getElementById('blog-grid').appendChild(empty);
+      }
+    } else if (empty) {
+      empty.remove();
+    }
+  });
+});
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
