@@ -74,6 +74,55 @@ body {
   max-width: 52ch; line-height: 1.7;
 }
 
+/* — HERO TWO-COL — */
+.blog-hero-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+
+.hero-stat-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: rgba(247,241,234,0.1);
+  border: 1px solid rgba(247,241,234,0.1);
+  border-radius: 10px; overflow: hidden;
+}
+.hero-stat {
+  display: flex; flex-direction: column;
+  padding: 1.75rem 2rem;
+  background: rgba(247,241,234,0.04);
+  gap: 0.35rem;
+}
+.hero-stat-num {
+  font-size: 2.8rem; font-weight: 300;
+  color: var(--cream); letter-spacing: -0.03em;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(247,241,234,0.45);
+  font-weight: 500;
+}
+
+/* — FEATURED CARD EXTRAS — */
+.featured-kicker {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 600; margin-bottom: 0.75rem;
+}
+.featured-desc {
+  font-size: 0.92rem; line-height: 1.65; color: var(--slate);
+  margin-bottom: 1.5rem; flex: 1;
+}
+.featured-footer {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(39,55,82,0.1);
+}
+.featured-read {
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--navy); letter-spacing: 0.04em;
+}
+
 /* — FILTER BAR — */
 .filter-bar {
   background: var(--ivory);
@@ -204,11 +253,15 @@ body {
 
 /* — RESPONSIVE — */
 @media (max-width: 900px) {
+  .blog-hero-cols { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-stat-grid { grid-template-columns: repeat(4, 1fr); }
   .blog-grid { grid-template-columns: repeat(2, 1fr); }
   .post-card.featured { flex-direction: column; }
   .post-card.featured .post-card-img { width: 100%; min-height: 220px; aspect-ratio: 16/9; }
 }
 @media (max-width: 700px) {
+  .blog-hero-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-stat-grid { grid-template-columns: repeat(2, 1fr); }
   .topbar { padding: 0 1.25rem; }
   .topbar-links { display: none; }
   .blog-hero { padding: 8rem 1.5rem 4rem; }
@@ -239,9 +292,33 @@ body {
 <!-- HERO -->
 <div class="blog-hero">
   <div class="blog-hero-inner">
-    <p class="blog-hero-kicker">Kyle &amp; Co · Insights &amp; Analysis</p>
-    <h1>The work of figuring<br /><em>AI out. Together.</em></h1>
-    <p>Practitioner perspectives on AI, talent, and the messy reality of leading through transformation. No hype, no easy answers.</p>
+    <div class="blog-hero-cols">
+      <div class="blog-hero-left">
+        <p class="blog-hero-kicker">Kyle &amp; Co · Insights &amp; Analysis</p>
+        <h1>Sharp takes on talent,<br /><em>technology, and what's next.</em></h1>
+        <p>Analysis and perspective from the team at Kyle &amp; Co — covering HR transformation, TA, and the tools and decisions shaping how organizations lead. Written by practitioners, for practitioners.</p>
+      </div>
+      <div class="blog-hero-right">
+        <div class="hero-stat-grid">
+          <div class="hero-stat">
+            <span class="hero-stat-num">27</span>
+            <span class="hero-stat-label">Articles &amp; Analyses</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">6</span>
+            <span class="hero-stat-label">Contributing Voices</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">5</span>
+            <span class="hero-stat-label">Coverage Areas</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">1</span>
+            <span class="hero-stat-label">Point of View</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -266,9 +343,14 @@ body {
     <a class="post-card featured fade-in" href="https://kyleandco.com/tokenmaxxing-performance-reviews/" data-category="AI">
       <div class="post-card-img"><img src="https://kyleandco.com/wp-content/uploads/2026/05/Ai-Fluency.png" alt="Tokenmaxxing Performance Reviews" loading="lazy" /></div>
       <div class="post-card-body">
+        <p class="featured-kicker">Latest</p>
         <div class="post-card-meta"><span class="post-card-cat">AI</span><span class="post-card-date">May 8, 2026</span></div>
         <div class="post-card-title">Tokenmaxxing Performance Reviews</div>
-        <div class="post-card-author">Jake Paul</div>
+        <p class="featured-desc">Performance reviews are overdue for a rethink — and AI might be the push that finally forces it. Jake Paul breaks down what tokenmaxxing means for how we evaluate work.</p>
+        <div class="featured-footer">
+          <div class="post-card-author">Jake Paul</div>
+          <span class="featured-read">Read article →</span>
+        </div>
       </div>
     </a>
 
