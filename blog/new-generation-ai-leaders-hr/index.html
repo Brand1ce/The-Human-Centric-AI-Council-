@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H95H1WFLGC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H95H1WFLGC');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Navigating The Next Chapter in AI: A New Generation of Leaders Emerge — Kyle & Co</title>
+<meta name="description" content="The next chapter of AI in HR won't be defined by what AI can do. It's about who we trust to lead us through to the other side." />
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #273752;
+  --navy-dark: #172339;
+  --navy-mid: #2D5C94;
+  --lilac: #9D92AD;
+  --ivory: #F7F1EA;
+  --slate: #555961;
+  --cream: #FDECCD;
+  --lilac-light: #C1BACD;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--ivory);
+  color: var(--navy);
+  line-height: 1.6;
+}
+
+/* — NAV — */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy); padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+}
+.topbar-brand { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lilac); font-weight: 500; text-decoration: none; flex-shrink: 0; }
+.topbar-nav { display: flex; gap: 1.75rem; align-items: center; }
+.topbar-nav a { font-size: 0.82rem; color: rgba(247,241,234,0.65); text-decoration: none; transition: color 0.15s; }
+.topbar-nav a:hover { color: var(--ivory); }
+
+/* — ARTICLE LAYOUT — */
+main.article-wrap { padding-top: 56px; }
+article.post {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 0;
+}
+
+/* — POST META + TITLE — */
+.post-meta {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500;
+  display: flex; gap: 0.85rem; align-items: center; flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.post-meta .tag {
+  background: var(--cream); color: var(--navy-dark);
+  padding: 0.3rem 0.7rem; border-radius: 100px;
+  letter-spacing: 0.12em; font-weight: 600;
+}
+.post-meta .dot { color: rgba(39,55,82,0.3); }
+
+h1.post-title {
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05; letter-spacing: -0.025em;
+  margin-bottom: 1.5rem; color: var(--navy);
+  text-wrap: balance;
+}
+h1.post-title em { font-style: italic; color: var(--lilac); }
+
+.byline {
+  display: flex; gap: 0.6rem; align-items: center;
+  margin-bottom: 2.5rem;
+  color: var(--slate); font-size: 0.92rem;
+}
+.byline .author { color: var(--navy); font-weight: 500; }
+
+/* — HERO IMAGE — */
+.hero-image {
+  margin: 0 0 3rem;
+  border-radius: 8px; overflow: hidden;
+  aspect-ratio: 16/9;
+  background: var(--navy);
+}
+.hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; filter: none !important; opacity: 1 !important; }
+
+/* — BODY TEXT — */
+.post p {
+  font-size: 1.05rem; line-height: 1.75;
+  color: #3a4558; margin: 0 0 1.4rem;
+  text-wrap: pretty;
+}
+.post p.lede {
+  font-size: 1.25rem; line-height: 1.6; color: var(--navy);
+  margin-bottom: 1.75rem; font-weight: 400;
+}
+.post p.lede em { font-style: italic; color: var(--lilac); }
+
+/* — SECTION HEADERS — */
+.sec-kicker {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin: 0 0 1rem;
+}
+h2.sec {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 400;
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin: 0 0 1.5rem; color: var(--navy);
+  text-wrap: balance;
+}
+h2.sec em { font-style: italic; color: var(--lilac); }
+
+/* — INLINE PHOTOS — */
+figure.inline { margin: 2.5rem 0; }
+figure.inline .img-wrap {
+  border-radius: 8px; overflow: hidden;
+  background: var(--navy);
+}
+figure.inline .img-wrap.portrait { max-width: 420px; margin: 0 auto; aspect-ratio: 3/4; }
+figure.inline .img-wrap.landscape { aspect-ratio: 16/9; }
+figure.inline .img-wrap.wide { aspect-ratio: 4/3; }
+figure.inline img { width: 100%; height: 100%; object-fit: cover; display: block; filter: none !important; opacity: 1 !important; }
+figure.inline figcaption {
+  margin-top: 0.75rem; text-align: center;
+  font-size: 0.75rem; color: var(--lilac);
+  letter-spacing: 0.05em; font-style: italic;
+}
+
+/* — TWO-UP PHOTOS — */
+.photo-pair {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin: 2.5rem 0;
+}
+.photo-pair figure.inline { margin: 0; }
+.photo-pair figure.inline .img-wrap { aspect-ratio: 4/3; }
+
+/* — PULL QUOTE — */
+.pullquote {
+  border-left: 3px solid var(--cream);
+  padding: 1.5rem 2rem; margin: 2.5rem 0;
+  background: rgba(253,236,205,0.25);
+  border-radius: 0 6px 6px 0;
+}
+.pullquote p {
+  font-size: 1.2rem; font-style: italic; font-weight: 400;
+  color: var(--navy); margin: 0; line-height: 1.5;
+  text-wrap: balance;
+}
+
+/* — CALLOUT BOX — */
+.callout {
+  background: var(--navy); border-radius: 8px;
+  padding: 2rem 2.5rem; margin: 2.5rem 0;
+  color: var(--ivory);
+}
+.callout p {
+  color: rgba(247,241,234,0.85); font-size: 0.95rem; margin: 0;
+}
+.callout p + p { margin-top: 0.75rem; }
+.callout strong { color: var(--cream); }
+
+/* — DIVIDER — */
+.rule { border: none; border-top: 1px solid rgba(39,55,82,0.12); margin: 3.5rem 0; }
+
+/* — CTA BLOCK — */
+.cta-block {
+  background: var(--navy); color: var(--ivory);
+  border-radius: 12px; padding: 3rem;
+  margin: 4rem 0 0;
+}
+.cta-block h3 {
+  font-size: 1.5rem; font-weight: 400;
+  margin: 0 0 0.5rem; letter-spacing: -0.01em;
+  color: var(--ivory);
+}
+.cta-block h3 em { font-style: italic; color: var(--cream); }
+.cta-block > p {
+  color: rgba(247,241,234,0.75); margin: 0 0 1.75rem;
+  font-size: 0.95rem; max-width: 52ch;
+}
+.cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.cta-row a {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.85rem 1.5rem; border-radius: 100px;
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+}
+.cta-row a.primary { background: var(--cream); color: var(--navy-dark); }
+.cta-row a.primary:hover { background: #f5e0b5; }
+.cta-row a.secondary {
+  background: transparent; color: var(--ivory);
+  border: 1px solid rgba(247,241,234,0.4);
+}
+.cta-row a.secondary:hover { background: rgba(247,241,234,0.08); }
+
+/* — SUBSCRIBE FOOTER — */
+.subscribe-footer {
+  background: var(--navy); margin-top: 5rem;
+  padding: 5rem 2.5rem;
+}
+.subscribe-inner {
+  max-width: 560px; margin: 0 auto; text-align: center;
+}
+.subscribe-kicker {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1rem;
+}
+.subscribe-footer h3 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300;
+  color: var(--ivory); letter-spacing: -0.02em;
+  line-height: 1.15; margin-bottom: 0.75rem;
+}
+.subscribe-footer h3 em { font-style: italic; color: var(--cream); }
+.subscribe-footer p {
+  font-size: 0.92rem; color: rgba(247,241,234,0.6);
+  margin-bottom: 2rem; line-height: 1.6;
+}
+.subscribe-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem; max-width: 540px; margin: 0 auto 1rem;
+}
+.subscribe-form input[type="hidden"] { display: none; }
+.subscribe-form input[type="email"] {
+  flex: 1; padding: 0.85rem 1.25rem;
+  background: rgba(247,241,234,0.08);
+  border: 1px solid rgba(247,241,234,0.2);
+  border-radius: 100px; color: var(--ivory);
+  font-size: 0.88rem; font-family: inherit;
+  outline: none; transition: border-color 0.15s;
+}
+.subscribe-form input[type="email"]::placeholder { color: rgba(247,241,234,0.35); }
+.subscribe-form input[type="email"]:focus { border-color: rgba(247,241,234,0.5); }
+.subscribe-form button {
+  background: var(--cream); color: var(--navy-dark);
+  border: none; border-radius: 100px;
+  padding: 0.85rem 1.5rem; font-size: 0.85rem;
+  font-weight: 600; font-family: inherit;
+  cursor: pointer; white-space: nowrap; transition: background 0.15s;
+}
+.subscribe-form button:hover { background: #f5e0b5; }
+.subscribe-note {
+  font-size: 0.7rem; color: rgba(247,241,234,0.35);
+  letter-spacing: 0.04em;
+}
+.subscribe-divider {
+  border: none; border-top: 1px solid rgba(247,241,234,0.1);
+  margin: 3rem auto 2rem; max-width: 560px;
+}
+.page-footer-bar {
+  max-width: 760px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.72rem; color: rgba(247,241,234,0.35);
+  flex-wrap: wrap; gap: 0.75rem; padding: 0 2.5rem 3rem;
+}
+.page-footer-bar a { color: rgba(247,241,234,0.5); text-decoration: none; }
+.page-footer-bar a:hover { color: var(--ivory); }
+
+/* — FADE IN — */
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.fade-in.visible { opacity: 1; transform: none; }
+
+/* — RESPONSIVE — */
+@media (max-width: 700px) {
+  .topbar { padding: 0 1.25rem; }
+  .topbar-nav { display: none; }
+  .subscribe-form { grid-template-columns: 1fr; }
+  .subscribe-form input[type="text"],
+  .subscribe-form input[type="email"],
+  .subscribe-form button { border-radius: 8px; }
+  article.post { padding: 2.5rem 1.25rem 0; }
+  .cta-block { padding: 2rem 1.5rem; }
+  .page-footer { padding: 2rem 1.25rem; }
+  .pullquote { padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  .photo-pair { grid-template-columns: 1fr; }
+  .callout { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <a href="https://kyleandco.com" class="topbar-brand">Kyle &amp; Co</a>
+  <div class="topbar-nav">
+    <a href="https://kyleandco.com">Home</a>
+    <a href="../../blog-index.html">Insights</a>
+    <a href="https://kyleandco.com/aicouncil">AI Council</a>
+  </div>
+</nav>
+
+<main class="article-wrap">
+  <article class="post">
+
+    <!-- META + TITLE -->
+    <div class="post-meta">
+      <span class="tag">Thought Leadership</span>
+      <span>May 13, 2026</span>
+      <span class="dot">·</span>
+      <span>8 min read</span>
+    </div>
+
+    <h1 class="post-title">Navigating The Next Chapter in AI:<br /><em>A New Generation of Leaders Emerge</em></h1>
+
+    <div class="byline">
+      <span class="author">Kyle Lagunas</span>
+      <span>·</span>
+      <span>Kyle &amp; Co</span>
+    </div>
+
+    <!-- HERO -->
+    <figure class="hero-image">
+      <img src="../../blog-assets/next-chapter/kyle-kyleandco.jpg" alt="Kyle Lagunas, Kyle & Co" />
+    </figure>
+
+    <!-- OPENING -->
+    <p class="lede">I have been on the road nonstop this spring.</p>
+
+    <p>I'm not complaining — it comes with the territory. Industry analysts get a front row seat to the latest innovations in HR tech and transformation, and this spring has been busy. Launches, summits, acquisitions, briefings, customer events, podcasts… The ecosystem is abuzz.</p>
+
+    <p>The big trends are almost all AI-centric: agents, MCPs, and lots and lots of tokens. It's hard to overstate how fast things are evolving — and how much is changing. Every few weeks there's a new capability, a new announcement, a new LinkedIn post about the death of anything that took years to build that can be vibe coded in hours (nevermind scalability, reliability, viability, etc.).</p>
+
+    <p>We have clearly entered the next chapter of AI in HR. And here's what I keep coming back to after all of it:</p>
+
+    <div class="pullquote fade-in">
+      <p>The next chapter of AI in HR won't be defined by what AI can do. It's about who we trust to lead us through to the other side.</p>
+    </div>
+
+    <p>Chapter One was a story of efficiency above all. It had to be. Coming out of the COVID-era tech-and-hiring spend frenzy, budgets needed correcting, teams needed right-sizing, businesses needed weather-proofing. For two years, the central question was what can AI do to improve efficiency, to scale operating capacity, to reduce administrative overhead?</p>
+
+    <p>And the answers were mostly operational as we aggressively pursued any opportunity to do more with less.</p>
+
+    <p>Now the questions are getting harder. More existential. Less about throughput, more about judgment. Less about scale, more about trust. Less about what AI can do, and more about what humans do in an AI-enabled workforce.</p>
+
+    <p>No one should be better positioned to answer that question than HR.</p>
+
+    <p>And yet — as I've spent the spring with vendors, practitioners, and the members of our Human-Centric AI Council — I'm seeing an ecosystem at an inflection point. AI is not fixing weak processes; it's exposing them. The efficiency story is running out of relevance. And a new question is taking its place: What value can AI <em>actually</em> unlock for HR?</p>
+
+    <p>Well… it depends on where we place our bets — and who we trust.</p>
+
+    <hr class="rule" />
+
+    <!-- SECTION 2 -->
+    <section class="fade-in">
+      <h2 class="sec">Building Bigger, Faster, Better:<br /><em>Rethinking Leadership in the AI Era</em></h2>
+
+      <p>I don't know how much you've read up on the so-called SaaSpocalypse and the imminent death of Workday… but the infrastructure shift in HR tech is real, and it's worth naming.</p>
+
+      <p>MCPs are becoming mainstream — Findem was first with Findem Studio, Ashby announced their own offering at Ashby One (with Greenhouse hot on their heels), and I'm watching others follow. We are moving from isolated AI features to something closer to coordinated AI systems — and I've gotta say… it's really cool. Agentic workflows are real and ready, and soon to be a core component of HR's operational architecture. And the governance of these tools — which I'll be honest, I didn't expect to get excited about — is finally catching up.</p>
+
+      <div class="photo-pair fade-in">
+        <figure class="inline">
+          <div class="img-wrap wide">
+            <img src="../../blog-assets/next-chapter/kyle-workday-nameplate.jpg" alt="Kyle Lagunas nameplate at Workday Innovation Summit" />
+          </div>
+          <figcaption>Workday Innovation Summit, Spring 2026</figcaption>
+        </figure>
+        <figure class="inline">
+          <div class="img-wrap wide">
+            <img src="../../blog-assets/next-chapter/workday-summit-stage.jpg" alt="Workday Innovation Summit stage" />
+          </div>
+          <figcaption>The stage at Workday's Innovation Summit</figcaption>
+        </figure>
+      </div>
+
+      <p>At Workday's latest Innovation Summit, while Sana's agentic gave us a lot of sex and sizzle, what really got me was the latest on their Agent System of Record (ASOR). Practical, reliable, scalable… I was honestly blown away. Their approach to AI governance and agent management offers a solution that goes way beyond a novel feature set and veers into what I expect will be a new category — a core part of any enterprise tech stack.</p>
+
+      <p>It addresses one of the underlying implications of agentic AI in HR: While the use cases are seemingly infinite — especially when every one of your vendors is building a native builder and/or an MCP — the data they draw on, the processes they support, the policies they reference… it's all extremely sensitive.</p>
+
+      <p>HR, Legal, Compliance, Risk, and IT are going to need a lot more than vendors' assurances of safety and security if agentic HR is going anywhere outside of a sandbox. And Workday's ASOR is the most compelling solution to the problem I've seen yet.</p>
+
+      <p>Which brings me back to trust.</p>
+
+      <p>While everyone is focused on how fast the technology is evolving, a few players are asking the harder question: How do we govern this stuff when it's moving so fast and vibe-coding puts agents in the hands of anyone/everyone? How do we make sure that as AI systems make decisions, take actions, and produce outputs at scale, someone is accountable?</p>
+
+      <p>I think about the practitioners I've talked to all spring. The ones running pilots who came back saying, "This didn't just show us where we could be more efficient. It showed us how broken our decision-making process actually was." That's a different kind of insight. And it's the kind that demands deeply thoughtful, adaptive, solution-minded, outcome-oriented leadership willing to learn, grow, and evolve.</p>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- SECTION 3 — GERRIT -->
+    <section class="fade-in">
+      <h2 class="sec">The Leaders<br /><em>Worth Watching</em></h2>
+
+      <p>The next chapter of AI in HR — and enterprise more broadly — will require a different kind of leader altogether. I had the pleasure of breaking bread with several of them this spring.</p>
+
+      <p>Gerrit Kazmaier, President of Product &amp; Technology at Workday, is one such leader.</p>
+
+      <p>He's joined Workday at a pivotal moment: Aneel has stepped back into the CEO seat, and Gerrit is his chosen leader to take the HCM-underdog-turned-ERP-giant into its AI era. No pressure, right?</p>
+
+      <figure class="inline fade-in">
+        <div class="img-wrap landscape">
+          <img src="../../blog-assets/next-chapter/kyle-napa.jpg" alt="Kyle Lagunas at Workday event in Napa" />
+        </div>
+        <figcaption>Workday's Innovation Summit took us to Napa — the setting for some of the most honest conversations of the spring</figcaption>
+      </figure>
+
+      <p>We're of the same age, but he's already accomplished far more than this humble analyst is likely to. He's a different kind of executive than I'm accustomed to sitting with at these events: less Silicon Valley exuberance and charisma, more German stoicism and intensity.</p>
+
+      <p>It's not often I find myself sitting next to one of the most influential people in the industry, but at the end of a long, content-heavy day… we were just two hungry human beings. One glass of wine in, I found myself asking him the real questions. How hard is it to be a leader these days? How does he stay grounded when our minds are so focused on the mountains we're trying to move?</p>
+
+      <p>And he told me a story. He's a father — albeit one with a very big job. He was at home, playing with his five-year-old daughter. They were jumping on the trampoline in his backyard. She was laughing, looking up at him, him looking back at her, and he had a moment where everything else just dropped away — where nothing else mattered but the two of them. She was his whole world and he was hers.</p>
+
+      <div class="pullquote fade-in">
+        <p>The people leading the future of work are still deeply human themselves. They are carrying real weight. The scrutiny is isolating. The hard decisions are taking their toll.</p>
+      </div>
+
+      <p>We also talked about how impossible the burden of leadership is to bear by oneself, the importance of having the right team, his late-night pow-wows with Aneel, our shared struggle to be our authentic selves while making complicated decisions. But that moment — a moment I've also had while under immense, nearly crushing pressure, when I was overwhelmed with work stress while my real life was right in front of me — that moment left me with the most important insight from the spring season:</p>
+
+      <p>The people leading the future of work are still deeply human themselves. They are carrying real weight. The scrutiny is isolating. The hard decisions are taking their toll. The pressure to innovate responsibly — to not just ship fast but to earn trust — is real in a way it has never been before. And the new generation of leadership was born to meet this moment.</p>
+
+      <p>This new generation of industry leaders isn't defined by the size of their company, the incubator they graduated from, or their latest raise. It's not even a generation in the demographic sense. It's a disposition — a new standard for what it means to lead in a moment when everything is accelerating and the stakes for getting it wrong have never been higher.</p>
+
+      <p>The next gen leaders I'm watching are emotionally intelligent in public. They're technically credible without being condescending. They're transparent about uncertainty in a way that, counterintuitively, builds more trust than projecting confidence. They're not just building products; they're helping people believe there is still a meaningful place for humans in the future of work.</p>
+
+      <p>And they show up. They can have the trampoline moment and then walk back into the building and keep going. Because the work means something.</p>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- SECTION 4 — TRUST -->
+    <section class="fade-in">
+      <h2 class="sec">The Power of Trust:<br /><em>More than a Moment — A Movement</em></h2>
+
+      <p>So by now you're probably thinking I am a total Workday Stan. There's a reason they're my favorite client (strong product, even stronger people leaders), but I'd be remiss if I didn't call out a few other signals I'm tracking from this spring.</p>
+
+      <p>I don't think I've ever heard a CEO say, "I love noisy clients." But Benji Encz, Co-Founder and CEO at Ashby, has a POV on the uniquely challenging client base ATS vendors work with that is bullish on exactly that. "They make me work hard — they challenge me and my team to be better and to keep building."</p>
+
+      <figure class="inline fade-in">
+        <div class="img-wrap landscape">
+          <img src="../../blog-assets/next-chapter/ashby-one-benji.jpg" alt="Benji Encz on stage at Ashby One" />
+        </div>
+        <figcaption>Benji Encz, Co-Founder &amp; CEO of Ashby, at Ashby One</figcaption>
+      </figure>
+
+      <p>This after he and his team shared several major product innovations — and Ashby's first acquisition — at Ashby One, all of which elicited "Ooh's," "Aah's," and raucous applause. Witnessing firsthand a warehouse full of practitioners reacting not just to new features but to the sense that someone actually built something <em>for them</em>… This immediately set Benji among this new generation of leaders in my mind (and left me feeling like maybe the ATS space is overdue for a Kyle-style market analysis).</p>
+
+      <p>I also mentioned Findem earlier — specifically the launch of their MCP (Findem Studio) — but this is another one that has made a real impact on my expectations for AI's Chapter Two.</p>
+
+      <p>Hari Kolam, Co-Founder and CEO, and his team have made several major moves that I'm bullish on:</p>
+
+      <div class="callout fade-in">
+        <p><strong>Findem acquired Glider AI</strong> — simultaneously securing a significant staffing business (a sector their direct competitors have struggled to maintain) and industry-leading solutions for skills-based hiring and development.</p>
+        <p><strong>They launched the Findem Authenticity Suite</strong> — a more holistic fraud solution than I've seen anywhere. Going beyond technical signals like IP address and email to analyze the content of candidates' profiles, tackling the more nuanced challenge of AI-enhanced resumes vs. wholly fake ones.</p>
+        <p><strong>They launched the industry's first data labeling engine</strong> — converting unstructured and non-standardized datasets into AI-ready, context-rich assets. A power play for a solution provider that remains system-of-record-adjacent, and one that's already opening new doors upstream.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- CLOSING -->
+    <section class="fade-in">
+      <p>So yeah, lots going on in the industry. I ran out of word count for write-ups of ChartHop's AI Pro launch, Greenhouse's intent to acquire Ezra AI, HireVue's acquisition of HireGuide… the list goes on. And it's showing no signs of slowing down.</p>
+
+      <p>While it can be overwhelming, I'm personally feeling both motivated and validated. Motivated to keep leaning in, and getting to the heart of the work that's being done and products that are being built. Validated that the agenda we've set for the next year of the Human-Centric AI Council is exactly what the industry needs at this moment.</p>
+
+      <p>I see it in the governance work coming out of Workday. I see it underneath the MCP announcements that, on the surface, look like technical infrastructure but are actually about something bigger: interoperability, accountability, systems that can be governed rather than systems that just run.</p>
+
+      <p>I've spent enough springs in this industry to be appropriately skeptical of my own optimism.</p>
+
+      <p>But I've also spent this spring with the people who are going to lead the next phase of AI in HR. And I feel genuinely good about where this is going — not just because the technology is impressive, but because I've seen the people who are going to be responsible for it. The ones who are asking the right questions. The ones who are not just chasing what's possible but thinking hard about what's right.</p>
+
+      <div class="pullquote fade-in">
+        <p>The first chapter of AI in HR asked: What can it do? The next chapter is asking: Who do we trust to lead us through what it changes? I think we're starting to find out.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-block fade-in">
+      <h3>This is the work of the<br /><em>Human-Centric AI Council.</em></h3>
+      <p>A practitioner-powered think tank of senior HR leaders navigating AI transformation together. Year Two starts now.</p>
+      <div class="cta-row">
+        <a href="https://kyleandco.com/aicouncil?utm_source=blog&utm_medium=cta_button&utm_campaign=next_chapter" class="primary">Explore the Council →</a>
+        <a href="https://kyleandco.com/aicouncil?utm_source=blog&utm_medium=cta_button&utm_campaign=next_chapter#apply" class="secondary">Apply to Join</a>
+      </div>
+    </div>
+
+  </article>
+</main>
+
+<!-- SUBSCRIBE FOOTER -->
+<footer class="subscribe-footer">
+  <div class="subscribe-inner">
+    <p class="subscribe-kicker">Kyle &amp; Co · Insights</p>
+    <h3>Don't miss what's<br /><em>next.</em></h3>
+    <p>New analysis, takes, and practitioner perspectives — straight to your inbox. No noise, no vendor pitches. Just the work.</p>
+    <form class="subscribe-form" action="https://assets.mailerlite.com/jsonp/1555935/forms/155676694376613273/subscribe" method="post" target="ml-submit-frame">
+      <input type="text" name="fields[name]" placeholder="First name" required />
+      <input type="email" name="fields[email]" placeholder="Work email" required />
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
+      <button type="submit">Subscribe →</button>
+    </form>
+    <iframe name="ml-submit-frame" style="display:none;"></iframe>
+    <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+  </div>
+  <hr class="subscribe-divider" />
+  <div class="page-footer-bar">
+    <span>© 2026 Kyle &amp; Co</span>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="../../blog-index.html">← All Insights</a>
+      <a href="https://kyleandco.com/aicouncil">AI Council</a>
+      <a href="https://kyleandco.com">kyleandco.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
