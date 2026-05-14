@@ -53,6 +53,8 @@ const { useState, useEffect } = React;
 function HCAIC_Final() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
   const [widgetDismissed, setWidgetDismissed] = useState(false);
   const [momentumOpen, setMomentumOpen] = useState(false);
@@ -112,7 +114,9 @@ function HCAIC_Final() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onResize); };
   }, []);
 
   useEffect(() => {
@@ -608,6 +612,41 @@ function HCAIC_Final() {
         }
 
         .modal-overlay { backdrop-filter: blur(8px); }
+
+        /* ── MOBILE ── */
+        @media (max-width: 767px) {
+          .mobile-hide { display: none !important; }
+          .mobile-menu-overlay {
+            position: fixed; inset: 0; top: 36px; z-index: 100;
+            background: #F7F1EA; display: flex; flex-direction: column;
+            padding: 2rem 1.5rem; gap: 1.5rem;
+          }
+          .mobile-menu-overlay button {
+            background: none; border: none; cursor: pointer;
+            font-family: inherit; font-size: 1.25rem; font-weight: 400;
+            color: #273752; padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(39,55,82,0.1);
+            text-align: left;
+          }
+          .hamburger {
+            display: flex !important; flex-direction: column; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 4px;
+          }
+          .hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: #273752; border-radius: 2px;
+            transition: all 0.2s;
+          }
+          .member-grid-mobile {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.5rem !important;
+          }
+          .member-card .avatar {
+            width: 80px !important; height: 80px !important;
+            font-size: 1.4rem !important;
+          }
+        }
       `}</style>
 
       {/* ANNOUNCEMENT TICKER */}
@@ -630,7 +669,7 @@ function HCAIC_Final() {
           top: '36px',
           left: 0,
           right: 0,
-          padding: scrolled ? '0.9rem 2.5rem' : '1.5rem 2.5rem',
+          padding: isMobile ? '0.75rem 1.25rem' : scrolled ? '0.9rem 2.5rem' : '1.5rem 2.5rem',
           background: scrolled ? 'rgba(247, 241, 234, 0.92)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           borderBottom: scrolled ? `1px solid rgba(39, 55, 82, 0.08)` : 'none',
@@ -651,41 +690,52 @@ function HCAIC_Final() {
             </span>
           </a>
         </div>
-        <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', fontSize: '0.85rem' }}>
-          <button onClick={() => document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>The AI Transformation Toolkit</button>
-          <button onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>2026 Work</button>
-          <button onClick={() => document.querySelector('#members')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>Members</button>
-          <button onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>How to Participate</button>
-          <button
-            onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })}
-            style={{
-              background: C.navy,
-              color: C.ivory,
-              padding: '0.65rem 1.3rem',
-              borderRadius: '100px',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '0.8rem',
-              fontWeight: 500,
-              letterSpacing: '0.02em',
-              fontFamily: 'inherit',
-            }}
-          >
+        {isMobile ? (
+          <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+            <span style={{ transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }} />
+            <span style={{ opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }} />
+          </button>
+        ) : (
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', fontSize: '0.85rem' }}>
+            <button onClick={() => document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>The AI Transformation Toolkit</button>
+            <button onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>2026 Work</button>
+            <button onClick={() => document.querySelector('#members')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>Members</button>
+            <button onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>How to Participate</button>
+            <button
+              onClick={() => document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{ background: C.navy, color: C.ivory, padding: '0.65rem 1.3rem', borderRadius: '100px', border: 'none', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 500, letterSpacing: '0.02em', fontFamily: 'inherit' }}
+            >
+              Join the Council
+            </button>
+          </div>
+        )}
+      </nav>
+
+      {/* MOBILE MENU */}
+      {isMobile && menuOpen && (
+        <div className="mobile-menu-overlay">
+          {[
+            { label: 'The AI Transformation Toolkit', id: '#library' },
+            { label: '2026 Work', id: '#work' },
+            { label: 'Members', id: '#members' },
+            { label: 'How to Participate', id: '#join' },
+          ].map(item => (
+            <button key={item.id} onClick={() => { document.querySelector(item.id)?.scrollIntoView({ behavior: 'smooth' }); setMenuOpen(false); }}>
+              {item.label}
+            </button>
+          ))}
+          <button onClick={() => { document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' }); setMenuOpen(false); }} style={{ background: C.navy, color: C.ivory, borderRadius: '100px', textAlign: 'center', border: 'none' }}>
             Join the Council
           </button>
         </div>
-      </nav>
+      )}
 
       {/* HERO */}
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         {/* Hero orbit graphic — full viewport width */}
-        <img
-          src="hero-orbit.svg"
-          alt=""
-          aria-hidden="true"
-          style={{ position: 'absolute', right: 0, top: 0, width: '55%', height: '100%', objectFit: 'contain', objectPosition: 'right center', pointerEvents: 'none', zIndex: 0 }}
-        />
-      <section style={{ padding: '9rem 2.5rem 5rem', maxWidth: '1400px', margin: '0 auto', position: 'relative', overflow: 'visible', zIndex: 1 }} className="grid-overlay">
+        {!isMobile && <img src="hero-orbit.svg" alt="" aria-hidden="true" style={{ position: 'absolute', right: 0, top: 0, width: '55%', height: '100%', objectFit: 'contain', objectPosition: 'right center', pointerEvents: 'none', zIndex: 0 }} />}
+      <section style={{ padding: isMobile ? '6rem 1.25rem 3rem' : '9rem 2.5rem 5rem', maxWidth: '1400px', margin: '0 auto', position: 'relative', overflow: 'visible', zIndex: 1 }} className="grid-overlay">
         {/* Ampersand watermark */}
         <img
           src={AMPERSAND_MARK}
@@ -753,10 +803,10 @@ function HCAIC_Final() {
       </div>
 
       {/* ABOUT THE COUNCIL */}
-      <section style={{ background: C.navy, padding: '7rem 2.5rem 0', overflow: 'hidden' }}>
+      <section style={{ background: C.navy, padding: isMobile ? '4rem 1.25rem 0' : '7rem 2.5rem 0', overflow: 'hidden' }}>
         <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
           {/* Top: mission + CTAs */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'end', marginBottom: '5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '2rem' : '5rem', alignItems: 'end', marginBottom: isMobile ? '3rem' : '5rem' }}>
             <div>
               <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.5rem' }}>
                 The Human-Centric AI Council
@@ -797,8 +847,8 @@ function HCAIC_Final() {
       </section>
 
       {/* THE LIBRARY — the star */}
-      <section id="library" style={{ padding: '7rem 2.5rem 5rem', maxWidth: '1500px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '5rem', marginBottom: '3rem', alignItems: 'end' }}>
+      <section id="library" style={{ padding: isMobile ? '4rem 1.25rem 3rem' : '7rem 2.5rem 5rem', maxWidth: '1500px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.5fr 1fr', gap: isMobile ? '2rem' : '5rem', marginBottom: '3rem', alignItems: 'end' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.5rem' }}>
               The Full Cohort Zero Toolkit
@@ -885,9 +935,9 @@ function HCAIC_Final() {
               }}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '60px 160px 1fr 150px 60px',
-                gap: '2rem',
-                padding: '2rem 1rem',
+                gridTemplateColumns: isMobile ? '1fr' : '60px 160px 1fr 150px 60px',
+                gap: isMobile ? '0.5rem' : '2rem',
+                padding: isMobile ? '1.25rem 0.75rem' : '2rem 1rem',
                 borderBottom: `1px solid rgba(39, 55, 82, 0.1)`,
                 alignItems: 'center',
               }}
@@ -1042,9 +1092,9 @@ function HCAIC_Final() {
       </section>
 
       {/* 2026 WORK */}
-      <section id="work" style={{ background: C.navy, color: C.ivory, padding: '7rem 2.5rem' }}>
+      <section id="work" style={{ background: C.navy, color: C.ivory, padding: isMobile ? '4rem 1.25rem' : '7rem 2.5rem' }}>
         <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '4rem', marginBottom: '4rem', alignItems: 'end' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr', gap: isMobile ? '1.5rem' : '4rem', marginBottom: isMobile ? '2.5rem' : '4rem', alignItems: 'end' }}>
             <div>
               <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.65, marginBottom: '1.25rem' }}>
                 Cohort 2 · 2026 · In Progress
@@ -1058,7 +1108,7 @@ function HCAIC_Final() {
             </p>
           </div>
 
-          <div id="cohort2-apply-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', background: 'rgba(247, 241, 234, 0.12)', border: `1px solid rgba(247, 241, 234, 0.12)` }}>
+          <div id="cohort2-apply-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)', gap: '1px', background: 'rgba(247, 241, 234, 0.12)', border: `1px solid rgba(247, 241, 234, 0.12)` }}>
             {focusAreas.map((f, i) => (
               <div key={i} className="work-card" style={{ background: C.navy, padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '360px', borderBottom: '2px solid transparent' }}>
                 <div>
@@ -1114,8 +1164,8 @@ function HCAIC_Final() {
       </section>
 
       {/* THE PRACTITIONERS */}
-      <section id="members" style={{ padding: '7rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: '5rem', marginBottom: '4rem', alignItems: 'end' }}>
+      <section id="members" style={{ padding: isMobile ? '4rem 1.25rem' : '7rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.3fr', gap: isMobile ? '1.5rem' : '5rem', marginBottom: isMobile ? '2.5rem' : '4rem', alignItems: 'end' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.25rem' }}>
               The Community
@@ -1130,7 +1180,7 @@ function HCAIC_Final() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(175px, 1fr))', gap: '2rem 1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(auto-fill, minmax(175px, 1fr))', gap: isMobile ? '1.25rem 0.75rem' : '2rem 1.5rem' }}>
           {members.map((m, i) => {
             const bgColors = [C.lilac, C.navyMid, C.cream, C.lilacLight];
             const bg = bgColors[i % bgColors.length];
@@ -1140,8 +1190,8 @@ function HCAIC_Final() {
                 <div
                   className="avatar"
                   style={{
-                    width: '140px',
-                    height: '140px',
+                    width: isMobile ? '80px' : '140px',
+                    height: isMobile ? '80px' : '140px',
                     borderRadius: '50%',
                     margin: '0 auto 1.1rem',
                     background: `linear-gradient(135deg, ${bg}, ${bg}99)`,
@@ -1149,7 +1199,7 @@ function HCAIC_Final() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontFamily: 'Fraunces, serif',
-                    fontSize: '2.3rem',
+                    fontSize: isMobile ? '1.4rem' : '2.3rem',
                     fontWeight: 400,
                     color: bg === C.cream ? C.navy : C.ivory,
                     transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -1179,7 +1229,7 @@ function HCAIC_Final() {
       </section>
 
       {/* HOW THIS IS FUNDED — honest vendor section */}
-      <section style={{ padding: '6rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
+      <section style={{ padding: isMobile ? '4rem 1.25rem' : '6rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
         <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.5rem' }}>
           The partners funding this work
         </div>
@@ -1191,7 +1241,7 @@ function HCAIC_Final() {
           Twelve underwriters fund this work, join practitioner dialogue, and help us keep everything the Council publishes free and open to every HR team. Here's how the model works — what they do, and what they don't.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '4rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '2rem' : '3rem', marginBottom: isMobile ? '2.5rem' : '4rem' }}>
           <div style={{ borderTop: `2px solid ${C.navy}`, paddingTop: '2rem' }}>
             <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.5rem', color: C.navy, fontWeight: 500 }}>
               What the community does
@@ -1252,8 +1302,8 @@ function HCAIC_Final() {
       </section>
 
       {/* AI MOMENTUM REPORT — Kyle & Co research */}
-      <section style={{ background: C.navy, color: C.ivory, padding: '6rem 2.5rem' }}>
-        <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+      <section style={{ background: C.navy, color: C.ivory, padding: isMobile ? '4rem 1.25rem' : '6rem 2.5rem' }}>
+        <div style={{ maxWidth: '1500px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '2rem' : '5rem', alignItems: 'center' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.lilac, marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <span>One more resource · From Kyle &amp; Co</span>
@@ -1297,8 +1347,8 @@ function HCAIC_Final() {
       </section>
 
       {/* K&CO CONSULTING PULL */}
-      <section style={{ background: 'rgba(157, 146, 173, 0.1)', padding: '6rem 2.5rem', borderTop: `1px solid rgba(39, 55, 82, 0.08)` }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+      <section style={{ background: 'rgba(157, 146, 173, 0.1)', padding: isMobile ? '4rem 1.25rem' : '6rem 2.5rem', borderTop: `1px solid rgba(39, 55, 82, 0.08)` }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '2rem' : '5rem', alignItems: 'center' }}>
           <div>
             <div className="mono" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: C.slate, marginBottom: '1.5rem' }}>
               Where Kyle & Co comes in
@@ -1330,11 +1380,11 @@ function HCAIC_Final() {
       </section>
 
       {/* TRIPLE CTA */}
-      <section id="join" style={{ padding: '7rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
-        <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '3.5rem', maxWidth: '24ch' }}>
+      <section id="join" style={{ padding: isMobile ? '4rem 1.25rem' : '7rem 2.5rem', maxWidth: '1500px', margin: '0 auto' }}>
+        <h2 className="display" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: isMobile ? '2rem' : '3.5rem', maxWidth: '24ch' }}>
           Where <span className="serif-italic" style={{ color: C.lilac }}>you</span> come in.
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '1.5rem' }}>
           {[
             {
               label: 'HR leaders doing the work',
