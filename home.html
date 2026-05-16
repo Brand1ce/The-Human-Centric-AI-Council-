@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Kyle &amp; Co: The Research Firm Built with HR Practitioners</title>
+<meta name="description" content="Kyle & Co is the research firm built with HR practitioners. We help leaders close the gap between innovation and adoption. Research is always free." />
+<meta property="og:title" content="Kyle &amp; Co: Where Research Meets Reality" />
+<meta property="og:description" content="Kyle & Co is the research firm built with HR practitioners. We help leaders close the gap between innovation and adoption. Research is always free." />
+<meta property="og:image" content="https://kyleandco.com/aicouncil/social-preview.png" />
+<meta property="og:url" content="https://kyleandco.com" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kyle &amp; Co" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kyle &amp; Co: Where Research Meets Reality" />
+<meta name="twitter:description" content="The research firm built with HR practitioners. Research is always free." />
+<meta name="twitter:image" content="https://kyleandco.com/aicouncil/social-preview.png" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H95H1WFLGC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H95H1WFLGC');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #273752;
+  --navy-dark: #172339;
+  --lilac: #9D92AD;
+  --ivory: #F7F1EA;
+  --slate: #555961;
+  --cream: #FDECCD;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--ivory);
+  color: var(--navy);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* — NAV — */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy); padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; border-bottom: 1px solid rgba(247,241,234,0.1);
+}
+.topbar-brand {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; text-decoration: none;
+  flex-shrink: 0;
+}
+.topbar-nav {
+  display: flex; gap: 1.75rem; align-items: center;
+}
+.topbar-nav a {
+  font-size: 0.8rem; color: rgba(247,241,234,0.65);
+  text-decoration: none; transition: color 0.15s; white-space: nowrap;
+}
+.topbar-nav a:hover { color: var(--ivory); }
+.topbar-cta {
+  background: var(--cream); color: var(--navy-dark);
+  text-decoration: none; font-size: 0.78rem; font-weight: 600;
+  padding: 0.5rem 1.15rem; border-radius: 100px;
+  white-space: nowrap; transition: background 0.15s; flex-shrink: 0;
+}
+.topbar-cta:hover { background: #f5e0b5; }
+.mobile-menu-btn {
+  display: none; background: none; border: none;
+  color: var(--ivory); cursor: pointer; padding: 0.25rem;
+}
+
+/* — HERO — */
+.hero {
+  background: var(--navy);
+  padding: 10rem 2.5rem 7rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(45,92,148,0.45) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto;
+  position: relative;
+}
+.hero-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+  font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--ivory); margin-bottom: 1.5rem;
+  max-width: 22ch;
+}
+.hero h1 em { font-style: italic; color: var(--cream); }
+.hero-sub {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: rgba(247,241,234,0.65); line-height: 1.65;
+  max-width: 48ch; margin-bottom: 2.5rem;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--cream); color: var(--navy-dark);
+  text-decoration: none; font-size: 0.9rem; font-weight: 600;
+  padding: 1rem 2rem; border-radius: 100px;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: #f5e0b5; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: transparent; color: var(--ivory);
+  text-decoration: none; font-size: 0.9rem; font-weight: 500;
+  padding: 1rem 2rem; border-radius: 100px;
+  border: 1px solid rgba(247,241,234,0.3);
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-ghost:hover { border-color: rgba(247,241,234,0.6); color: var(--ivory); }
+
+/* — LOGO BAND — */
+.logo-band {
+  background: var(--white);
+  padding: 2.25rem 2.5rem;
+  border-bottom: 1px solid rgba(39,55,82,0.08);
+}
+.logo-band-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.logo-band-label {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.5rem;
+  text-align: center;
+}
+.logo-band-imgs {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+}
+.logo-band-imgs img {
+  max-width: 100%; height: auto;
+  opacity: 0.65; filter: grayscale(30%);
+}
+
+/* — SECTION SHARED — */
+.section {
+  padding: 6rem 2.5rem;
+}
+.section-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.section-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.25rem;
+}
+.section-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--navy); margin-bottom: 1rem;
+}
+.section-h2 em { font-style: italic; color: var(--lilac); }
+.section-intro {
+  font-size: 1rem; color: var(--slate); line-height: 1.7;
+  max-width: 58ch; margin-bottom: 3.5rem;
+}
+
+/* — DIFFERENTIATORS — */
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.diff-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 2.25rem 2.5rem;
+  border: 1px solid rgba(39,55,82,0.07);
+}
+.diff-number {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1rem;
+}
+.diff-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.35rem; font-weight: 400; line-height: 1.2;
+  color: var(--navy); margin-bottom: 0.85rem; letter-spacing: -0.01em;
+}
+.diff-body {
+  font-size: 0.92rem; color: var(--slate); line-height: 1.7;
+}
+
+/* — BRAND MOTIF — */
+.motif {
+  background: var(--navy);
+  padding: 5rem 2.5rem;
+  text-align: center;
+}
+.motif-tagline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300; font-style: italic;
+  color: var(--ivory); letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.motif-tagline em { color: var(--cream); font-style: normal; }
+.motif-rule {
+  width: 48px; height: 1px;
+  background: rgba(247,241,234,0.25);
+  margin: 2rem auto 0;
+}
+
+/* — METHODOLOGY — */
+.methodology {
+  background: var(--ivory);
+}
+.methodology-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.methodology-stats {
+  display: flex; flex-direction: column; gap: 1.75rem;
+}
+.stat-item {
+  border-left: 2px solid var(--lilac);
+  padding-left: 1.5rem;
+}
+.stat-number {
+  font-family: 'Fraunces', serif;
+  font-size: 2.5rem; font-weight: 300;
+  color: var(--navy); line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.stat-label {
+  font-size: 0.88rem; color: var(--slate); line-height: 1.5;
+}
+
+/* — ENGAGEMENT BUCKETS — */
+.engage-section {
+  background: var(--white);
+}
+.engage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+.engage-card {
+  background: var(--ivory);
+  border-radius: 10px;
+  padding: 2.25rem 2.5rem;
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(39,55,82,0.07);
+}
+.engage-num {
+  font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1rem;
+}
+.engage-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem; font-weight: 400; line-height: 1.2;
+  color: var(--navy); margin-bottom: 0.85rem; letter-spacing: -0.01em;
+}
+.engage-body {
+  font-size: 0.9rem; color: var(--slate); line-height: 1.7; flex: 1;
+}
+.engage-footer {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(39,55,82,0.1);
+  font-size: 0.78rem; color: var(--navy); font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.engage-cta-note {
+  margin-top: 2.5rem;
+  font-size: 0.9rem; color: var(--slate); line-height: 1.65;
+}
+.engage-cta-note a {
+  color: var(--navy); font-weight: 600; text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* — COUNCIL — */
+.council-section {
+  background: var(--navy);
+  padding: 7rem 2.5rem;
+}
+.council-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+.council-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.25rem;
+}
+.council-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--ivory); margin-bottom: 1.75rem;
+}
+.council-body {
+  font-size: 0.95rem; color: rgba(247,241,234,0.65); line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.council-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: var(--cream); font-size: 0.88rem; font-weight: 500;
+  text-decoration: none; border-bottom: 1px solid rgba(253,236,205,0.4);
+  padding-bottom: 2px; transition: border-color 0.15s;
+}
+.council-link:hover { border-color: var(--cream); }
+.council-sidebar {
+  display: flex; flex-direction: column; gap: 1.5rem;
+  padding-top: 0.5rem;
+}
+.council-pillar {
+  background: rgba(247,241,234,0.06);
+  border: 1px solid rgba(247,241,234,0.1);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+}
+.council-pillar-title {
+  font-weight: 500; color: var(--ivory); font-size: 0.92rem;
+  margin-bottom: 0.4rem;
+}
+.council-pillar-body {
+  font-size: 0.82rem; color: rgba(247,241,234,0.5); line-height: 1.6;
+}
+
+/* — TESTIMONIALS — */
+.testimonials-section {
+  background: var(--ivory);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.testimonial-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 2.25rem;
+  display: flex; flex-direction: column;
+  border: 1px solid rgba(39,55,82,0.07);
+}
+.testimonial-quote {
+  font-size: 0.95rem; color: var(--slate); line-height: 1.75;
+  flex: 1; margin-bottom: 1.75rem;
+}
+.testimonial-quote::before {
+  content: '\201C';
+  font-family: 'Fraunces', serif;
+  font-size: 2.5rem; color: var(--lilac);
+  line-height: 0.5; display: block; margin-bottom: 1rem;
+}
+.testimonial-author {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(39,55,82,0.08);
+}
+.testimonial-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--lilac); flex-shrink: 0;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 600; color: var(--white);
+  letter-spacing: 0.02em;
+}
+.testimonial-avatar img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.testimonial-name {
+  font-size: 0.88rem; font-weight: 600; color: var(--navy); line-height: 1.3;
+}
+.testimonial-role {
+  font-size: 0.78rem; color: var(--lilac);
+}
+
+/* — TEAM — */
+.team-section {
+  background: var(--white);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.team-card {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 2rem 1.25rem;
+}
+.team-avatar {
+  width: 96px; height: 96px; border-radius: 50%;
+  background: rgba(157,146,173,0.18); flex-shrink: 0;
+  overflow: hidden; margin-bottom: 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 1.5rem;
+  font-weight: 300; color: var(--lilac);
+}
+.team-avatar img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;
+}
+.team-name {
+  font-size: 1rem; font-weight: 600; color: var(--navy);
+  margin-bottom: 0.25rem;
+}
+.team-title {
+  font-size: 0.8rem; color: var(--lilac); line-height: 1.4;
+}
+
+/* — CLOSER CTA — */
+.closer-section {
+  background: var(--navy);
+  padding: 7rem 2.5rem;
+  text-align: center;
+}
+.closer-inner {
+  max-width: 640px; margin: 0 auto;
+}
+.closer-eyebrow {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; margin-bottom: 1.25rem;
+}
+.closer-h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 300; line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--ivory); margin-bottom: 1.25rem;
+}
+.closer-h2 em { font-style: italic; color: var(--cream); }
+.closer-body {
+  font-size: 0.98rem; color: rgba(247,241,234,0.6); line-height: 1.7;
+  max-width: 50ch; margin: 0 auto 2.5rem;
+}
+
+/* — FOOTER — */
+.site-footer {
+  background: var(--navy-dark);
+  padding: 3rem 2.5rem;
+  border-top: 1px solid rgba(247,241,234,0.06);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.25rem;
+}
+.footer-brand {
+  font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lilac); font-weight: 500; text-decoration: none;
+}
+.footer-links {
+  display: flex; gap: 1.75rem; flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 0.78rem; color: rgba(247,241,234,0.4);
+  text-decoration: none; transition: color 0.15s;
+}
+.footer-links a:hover { color: rgba(247,241,234,0.75); }
+.footer-copy {
+  font-size: 0.72rem; color: rgba(247,241,234,0.25);
+  width: 100%;
+}
+
+/* — MOBILE — */
+@media (max-width: 900px) {
+  .topbar { padding: 0 1.25rem; }
+  .topbar-nav { display: none; }
+  .mobile-menu-btn { display: flex; }
+
+  .hero { padding: 8rem 1.5rem 5rem; }
+  .section { padding: 4rem 1.5rem; }
+
+  .diff-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .methodology-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .engage-grid { grid-template-columns: 1fr; }
+  .council-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .council-section { padding: 5rem 1.5rem; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .closer-section { padding: 5rem 1.5rem; }
+  .site-footer { padding: 2.5rem 1.5rem; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 600px) {
+  .logo-band { padding: 2rem 1.5rem; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topbar">
+  <a href="/" class="topbar-brand">Kyle &amp; Co</a>
+  <div class="topbar-nav">
+    <a href="/">Home</a>
+    <a href="/research">Research</a>
+    <a href="/practitioners">For Practitioners</a>
+    <a href="/vendors">For Vendors</a>
+    <a href="/aicouncil">HCAIC</a>
+    <a href="/blog">Blog</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" class="topbar-cta">Book a discovery call</a>
+  <button class="mobile-menu-btn" aria-label="Menu">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <rect y="3" width="20" height="1.5" rx="0.75" fill="currentColor"/>
+      <rect y="9.25" width="20" height="1.5" rx="0.75" fill="currentColor"/>
+      <rect y="15.5" width="20" height="1.5" rx="0.75" fill="currentColor"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Kyle &amp; Co</div>
+    <h1>The research firm built with <em>HR practitioners.</em></h1>
+    <p class="hero-sub">We help leaders close the gap between innovation and adoption. Research is always free.</p>
+    <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" class="btn-primary">
+      Book a discovery call <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- LOGO BAND -->
+<div class="logo-band">
+  <div class="logo-band-inner">
+    <div class="logo-band-label">Partners in the work</div>
+    <div class="logo-band-imgs">
+      <img src="vendor-logos-line1.png" alt="Findem, CodeSignal, Humanly, Warden AI, GoodTime" />
+      <img src="vendor-logos-line2.png" alt="Gem, HiBob, Rival, SAP, Indeed" />
+    </div>
+  </div>
+</div>
+
+<!-- DIFFERENTIATORS -->
+<section class="section" style="background: var(--ivory);">
+  <div class="section-inner">
+    <div class="section-eyebrow">What sets us apart</div>
+    <h2 class="section-h2">What makes us <em>different.</em></h2>
+    <div class="diff-grid">
+
+      <div class="diff-card">
+        <div class="diff-number">01</div>
+        <div class="diff-title">Built with HR practitioners.</div>
+        <p class="diff-body">Our team has run the function we research. Our surveys reach thousands of senior HR and TA leaders. The Human-Centric AI Council adds practitioner-led work on AI specifically.</p>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-number">02</div>
+        <div class="diff-title">Contrarian when the consensus is wrong.</div>
+        <p class="diff-body">When the AI Interviewer category was new, we benchmarked solutions instead of ranking them. We said the market wasn't ready, on the record. Safe takes don't move the function forward.</p>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-number">03</div>
+        <div class="diff-title">Research is always free.</div>
+        <p class="diff-body">We don't paywall research. Vendor underwriting and advisory engagements fund the work, so practitioners read every report without hitting a gate. Free is a model, not a giveaway.</p>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-number">04</div>
+        <div class="diff-title">We stay in the room.</div>
+        <p class="diff-body">Most firms publish and walk. Kyle &amp; Co stays close with briefings, workshops, and evaluation frameworks. We help practitioners read the market, evaluate tools, and make calls they can defend.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRAND MOTIF -->
+<div class="motif">
+  <p class="motif-tagline">Where Research <em>Meets Reality.</em></p>
+  <div class="motif-rule"></div>
+</div>
+
+<!-- METHODOLOGY -->
+<section class="section methodology">
+  <div class="section-inner">
+    <div class="methodology-layout">
+      <div>
+        <div class="section-eyebrow">The work</div>
+        <h2 class="section-h2">Where the research <em>comes from.</em></h2>
+        <p class="section-intro" style="margin-bottom: 0;">Each year, we publish one annual market study, three Category Compass reports, and bespoke research projects with clients. The work is built on surveys with thousands of senior HR and TA leaders. The Human-Centric AI Council adds practitioner-led work on AI.</p>
+      </div>
+      <div class="methodology-stats">
+        <div class="stat-item">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Annual market study published each year</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Category Compass reports per year</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1,000s</div>
+          <div class="stat-label">Senior HR and TA leaders surveyed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Free</div>
+          <div class="stat-label">Every report, every time, no gate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT BUCKETS -->
+<section class="section engage-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Working together</div>
+    <h2 class="section-h2">Four ways to <em>work with us.</em></h2>
+    <div class="engage-grid">
+
+      <div class="engage-card">
+        <div class="engage-num">01</div>
+        <div class="engage-title">Underwrite the work.</div>
+        <p class="engage-body">Multi-quarter partnership built around the Human-Centric AI Council. Brand alignment with practitioner-led work on AI in HR. Ongoing visibility, advisory access, and the relationships that come with sustained presence.</p>
+        <div class="engage-footer">Long-term partnership</div>
+      </div>
+
+      <div class="engage-card">
+        <div class="engage-num">02</div>
+        <div class="engage-title">Drive a moment.</div>
+        <p class="engage-body">Bounded engagements around a product launch, market entry, or conference. Event activations, executive briefings, content sprints. Specific outcome, specific timeline.</p>
+        <div class="engage-footer">Launch &amp; activation</div>
+      </div>
+
+      <div class="engage-card">
+        <div class="engage-num">03</div>
+        <div class="engage-title">Build the research.</div>
+        <p class="engage-body">Custom studies, Category Compass collaborations, messaging audits, focus groups. For vendors who need data they can cite or positioning they can defend.</p>
+        <div class="engage-footer">Research &amp; data</div>
+      </div>
+
+      <div class="engage-card">
+        <div class="engage-num">04</div>
+        <div class="engage-title">Get a thinking partner.</div>
+        <p class="engage-body">Strategic advisory hours, product advisory, executive workshops. For vendors building GTM motions, refining positioning, or evaluating new bets.</p>
+        <div class="engage-footer">Advisory</div>
+      </div>
+
+    </div>
+    <p class="engage-cta-note">Each is scoped in a discovery call. <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer">Start there.</a></p>
+  </div>
+</section>
+
+<!-- COUNCIL -->
+<section class="council-section">
+  <div class="council-inner">
+    <div>
+      <div class="council-eyebrow">The Human-Centric AI Council</div>
+      <h2 class="council-h2">The HCAIC.</h2>
+      <p class="council-body">The HCAIC is a working group of HR and TA practitioners building peer-led resources for the rest of the function on AI. Members shape what good AI literacy, governance, and adoption look like in practice. A senior steering committee guides what the Council takes on and how the work goes out.</p>
+      <p class="council-body">The work isn't a panel of names on a slide. Members write, review, and ship their own contributions. Town halls, toolkits, working sessions, frameworks. All of it built by practitioners, for practitioners. The firm provides the analyst layer, the editorial discipline, and the distribution. Members keep the work honest to the work.</p>
+      <p class="council-body">Underwriters get visibility around the Council, not access to its members. The Council does not exist to be a buyer panel. It exists because the people doing the work should have a room to talk in.</p>
+      <a href="/aicouncil" class="council-link">Learn more about the Council <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="council-sidebar">
+      <div class="council-pillar">
+        <div class="council-pillar-title">AI Literacy &amp; Education</div>
+        <div class="council-pillar-body">Structured learning and resources to build HR confidence and clarity around AI.</div>
+      </div>
+      <div class="council-pillar">
+        <div class="council-pillar-title">Responsible AI Governance</div>
+        <div class="council-pillar-body">Frameworks, policies, and oversight that don't stall the work.</div>
+      </div>
+      <div class="council-pillar">
+        <div class="council-pillar-title">AI Adoption &amp; Change</div>
+        <div class="council-pillar-body">Practitioner-tested approaches for rolling AI into the function.</div>
+      </div>
+      <div class="council-pillar">
+        <div class="council-pillar-title">Future of HR</div>
+        <div class="council-pillar-body">How AI is changing HR itself: roles, structures, and operating models.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">From the people in the work</div>
+    <h2 class="section-h2" style="margin-bottom: 2.5rem;">What people are saying.</h2>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">Every time we meet with Kyle and his team, we walk away smarter. They're constantly exploring the newest trends in our space, and their thoughtful questions help reveal what really matters to practitioners.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">BF</div>
+          <div>
+            <div class="testimonial-name">Birch Faber</div>
+            <div class="testimonial-role">Director of Marketing, Humanly</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">The team at Kyle &amp; Co is on the pulse of the market. Through this initiative they've been hungry for insight, sharp with their questions, and operated through a practitioner's lens. They're committed to ensuring buyers have the most complete information possible.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">KF</div>
+          <div>
+            <div class="testimonial-name">Katie Fairbank</div>
+            <div class="testimonial-role">Director of Product Marketing, CodeSignal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">Kyle &amp; Co brings rigor and practitioner credibility to the work. The research shapes how we think, and the relationships that come with it are genuinely valuable.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AA</div>
+          <div>
+            <div class="testimonial-name">Annamarie Andrews</div>
+            <div class="testimonial-role">Cielo</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section team-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">The firm</div>
+    <h2 class="section-h2" style="margin-bottom: 2.5rem;">The people behind the work.</h2>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-avatar">K</div>
+        <div class="team-name">Kyle Lagunas</div>
+        <div class="team-title">Founder &amp; Principal Analyst</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">B</div>
+        <div class="team-name">Brandice</div>
+        <div class="team-title">Operations &amp; Strategy</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">M</div>
+        <div class="team-name">Matt</div>
+        <div class="team-title">Research &amp; Analysis</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">J</div>
+        <div class="team-name">Jake</div>
+        <div class="team-title">Content &amp; Editorial</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLOSER CTA -->
+<section class="closer-section">
+  <div class="closer-inner">
+    <div class="closer-eyebrow">Let's talk</div>
+    <h2 class="closer-h2">Start with <em>a question.</em></h2>
+    <p class="closer-body">You came here with a question. A market shift, a launch, a category move, positioning that isn't sticking. Bring it to a 30-minute discovery call and we'll scope what fits.</p>
+    <a href="https://kyleandco.typeform.com/to/uQrXm9NS" target="_blank" rel="noopener noreferrer" class="btn-primary">
+      Book a discovery call <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="/" class="footer-brand">Kyle &amp; Co</a>
+    <nav class="footer-links">
+      <a href="/research">Research</a>
+      <a href="/practitioners">For Practitioners</a>
+      <a href="/vendors">For Vendors</a>
+      <a href="/aicouncil">HCAIC</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <div class="footer-copy">&copy; 2026 Kyle &amp; Co. No spam. Just signal.</div>
+  </div>
+</footer>
+
+</body>
+</html>
