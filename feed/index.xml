@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Kyle &amp; Co</title>
+    <link>https://kyleandco.com</link>
+    <description>Research, analysis, and insight for HR and TA leaders navigating AI and the future of work.</description>
+    <language>en-us</language>
+    <atom:link href="https://kyleandco.com/feed/" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 May 2026 00:00:00 +0000</lastBuildDate>
+
+    <item>
+      <title>Navigating The Next Chapter in AI: A New Generation of Leaders Emerge</title>
+      <link>https://kyleandco.com/blog/new-generation-ai-leaders-hr</link>
+      <guid isPermaLink="true">https://kyleandco.com/blog/new-generation-ai-leaders-hr</guid>
+      <pubDate>Thu, 15 May 2026 00:00:00 +0000</pubDate>
+      <description>The next chapter of AI in HR won't be defined by what AI can do. It's about who we trust to lead us through to the other side.</description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>Tokenmaxxing Performance Reviews</title>
+      <link>https://kyleandco.com/tokenmaxxing-performance-reviews/</link>
+      <guid isPermaLink="true">https://kyleandco.com/tokenmaxxing-performance-reviews/</guid>
+      <pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate>
+      <description>Token usage as a productivity metric is the lines-of-code mistake in a new hoodie.</description>
+      <dc:creator>Jake Paul</dc:creator>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>Activity Is Easy to Measure, Impact Is Not</title>
+      <link>https://kyleandco.com/activity-is-easy-to-measure-impact-is-not/</link>
+      <guid isPermaLink="true">https://kyleandco.com/activity-is-easy-to-measure-impact-is-not/</guid>
+      <pubDate>Mon, 04 May 2026 00:00:00 +0000</pubDate>
+      <description>What a conversation with Symphony Talent's CEO reminded me about the gap TA still hasn't closed.</description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Tech Analysis</category>
+    </item>
+
+    <item>
+      <title>AI Toolkit for HR Leaders</title>
+      <link>https://kyleandco.com/ai-toolkit-for-hr-leaders/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-toolkit-for-hr-leaders/</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 +0000</pubDate>
+      <description>Four practitioner-built resources for HR teams navigating AI literacy, governance, and adoption.</description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>The AI Conversation in HR Is Growing Up. Here's What That Looks Like</title>
+      <link>https://kyleandco.com/ai-conversation-hr-growing-up-unleash-transform-2026/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-conversation-hr-growing-up-unleash-transform-2026/</guid>
+      <pubDate>Mon, 13 Apr 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>The Build vs. Buy Debate in AI Just Changed</title>
+      <link>https://kyleandco.com/hr-build-vs-buy-ai-internal-tools/</link>
+      <guid isPermaLink="true">https://kyleandco.com/hr-build-vs-buy-ai-internal-tools/</guid>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Jake Paul</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>Just Can't Quit You: Why Do Trade Shows Still Exist?</title>
+      <link>https://kyleandco.com/hr-tech-trade-show-roi/</link>
+      <guid isPermaLink="true">https://kyleandco.com/hr-tech-trade-show-roi/</guid>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Matt Charney</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>What Transform Unleash Got Right This Season: Features, Friends, Coffee, and HR Transformation</title>
+      <link>https://kyleandco.com/unleash-transform-2026-ai-council-reflections/</link>
+      <guid isPermaLink="true">https://kyleandco.com/unleash-transform-2026-ai-council-reflections/</guid>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Brandice Payne</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>AI Catalyst for HR Transformation</title>
+      <link>https://kyleandco.com/ai-catalyst-hr-transformation-kyle-lagunas-itsagt/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-catalyst-hr-transformation-kyle-lagunas-itsagt/</guid>
+      <pubDate>Fri, 13 Mar 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle and Co.</dc:creator>
+      <category>Podcast</category>
+    </item>
+
+    <item>
+      <title>That's the AI Readiness Formula Nobody's Talking About</title>
+      <link>https://kyleandco.com/ai-readiness-formula-nobodys-talking-about/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-readiness-formula-nobodys-talking-about/</guid>
+      <pubDate>Fri, 13 Mar 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle and Co.</dc:creator>
+      <category>Podcast</category>
+    </item>
+
+    <item>
+      <title>Your Screening Process Is Your Brand. AI Interviewers Just Made That Harder to Ignore</title>
+      <link>https://kyleandco.com/screening-process-employer-brand-ai-interviewers/</link>
+      <guid isPermaLink="true">https://kyleandco.com/screening-process-employer-brand-ai-interviewers/</guid>
+      <pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Brandice Payne</dc:creator>
+      <category>Thought Leadership</category>
+    </item>
+
+    <item>
+      <title>The AI Layoff Wave is a Trap. And Why This is HR's Hero Moment</title>
+      <link>https://kyleandco.com/the-ai-layoff-wave-is-a-trap-hrs-hero-moment/</link>
+      <guid isPermaLink="true">https://kyleandco.com/the-ai-layoff-wave-is-a-trap-hrs-hero-moment/</guid>
+      <pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Jake Paul</dc:creator>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>From Risk Avoidance to Risk Readiness: What AI Is Really Demanding of Talent Leaders</title>
+      <link>https://kyleandco.com/managing-risk-in-talent-acquisition-kyle-lagunas-recruiting-future/</link>
+      <guid isPermaLink="true">https://kyleandco.com/managing-risk-in-talent-acquisition-kyle-lagunas-recruiting-future/</guid>
+      <pubDate>Mon, 09 Mar 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle and Co.</dc:creator>
+      <category>Podcast</category>
+    </item>
+
+    <item>
+      <title>AI Interviewers: A Look Under the Hood</title>
+      <link>https://kyleandco.com/ai-interviewers-a-look-under-the-hood/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-interviewers-a-look-under-the-hood/</guid>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Jake Paul</dc:creator>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>AI Interviewers and Conversational Hiring</title>
+      <link>https://kyleandco.com/ai-interviewers-conversational-hiring/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-interviewers-conversational-hiring/</guid>
+      <pubDate>Tue, 10 Feb 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>AI Talent Acquisition: Outcomes Not Tools</title>
+      <link>https://kyleandco.com/ai-talent-acquisition-outcomes-not-tools/</link>
+      <guid isPermaLink="true">https://kyleandco.com/ai-talent-acquisition-outcomes-not-tools/</guid>
+      <pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Emily Wares</dc:creator>
+      <category>AI Literacy &amp; Education</category>
+    </item>
+
+    <item>
+      <title>2026 Isn't About Survival. It's About Operating With Intention</title>
+      <link>https://kyleandco.com/2026-trends-shaping-hr/</link>
+      <guid isPermaLink="true">https://kyleandco.com/2026-trends-shaping-hr/</guid>
+      <pubDate>Wed, 07 Jan 2026 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>Charney Joins Kyle and Co</title>
+      <link>https://kyleandco.com/charneyjoinskyleandco/</link>
+      <guid isPermaLink="true">https://kyleandco.com/charneyjoinskyleandco/</guid>
+      <pubDate>Thu, 11 Dec 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Matt Charney</dc:creator>
+      <category>Industry News</category>
+    </item>
+
+    <item>
+      <title>Charney and Jake Announcement</title>
+      <link>https://kyleandco.com/charneyandjakeannouncement/</link>
+      <guid isPermaLink="true">https://kyleandco.com/charneyandjakeannouncement/</guid>
+      <pubDate>Mon, 08 Dec 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Company News</category>
+    </item>
+
+    <item>
+      <title>What HR Leaders in Vegas and Paris Taught Me About Risk, Governance, and Growing Up With AI</title>
+      <link>https://kyleandco.com/what-hr-leaders-in-vegas-and-paris-taught-me-about-risk-governance-and-growing-up-with-ai/</link>
+      <guid isPermaLink="true">https://kyleandco.com/what-hr-leaders-in-vegas-and-paris-taught-me-about-risk-governance-and-growing-up-with-ai/</guid>
+      <pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>AI</category>
+    </item>
+
+    <item>
+      <title>HR Leaders Feeling Lost in AI? You're Not Alone—We're Climbing the Ladder Together</title>
+      <link>https://kyleandco.com/hr-leaders-feeling-lost-in-ai-youre-not-alone-were-climbing-the-ladder-together/</link>
+      <guid isPermaLink="true">https://kyleandco.com/hr-leaders-feeling-lost-in-ai-youre-not-alone-were-climbing-the-ladder-together/</guid>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Human Centric AI Council</dc:creator>
+      <category>AI Literacy &amp; Education</category>
+    </item>
+
+    <item>
+      <title>Quality at Speed: My Take on Indeed's Talent Scout, Indeed Connect, and Career Scout</title>
+      <link>https://kyleandco.com/quality-at-speed-my-take-on-indeeds-talent-scout-indeed-connect-and-career-scout-2/</link>
+      <guid isPermaLink="true">https://kyleandco.com/quality-at-speed-my-take-on-indeeds-talent-scout-indeed-connect-and-career-scout-2/</guid>
+      <pubDate>Mon, 06 Oct 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Tech Analysis</category>
+    </item>
+
+    <item>
+      <title>Building AI Momentum in HR: Why We're Partnering With HorizonHuman</title>
+      <link>https://kyleandco.com/building-ai-momentum-in-hr-why-were-partnering-with-horizonhuman/</link>
+      <guid isPermaLink="true">https://kyleandco.com/building-ai-momentum-in-hr-why-were-partnering-with-horizonhuman/</guid>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Brandice Payne</dc:creator>
+      <category>Company News</category>
+    </item>
+
+    <item>
+      <title>The Greatest Investment I've Ever Made: Meet the New Members of Kyle &amp; Co</title>
+      <link>https://kyleandco.com/the-greatest-investment-ive-ever-made-meet-the-new-members-of-kyle-co/</link>
+      <guid isPermaLink="true">https://kyleandco.com/the-greatest-investment-ive-ever-made-meet-the-new-members-of-kyle-co/</guid>
+      <pubDate>Wed, 10 Sep 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Company News</category>
+    </item>
+
+    <item>
+      <title>Goodtime Orchestra and Agentic AI</title>
+      <link>https://kyleandco.com/goodtime-orchestra-agentic-ai/</link>
+      <guid isPermaLink="true">https://kyleandco.com/goodtime-orchestra-agentic-ai/</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Tech Analysis</category>
+    </item>
+
+    <item>
+      <title>Launching the Human-Centric AI Council: Empowering HR to Lead AI With Intention</title>
+      <link>https://kyleandco.com/launching-the-human-centric-ai-council-empowering-hr-to-lead-ai-with-intention/</link>
+      <guid isPermaLink="true">https://kyleandco.com/launching-the-human-centric-ai-council-empowering-hr-to-lead-ai-with-intention/</guid>
+      <pubDate>Mon, 21 Jul 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>Company News</category>
+    </item>
+
+    <item>
+      <title>Big Agentic Announcements, TBD Agentic Outcomes: Why It's Time to Step Back and Look at the Bigger Picture</title>
+      <link>https://kyleandco.com/big-agentic-announcements-tbd-agentic-outcomeswhy-its-time-to-step-back-and-look-at-the-bigger-picture/</link>
+      <guid isPermaLink="true">https://kyleandco.com/big-agentic-announcements-tbd-agentic-outcomeswhy-its-time-to-step-back-and-look-at-the-bigger-picture/</guid>
+      <pubDate>Wed, 09 Jul 2025 00:00:00 +0000</pubDate>
+      <description></description>
+      <dc:creator>Kyle Lagunas</dc:creator>
+      <category>AI</category>
+    </item>
+
+  </channel>
+</rss>
