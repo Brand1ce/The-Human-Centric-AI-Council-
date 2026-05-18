@@ -1,0 +1,14 @@
+# Serve static RSS feed before WordPress routing picks it up
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^feed/?$ /feed/index.xml [L,T=application/rss+xml]
+</IfModule>
+
+# WordPress
+<IfModule mod_rewrite.c>
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+</IfModule>
