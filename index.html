@@ -291,7 +291,7 @@ function HCAIC_Final() {
           'Resistance pattern matcher based on your answers',
           'Shareable PDF of your results for leadership alignment',
         ],
-        eta: 'Expected Q3 2026',
+        link: '/aicouncil/change-management.html',
       },
     },
     {
@@ -318,7 +318,7 @@ function HCAIC_Final() {
           'Build / buy / borrow / bot decision with reasoning',
           'Shareable output for procurement and finance',
         ],
-        eta: 'Expected Q3 2026',
+        link: '/aicouncil/solution-decision.html',
       },
     },
   ];
@@ -1644,23 +1644,8 @@ function HCAIC_Final() {
                 position: 'relative',
                 overflow: 'hidden',
               }}>
-                <div style={{
-                  position: 'absolute',
-                  top: 0, right: 0,
-                  background: C.cream,
-                  color: C.navyDark,
-                  padding: '0.35rem 0.9rem',
-                  fontSize: '0.6rem',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  fontFamily: 'monospace',
-                  fontWeight: 500,
-                  borderBottomLeftRadius: '6px',
-                }}>
-                  Coming soon
-                </div>
                 <div className="mono" style={{ fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.lilac, marginBottom: '0.75rem' }}>
-                  Also in the works · Interactive version
+                  Interactive version · Live now
                 </div>
                 <h4 className="display" style={{ fontSize: '1.45rem', fontWeight: 500, lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '0.85rem', color: C.ivory }}>
                   {selectedResource.interactivePreview.title}
@@ -1676,9 +1661,14 @@ function HCAIC_Final() {
                     </li>
                   ))}
                 </ul>
-                <div className="mono" style={{ fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: C.cream }}>
-                  {selectedResource.interactivePreview.eta}
-                </div>
+                <a
+                  href={selectedResource.interactivePreview.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: C.cream, color: C.navyDark, padding: '0.7rem 1.4rem', borderRadius: '100px', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none' }}
+                >
+                  Open interactive version →
+                </a>
               </div>
             )}
 
