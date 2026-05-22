@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kyle Commitment Dashboard</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f4f1;
+    color: #1c1c1a;
+    line-height: 1.5;
+    padding: 22px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  header h1 { font-size: 23px; font-weight: 700; letter-spacing: -0.01em; }
+  header .sub { font-size: 13px; color: #6b6b66; margin-top: 3px; }
+
+  /* stat tiles */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+  .tile { background: #fff; border-radius: 12px; padding: 16px; border: 1px solid #e6e6e1; }
+  .tile .n { font-size: 30px; font-weight: 700; line-height: 1; }
+  .tile .l { font-size: 12px; color: #6b6b66; margin-top: 6px; font-weight: 500; }
+  .tile.a { border-top: 3px solid #2563eb; }
+  .tile.c { border-top: 3px solid #d97706; }
+  .tile.b { border-top: 3px solid #16a34a; }
+  .tile.d { border-top: 3px solid #9aa0a6; }
+  .tile.a .n { color: #2563eb; }
+  .tile.c .n { color: #d97706; }
+  .tile.b .n { color: #16a34a; }
+  .tile.d .n { color: #9aa0a6; }
+
+  /* crunch panel */
+  .crunch { background: #fff5ec; border: 1px solid #f3c894; border-radius: 12px; padding: 16px 18px; margin-bottom: 22px; }
+  .crunch h2 { font-size: 15px; color: #b4530b; display: flex; align-items: center; gap: 8px; }
+  .crunch p { font-size: 13px; color: #6b4a25; margin-top: 6px; }
+  .crunch .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .crunch .chip { background: #fff; border: 1px solid #f0cfa3; border-radius: 999px; padding: 5px 11px; font-size: 12px; color: #7a4a18; }
+  .crunch .chip b { color: #b4530b; }
+
+  section { margin-bottom: 24px; }
+  .sec-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8a84; margin-bottom: 11px; }
+
+  /* commitment cards */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .card { background: #fff; border: 1px solid #e6e6e1; border-radius: 12px; padding: 14px 15px; display: flex; flex-direction: column; }
+  .card.lA { border-left: 4px solid #2563eb; }
+  .card.lC { border-left: 4px solid #d97706; }
+  .card .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; color: #9aa0a6; }
+  .card h3 { font-size: 14px; font-weight: 650; margin: 3px 0 7px; }
+  .card .meta { font-size: 12px; color: #5d5d57; display: flex; flex-direction: column; gap: 2px; }
+  .card .meta span b { color: #1c1c1a; font-weight: 600; }
+  .card .act { margin-top: 11px; }
+  .card button {
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+    border-radius: 8px; padding: 7px 12px; border: 1px solid transparent; width: 100%;
+  }
+  .btn-a { background: #2563eb; color: #fff; }
+  .btn-a:hover { background: #1d4fd0; }
+  .btn-c { background: #fff; color: #b4530b; border-color: #e7b577; }
+  .btn-c:hover { background: #fff5ec; }
+
+  /* simple rows for B and live calendar */
+  .rows { background: #fff; border: 1px solid #e6e6e1; border-radius: 12px; overflow: hidden; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid #efefeb; font-size: 13px; }
+  .row:last-child { border-bottom: none; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .row .nm { font-weight: 600; flex: 1; min-width: 0; }
+  .row .pill { font-size: 11px; color: #6b6b66; background: #f1f1ec; border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
+  .row .when { font-size: 12px; color: #6b6b66; white-space: nowrap; }
+  .row .note { font-size: 12px; color: #b4530b; }
+
+  .dead { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dead .item { background: #f1f1ec; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #6b6b66; }
+  .dead .item s { color: #9aa0a6; }
+
+  .loading { padding: 16px 14px; font-size: 13px; color: #8a8a84; }
+  .err { padding: 14px; font-size: 12.5px; color: #9a5a2a; background: #fff5ec; }
+
+  footer { border-top: 1px solid #e6e6e1; padding-top: 16px; margin-top: 8px; font-size: 12.5px; color: #6b6b66; }
+  footer b { color: #1c1c1a; }
+  footer .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 9px 0; }
+  footer .step { background: #fff; border: 1px solid #e6e6e1; border-radius: 7px; padding: 4px 9px; font-size: 12px; color: #1c1c1a; }
+  footer .arr { color: #b8b8b2; }
+
+  @media (max-width: 720px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Kyle Commitment Dashboard</h1>
+    <div class="sub">Last swept Fri, May 22 2026 &middot; Gmail (30 days) + Slack (2 weeks) &middot; Content calendar pulled live</div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile a"><div class="n">7</div><div class="l">Schedule it</div></div>
+    <div class="tile c"><div class="n">9</div><div class="l">Needs your decision</div></div>
+    <div class="tile b"><div class="n">3</div><div class="l">Already on calendar</div></div>
+    <div class="tile d"><div class="n">1</div><div class="l">Probably dead</div></div>
+  </div>
+
+  <div class="crunch">
+    <h2>&#9888;&#65039; Early June is overcommitted</h2>
+    <p>Eight deliverables land in roughly a two-week window &mdash; most of them Kyle's or yours. The workflow can schedule every one. It can't make June longer. The real call before approving below: which of these moves or gets handed off.</p>
+    <div class="chips" id="crunchChips"></div>
+  </div>
+
+  <section>
+    <div class="sec-head">Schedule it &mdash; approve and it goes to Monday</div>
+    <div class="cards" id="bucketA"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">Needs your decision first</div>
+    <div class="cards" id="bucketC"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">Already on the calendar</div>
+    <div class="rows" id="bucketB"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">On the content calendar now &mdash; live from Monday</div>
+    <div class="rows" id="liveCal"><div class="loading">Loading the Kyle &amp; Co. Content Calendar&hellip;</div></div>
+  </section>
+
+  <section>
+    <div class="sec-head">Probably dead</div>
+    <div class="dead" id="bucketD"></div>
+  </section>
+
+  <footer>
+    <b>How this works.</b> Each morning the sweep scans Gmail + Slack for commitments Kyle made &mdash; prioritizing the phrase &ldquo;looping in Brandice.&rdquo;
+    <div class="flow">
+      <span class="step">Kyle commits</span><span class="arr">&rarr;</span>
+      <span class="step">Daily sweep catches it</span><span class="arr">&rarr;</span>
+      <span class="step">Sorted into a bucket here</span><span class="arr">&rarr;</span>
+      <span class="step">You approve</span><span class="arr">&rarr;</span>
+      <span class="step">It lands in Monday</span>
+    </div>
+    <b>Blind spot:</b> this catches anything written down. A promise Kyle makes out loud in an unrecorded meeting is invisible &mdash; that gap only closes if meetings get recorded or noted.
+  </footer>
+
+</div>
+
+<script>
+const CRUNCH = [
+  "Alicia Miller podcast", "Modern CTO recording", "AI Interviewer webinar",
+  "Findem launch content", "SAP Workshop – Jun 4", "Candidate Fraud report – Jun 5",
+  "Meridian launch plan", "HiBob + Symphony blogs"
+];
+
+const BUCKET_A = [
+  { id:"A1", t:"Unleash World 2026 – Expedition Host + 'New Giants of Industry' panel", who:"UNLEASH", when:"Oct 21–23 (panel Oct 22, 12:15pm)", slot:"Event · Speaking Engagement" },
+  { id:"A2", t:"Andreas (TechWolf) added to the 'New Giants' panel", who:"TechWolf", when:"Tied to Oct 22", slot:"Subitem under the Unleash item" },
+  { id:"A3", t:"Podcast with Alicia Miller – change management in the AI era", who:"Kyle & Co podcast", when:"Prep early June; recording TBD", slot:"Podcast – 30-min prep + 45-min record" },
+  { id:"A4", t:"Modern CTO podcast recording with Allyn Bailey", who:"SmartRecruiters", when:"Being rescheduled – late May / early June", slot:"Podcast" },
+  { id:"A5", t:"Symphony Talent fireside – recap blog", who:"Kyle & Co blog", when:"No date set", slot:"Blog · Event Write-up" },
+  { id:"A6", t:"Workday 'Future of Work' podcast – amplification", who:"Workday", when:"Episode live Tue May 26", slot:"LinkedIn" },
+  { id:"A7", t:"Northeastern feature – amplification", who:"Northeastern", when:"Feature already published", slot:"LinkedIn / Client Write-up" }
+];
+
+const BUCKET_C = [
+  { id:"C1", t:"Findem MCP / 'Viral Wave' launch support", q:"Kyle said he'll support 'but we need alignment before we can execute.' A 'Monday' deadline was floated. Decide scope + owner." },
+  { id:"C2", t:"AI Interviewer webinar", q:"Kyle said he'll 'run point on content.' No board item; date given only as 'Thursday.' Confirm the date." },
+  { id:"C3", t:"New HiBob blog", q:"Is this the stale 'HiBob Blog #5' (In Progress since March) or a fresh HiBob Blog #7?" },
+  { id:"C4", t:"HCAIC full toolkit launch", q:"The existing toolkit item is marked Done. Is this a relaunch that needs its own item?" },
+  { id:"C5", t:"Meridian launch plan", q:"Kyle wants 'a launch plan for Meridian.' No context on what Meridian is – tell me and I'll scope it." },
+  { id:"C6", t:"FastPass Ambassador (Transform)", q:"Kyle accepted. Does this create content or events to track, or is it just a title?" },
+  { id:"C7", t:"ERE + Kyle & Co (next May 29)", q:"Recurring 'Connect on ERE.' Confirm what it produces – partnership, podcast, content?" },
+  { id:"C8", t:"Board gap: no Q4 group", q:"The calendar has Q1–Q3 only. October commitments have nowhere to live. Add a 2026 – Quarter 4 group?" },
+  { id:"C9", t:"Stale item: 'HiBob Blog #5'", q:"In Progress with a due date of March 6. Close it or re-date it." }
+];
+
+const BUCKET_B = [
+  { nm:"Glider / Purple Acorn podcast episodes", pill:"Podcast", note:"Kyle flagged episodes slipping – you're leading the reply" },
+  { nm:"SAP SuccessFactors Workshop, San Francisco", pill:"Event", note:"On board – Jun 4" },
+  { nm:"May Town Hall", pill:"Webinar", note:"On board – May 28" }
+];
+
+const BUCKET_D = [
+  { t:"Klaar 'Performance IRL' Webinar Series", why:"Klaar confirmed no budget" }
+];
+
+function send(text){
+  try { if (typeof sendPrompt === "function") { sendPrompt(text); return; } } catch(e){}
+  try { if (window.cowork && window.cowork.sendPrompt) { window.cowork.sendPrompt(text); return; } } catch(e){}
+}
+
+document.getElementById("crunchChips").innerHTML =
+  CRUNCH.map(c => '<span class="chip">'+c+'</span>').join("");
+
+document.getElementById("bucketA").innerHTML = BUCKET_A.map(x => `
+  <div class="card lA">
+    <div class="tag">${x.id}</div>
+    <h3>${x.t}</h3>
+    <div class="meta">
+      <span><b>For:</b> ${x.who}</span>
+      <span><b>When:</b> ${x.when}</span>
+      <span><b>Slot:</b> ${x.slot}</span>
+    </div>
+    <div class="act"><button class="btn-a" data-a="${x.id}">Approve &rarr; add to Monday</button></div>
+  </div>`).join("");
+
+document.getElementById("bucketC").innerHTML = BUCKET_C.map(x => `
+  <div class="card lC">
+    <div class="tag">${x.id}</div>
+    <h3>${x.t}</h3>
+    <div class="meta"><span>${x.q}</span></div>
+    <div class="act"><button class="btn-c" data-c="${x.id}">Talk this through</button></div>
+  </div>`).join("");
+
+document.getElementById("bucketB").innerHTML = BUCKET_B.map(x => `
+  <div class="row">
+    <span class="dot" style="background:#16a34a"></span>
+    <span class="nm">${x.nm}</span>
+    <span class="pill">${x.pill}</span>
+    <span class="note">${x.note}</span>
+  </div>`).join("");
+
+document.getElementById("bucketD").innerHTML = BUCKET_D.map(x => `
+  <div class="item"><s>${x.t}</s> &mdash; ${x.why}</div>`).join("");
+
+document.querySelectorAll("[data-a]").forEach(b => b.addEventListener("click", () => {
+  const item = BUCKET_A.find(i => i.id === b.dataset.a);
+  send('From the commitment dashboard: approve ' + item.id + ' and add it to the Kyle & Co. Content Calendar in Monday – "' + item.t + '" (' + item.slot + ', ' + item.when + ').');
+}));
+document.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", () => {
+  const item = BUCKET_C.find(i => i.id === b.dataset.c);
+  send('From the commitment dashboard: help me resolve ' + item.id + ' – ' + item.t + '. ' + item.q);
+}));
+
+const STATUS_COLOR = { "Done":"#16a34a", "In Progress":"#d97706", "On Hold":"#bb3354", "Not Started":"#9aa0a6" };
+
+function pickDate(cv){
+  const tl = cv && cv.timeline;
+  if (tl && typeof tl === "string" && tl.length >= 10) return tl.slice(0,10);
+  const d = cv && cv.date_mkw9xjec;
+  if (d && typeof d === "string" && d.length >= 10) return d.slice(0,10);
+  return "";
+}
+function asText(v){ return (v && typeof v === "object") ? "" : (v || ""); }
+
+async function loadCalendar(){
+  const el = document.getElementById("liveCal");
+  try {
+    let res = await window.cowork.callMcpTool(
+      "mcp__3c0e6e21-7708-4c79-8845-c45a38799cea__get_board_items_page",
+      { boardId: 9622147123, includeColumns: true,
+        columnIds: ["name","color_mkvpyn8k","date_mkw9xjec","timeline","status_1","person"],
+        limit: 100 }
+    );
+    if (typeof res === "string") { try { res = JSON.parse(res); } catch(e){} }
+    if (res && res.content && Array.isArray(res.content)) {
+      const t = res.content.find(c => c && c.type === "text");
+      if (t) { try { res = JSON.parse(t.text); } catch(e){} }
+    }
+    const items = (res && res.items) || [];
+    if (!items.length) { el.innerHTML = '<div class="err">No items came back from Monday. Reload to retry.</div>'; return; }
+
+    const active = items.map(it => {
+      const cv = it.column_values || {};
+      return {
+        name: it.name,
+        status: asText(cv.color_mkvpyn8k),
+        channel: asText(cv.status_1),
+        person: asText(cv.person),
+        date: pickDate(cv)
+      };
+    }).filter(x => x.status !== "Done");
+
+    active.sort((a,b) => {
+      if (a.date && b.date) return a.date < b.date ? -1 : 1;
+      if (a.date) return -1;
+      if (b.date) return 1;
+      return 0;
+    });
+
+    const show = active.slice(0, 14);
+    const more = active.length - show.length;
+    el.innerHTML = show.map(x => `
+      <div class="row">
+        <span class="dot" style="background:${STATUS_COLOR[x.status] || "#9aa0a6"}"></span>
+        <span class="nm">${x.name}</span>
+        ${x.channel ? '<span class="pill">'+x.channel+'</span>' : ''}
+        <span class="when">${x.date || "no date"}</span>
+      </div>`).join("") +
+      (more > 0 ? '<div class="row"><span class="nm" style="color:#8a8a84;font-weight:500">+ '+more+' more active items</span></div>' : '');
+  } catch (e) {
+    el.innerHTML = '<div class="err">Couldn\'t reach Monday just now (' + (e && e.message ? e.message : 'connection issue') + '). Reload to retry.</div>';
+  }
+}
+loadCalendar();
+</script>
+</body>
+</html>
