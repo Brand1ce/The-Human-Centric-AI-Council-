@@ -147,8 +147,8 @@
   </section>
 
   <section>
-    <div class="sec-head">On the content calendar now &mdash; live from Monday</div>
-    <div class="rows" id="liveCal"><div class="loading">Loading the Kyle &amp; Co. Content Calendar&hellip;</div></div>
+    <div class="sec-head">On the content calendar now &mdash; fetched May 26 2026</div>
+    <div class="rows" id="liveCal"></div>
   </section>
 
   <section>
@@ -259,65 +259,46 @@ document.querySelectorAll("[data-c]").forEach(b => b.addEventListener("click", (
 
 const STATUS_COLOR = { "Done":"#16a34a", "In Progress":"#d97706", "On Hold":"#bb3354", "Not Started":"#9aa0a6" };
 
-function pickDate(cv){
-  const tl = cv && cv.timeline;
-  if (tl && typeof tl === "string" && tl.length >= 10) return tl.slice(0,10);
-  const d = cv && cv.date_mkw9xjec;
-  if (d && typeof d === "string" && d.length >= 10) return d.slice(0,10);
-  return "";
-}
-function asText(v){ return (v && typeof v === "object") ? "" : (v || ""); }
+const CALENDAR_ITEMS = [
+  { name:"HiBob Blog #5", status:"In Progress", channel:"Blog", date:"2026-03-02" },
+  { name:"Q2 2026 Blogs", status:"In Progress", channel:"Blog", date:"2026-04-01" },
+  { name:"iSolved feedback session", status:"In Progress", channel:"Interview", date:"2026-04-01" },
+  { name:"Beauty & the Beast (Matt + Kyle)", status:"In Progress", channel:"LinkedIn", date:"2026-04-29" },
+  { name:"Town Hall – May", status:"Not Started", channel:"Webinar", date:"2026-05-28" },
+  { name:"SAP SuccessFactors Workshop – San Fran", status:"Not Started", channel:"Event", date:"2026-06-04" },
+  { name:"Candidate Fraud Project – Jake", status:"In Progress", channel:"Report", date:"2026-06-05" },
+  { name:"NAHCR26 – Milwaukee, WI", status:"Not Started", channel:"Event", date:"2026-07-14" },
+  { name:"Purple Reign Podcast", status:"Not Started", channel:"Podcast", date:"2026-08-07" },
+  { name:"Campaign 3", status:"Not Started", channel:"Webinar", date:"2026-08-10" },
+  { name:"GoodTime Moment 2026 – Sausalito, CA", status:"Not Started", channel:"Event", date:"2026-08-25" },
+  { name:"Event Recap Webinar with Glider", status:"Not Started", channel:"Webinar", date:"" },
+  { name:"Goodtime Roadshow Dinners", status:"Not Started", channel:"Vendor Dinner", date:"" },
+  { name:"Glider Podcasts", status:"In Progress", channel:"Podcast", date:"" },
+  { name:"Fraud Updates (Going Deeper) Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"The Vendor GTM Clarity Framework Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Intro Innovation & Insight Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Founder POV – Week 3", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Categorycompass.com Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"TA Suite Market Map Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Jake – Week 3 Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Brandice – Week 3 Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Jake – Week 4 Blog", status:"Not Started", channel:"Blog", date:"" },
+  { name:"Brandice – Week 4 Blog", status:"Not Started", channel:"Blog", date:"" }
+];
 
-async function loadCalendar(){
+(function renderCalendar(){
   const el = document.getElementById("liveCal");
-  try {
-    let res = await window.cowork.callMcpTool(
-      "mcp__3c0e6e21-7708-4c79-8845-c45a38799cea__get_board_items_page",
-      { boardId: 9622147123, includeColumns: true,
-        columnIds: ["name","color_mkvpyn8k","date_mkw9xjec","timeline","status_1","person"],
-        limit: 100 }
-    );
-    if (typeof res === "string") { try { res = JSON.parse(res); } catch(e){} }
-    if (res && res.content && Array.isArray(res.content)) {
-      const t = res.content.find(c => c && c.type === "text");
-      if (t) { try { res = JSON.parse(t.text); } catch(e){} }
-    }
-    const items = (res && res.items) || [];
-    if (!items.length) { el.innerHTML = '<div class="err">No items came back from Monday. Reload to retry.</div>'; return; }
-
-    const active = items.map(it => {
-      const cv = it.column_values || {};
-      return {
-        name: it.name,
-        status: asText(cv.color_mkvpyn8k),
-        channel: asText(cv.status_1),
-        person: asText(cv.person),
-        date: pickDate(cv)
-      };
-    }).filter(x => x.status !== "Done");
-
-    active.sort((a,b) => {
-      if (a.date && b.date) return a.date < b.date ? -1 : 1;
-      if (a.date) return -1;
-      if (b.date) return 1;
-      return 0;
-    });
-
-    const show = active.slice(0, 14);
-    const more = active.length - show.length;
-    el.innerHTML = show.map(x => `
-      <div class="row">
-        <span class="dot" style="background:${STATUS_COLOR[x.status] || "#9aa0a6"}"></span>
-        <span class="nm">${x.name}</span>
-        ${x.channel ? '<span class="pill">'+x.channel+'</span>' : ''}
-        <span class="when">${x.date || "no date"}</span>
-      </div>`).join("") +
-      (more > 0 ? '<div class="row"><span class="nm" style="color:#8a8a84;font-weight:500">+ '+more+' more active items</span></div>' : '');
-  } catch (e) {
-    el.innerHTML = '<div class="err">Couldn\'t reach Monday just now (' + (e && e.message ? e.message : 'connection issue') + '). Reload to retry.</div>';
-  }
-}
-loadCalendar();
+  const show = CALENDAR_ITEMS.slice(0, 14);
+  const more = CALENDAR_ITEMS.length - show.length;
+  el.innerHTML = show.map(x => `
+    <div class="row">
+      <span class="dot" style="background:${STATUS_COLOR[x.status] || "#9aa0a6"}"></span>
+      <span class="nm">${x.name}</span>
+      ${x.channel ? '<span class="pill">'+x.channel+'</span>' : ''}
+      <span class="when">${x.date || "no date"}</span>
+    </div>`).join("") +
+    (more > 0 ? '<div class="row"><span class="nm" style="color:#8a8a84;font-weight:500">+ '+more+' more active items</span></div>' : '');
+})();
 
 function refreshDashboard() {
   const btn = document.getElementById('refreshBtn');
