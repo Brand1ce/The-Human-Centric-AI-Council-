@@ -26,6 +26,10 @@
   .card-name { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9D92AD; margin-bottom: 0.5rem; }
   .card-count { font-size: 3rem; font-weight: 300; color: #273752; line-height: 1; letter-spacing: -0.03em; }
   .card-label { font-size: 0.8rem; color: #555961; margin-top: 0.35rem; }
+  .card-delta { display:inline-flex; align-items:center; gap:3px; font-size:0.72rem; font-weight:600; margin-top:0.3rem; padding:2px 8px; border-radius:100px; }
+  .card-delta.up { background:rgba(22,163,74,0.1); color:#16a34a; }
+  .card-delta.down { background:rgba(185,28,28,0.1); color:#b91c1c; }
+  .card-delta.flat { background:rgba(39,55,82,0.06); color:#9D92AD; }
 
   .total-bar { background: #273752; border-radius: 10px; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
   .total-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(247,241,234,0.6); }
@@ -49,9 +53,11 @@
         <div class="brand-label">Thank-you page · Resource clicks</div>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
       <span class="last-updated" id="last-updated">Loading…</span>
+      <span id="snapshot-label" style="font-size:0.72rem;color:#9D92AD;"></span>
       <button class="refresh-btn" onclick="loadData()">Refresh ↺</button>
+      <button class="refresh-btn" style="background:#F7F1EA;color:#273752;border:1px solid rgba(39,55,82,0.2);" onclick="resetSnapshot()">Reset baseline</button>
     </div>
   </div>
 
@@ -84,29 +90,70 @@
     { key: 'workbook',  label: 'Responsible AI',        sub: 'Interactive Figma workbook',  cls: 'workbook' },
   ];
 
+  var SNAPSHOT_KEY = 'hcaic_dashboard_snapshot';
+
+  function getSnapshot() {
+    try { return JSON.parse(localStorage.getItem(SNAPSHOT_KEY)); } catch(e) { return null; }
+  }
+
+  function saveSnapshot(counts) {
+    localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({ counts: counts, ts: Date.now() }));
+  }
+
+  function resetSnapshot() {
+    localStorage.removeItem(SNAPSHOT_KEY);
+    document.getElementById('snapshot-label').textContent = 'Baseline cleared — next load sets new baseline';
+    loadData();
+  }
+
+  function deltaTag(now, prev) {
+    if (prev == null) return '';
+    var diff = now - prev;
+    if (diff > 0) return '<span class="card-delta up">+' + diff + ' since baseline</span>';
+    if (diff < 0) return '<span class="card-delta down">' + diff + ' since baseline</span>';
+    return '<span class="card-delta flat">No change</span>';
+  }
+
+  function fmtTs(ts) {
+    var d = new Date(ts);
+    return d.toLocaleDateString([], {month:'short',day:'numeric'}) + ' at ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  }
+
   function loadData() {
     document.getElementById('last-updated').textContent = 'Loading…';
     fetch(BIN_URL, { headers: { 'X-ACCESS-KEY': KEY } })
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var counts = data.record;
+        var snap = getSnapshot();
         var total = 0;
         var html = '';
+
         RESOURCES.forEach(function(r) {
           var clicks = counts[r.key] || 0;
           var opens = counts[r.key + '_opens'] || 0;
+          var prevClicks = snap ? (snap.counts[r.key] || 0) : null;
           total += clicks;
           html += '<div class="card ' + r.cls + '">' +
             '<div class="card-name">' + r.label + '</div>' +
             '<div class="card-count">' + clicks + '</div>' +
+            deltaTag(clicks, prevClicks) +
             '<div class="card-label">' + r.sub + '</div>' +
             '<div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(39,55,82,0.08);font-size:0.72rem;color:#9D92AD;">' +
             opens + ' modal opens</div>' +
             '</div>';
         });
+
         document.getElementById('cards').innerHTML = html;
         document.getElementById('total').textContent = total;
         document.getElementById('last-updated').textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+        if (snap) {
+          document.getElementById('snapshot-label').textContent = 'vs. baseline from ' + fmtTs(snap.ts);
+        } else {
+          document.getElementById('snapshot-label').textContent = 'Baseline set now — reload to see changes';
+          saveSnapshot(counts);
+        }
       })
       .catch(function() {
         document.getElementById('cards').innerHTML = '<div class="error">Could not load data.</div>';
