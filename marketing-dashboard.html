@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<title>Kyle &amp; Co — Marketing KPIs Q2 2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #F7F1EA;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #273752;
+  min-height: 100vh;
+  padding: 3rem 2rem;
+}
+
+.page { max-width: 980px; margin: 0 auto; }
+
+/* ── Header ── */
+.header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 2.5rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(39,55,82,0.12);
+  flex-wrap: wrap; gap: 1rem;
+}
+.brand { display: flex; align-items: center; gap: 0.75rem; }
+.brand-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; background: #273752; border-radius: 6px;
+  font-family: Georgia, serif; font-size: 1.2rem; font-style: italic;
+  color: #FDECCD; flex-shrink: 0;
+}
+.brand-name { font-size: 1rem; font-weight: 600; color: #273752; }
+.brand-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: #9D92AD; font-weight: 500; margin-top: 0.1rem; }
+
+.header-right { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.last-updated-text { font-size: 0.75rem; color: #9D92AD; }
+
+.btn {
+  display: inline-block; border: none; border-radius: 100px;
+  padding: 0.5rem 1.1rem; font-size: 0.78rem; font-family: inherit;
+  cursor: pointer; font-weight: 500; text-decoration: none;
+  transition: opacity 0.15s; white-space: nowrap;
+}
+.btn:hover { opacity: 0.8; }
+.btn-primary { background: #273752; color: #F7F1EA; }
+.btn-ghost { background: #F7F1EA; color: #273752; border: 1px solid rgba(39,55,82,0.2); }
+
+/* ── Alert banner ── */
+.banner {
+  border-radius: 8px; padding: 0.75rem 1.25rem;
+  font-size: 0.8rem; margin-bottom: 2rem; display: none; line-height: 1.5;
+}
+.banner-demo { background: #FDECCD; color: #273752; }
+.banner-error { background: rgba(185,28,28,0.08); color: #b91c1c; }
+
+/* ── Section ── */
+.section { margin-bottom: 2.5rem; }
+.section-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.section-title { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #9D92AD; font-weight: 600; }
+.section-source { font-size: 0.65rem; color: #9D92AD; opacity: 0.7; }
+
+/* ── Card grid ── */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
+
+/* ── KPI card ── */
+.card {
+  background: #fff; border-radius: 10px; padding: 1.4rem;
+  border-top: 3px solid #273752;
+  display: flex; flex-direction: column;
+}
+.card.accent-email  { border-top-color: #273752; }
+.card.accent-web    { border-top-color: #2D5C94; }
+.card.accent-content{ border-top-color: #9D92AD; }
+.card.accent-milestone { border-top-color: #FDECCD; }
+
+.card-name {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #9D92AD; font-weight: 600; margin-bottom: 0.35rem;
+}
+.card-value {
+  font-size: 2.6rem; font-weight: 300; color: #273752;
+  line-height: 1; letter-spacing: -0.03em; margin-bottom: 0.2rem;
+}
+.card-value.sm { font-size: 2rem; }
+.card-sublabel { font-size: 0.78rem; color: #555961; }
+.card-target  { font-size: 0.7rem; color: #9D92AD; margin-top: 0.15rem; }
+
+/* ── Status chip ── */
+.chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 100px; margin-top: 0.5rem;
+  align-self: flex-start;
+}
+.chip.on-track    { background: rgba(22,163,74,0.1);  color: #16a34a; }
+.chip.at-risk     { background: rgba(202,138,4,0.1);  color: #b45309; }
+.chip.behind      { background: rgba(185,28,28,0.1);  color: #b91c1c; }
+.chip.manual      { background: rgba(157,146,173,0.12); color: #9D92AD; }
+.chip.tbd         { background: rgba(157,146,173,0.12); color: #9D92AD; }
+.chip.in-progress { background: rgba(45,92,148,0.1);  color: #2D5C94; }
+.chip.done        { background: rgba(22,163,74,0.1);  color: #16a34a; }
+
+/* ── Progress bar ── */
+.progress-wrap { margin-top: 0.75rem; }
+.progress-labels {
+  display: flex; justify-content: space-between;
+  font-size: 0.58rem; color: #9D92AD; margin-bottom: 0.35rem;
+}
+.progress-track {
+  height: 6px; background: rgba(39,55,82,0.08); border-radius: 100px;
+  position: relative; overflow: visible;
+}
+.progress-fill {
+  height: 100%; border-radius: 100px; transition: width 0.6s ease;
+  background: #273752; max-width: 100%;
+}
+.progress-fill.green  { background: #16a34a; }
+.progress-fill.yellow { background: #ca8a04; }
+.progress-fill.red    { background: #b91c1c; }
+/* 80% payout line */
+.progress-track::after {
+  content: '';
+  position: absolute;
+  left: 80%; top: -2px; bottom: -2px;
+  width: 2px; background: rgba(39,55,82,0.3);
+  border-radius: 1px;
+}
+
+/* ── Milestone rows ── */
+.milestone {
+  background: #fff; border-radius: 10px; padding: 1rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+.milestone:last-child { margin-bottom: 0; }
+.milestone-name { font-size: 0.88rem; font-weight: 500; color: #273752; }
+.milestone-note { font-size: 0.7rem; color: #9D92AD; margin-top: 0.15rem; }
+.milestone .chip { margin-top: 0; }
+
+/* ── Summary bar ── */
+.summary-bar {
+  background: #273752; border-radius: 10px; padding: 1.4rem 2rem;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.summary-item { text-align: center; }
+.summary-value { font-size: 1.8rem; font-weight: 300; color: #F7F1EA; letter-spacing: -0.03em; }
+.summary-label { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,241,234,0.5); margin-top: 0.2rem; }
+
+/* ── Loading ── */
+.loading-overlay { text-align: center; padding: 4rem; color: #9D92AD; font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  body { padding: 2rem 1.25rem; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .card-value { font-size: 2rem; }
+  .summary-bar { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .cards { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand">
+      <span class="brand-mark">&amp;</span>
+      <div>
+        <div class="brand-name">Kyle &amp; Co</div>
+        <div class="brand-label">Marketing KPIs · Q2 2026</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="last-updated-text" id="last-updated">Loading…</span>
+      <a href="#" target="_blank" class="btn btn-ghost" id="edit-link" style="display:none;">Edit manual data ↗</a>
+      <button class="btn btn-primary" onclick="loadData()">Refresh ↺</button>
+    </div>
+  </div>
+
+  <div class="banner banner-demo" id="demo-banner">
+    <strong>Demo mode</strong> — showing sample data. Paste your Apps Script URL into <code>SCRIPT_URL</code> at the bottom of this file to connect live data.
+  </div>
+  <div class="banner banner-error" id="error-banner"></div>
+
+  <div id="main-content">
+    <div class="loading-overlay">Loading marketing data…</div>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────
+// CONFIG — paste your deployed Apps Script web app URL here
+// ─────────────────────────────────────────────────────────────────────
+var SCRIPT_URL = '';
+
+// ── Q2 2026 targets ───────────────────────────────────────────────────
+var T = {
+  netNewSubs80:       150,
+  netNewSubs100:      200,
+  qoqGrowth80:        13,
+  qoqGrowth100:       18,
+  openRate80:         38,
+  openRate100:        40,
+  ctorBroadcast80:     8,
+  ctorBroadcast100:   10,
+  lpConversion:       15,
+  blogConversion80:   1.4,
+  blogConversion100:  1.7,
+  blogViewsYTD:    10500,
+  liReferrals:       693,
+  reportDownloads80: 150,
+  reportDownloads100:200,
+  contentShipped:     14,
+  liPostsPerWeek:      3,
+  practitionerPct:    90,
+};
+
+// ── Demo data (shown when SCRIPT_URL is not set) ─────────────────────
+var DEMO = {
+  email: {
+    totalSubscribers:    1142,
+    netNewQ2:              87,
+    qoqGrowth:            9.2,
+    avgOpenRate:          41.3,
+    broadcastCTOR:         8.7,
+    lpConversion:         12.4,
+    blogToSubConversion:   1.1,
+    practitionerPct:        76,
+    organicGrowthPct:       68,
+  },
+  web: {
+    blogViewsYTD:       7320,
+    liReferrals:         412,
+    reportDownloads:      91,
+  },
+  content: {
+    contentShipped:        8,
+    liPostsPerWeek:      2.8,
+  },
+  milestones: {
+    vendorImpactBriefs: 'in-progress',
+    advisoryInquiries:  'on-track',
+    speaking:           'tbd',
+    podcast:            'tbd',
+  },
+  lastUpdated: null,
+  isDemo: true,
+  sheetUrl: '',
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────
+function fmt(n, dec) {
+  if (n == null || isNaN(n)) return '—';
+  return typeof dec === 'number' ? (+n).toFixed(dec) : Math.round(n).toLocaleString();
+}
+
+function fmtPct(n, dec) {
+  if (n == null || isNaN(n)) return '—';
+  return (typeof dec === 'number' ? (+n).toFixed(dec) : (+n).toFixed(1)) + '%';
+}
+
+function getStatus(val, t80, t100) {
+  if (val == null) return 'tbd';
+  var pct = val / t100;
+  if (pct >= 0.8) return 'on-track';
+  if (pct >= 0.5) return 'at-risk';
+  return 'behind';
+}
+
+function chip(status, labelOverride) {
+  var labels = {
+    'on-track':    '✓ On track',
+    'at-risk':     '⚠ At risk',
+    'behind':      '↓ Behind',
+    'tbd':         'TBD',
+    'manual':      '✎ Manual',
+    'in-progress': '→ In progress',
+    'done':        '✓ Done',
+    'not-started': 'Not started',
+  };
+  var lbl = labelOverride || labels[status] || status;
+  return '<span class="chip ' + status + '">' + lbl + '</span>';
+}
+
+function progressBar(val, t80, t100, label80, label100) {
+  if (val == null) return '';
+  var pct = Math.min(100, (val / t100) * 100);
+  var cls = pct >= 80 ? 'green' : pct >= 50 ? 'yellow' : 'red';
+  var l80  = label80  !== undefined ? label80  : t80;
+  var l100 = label100 !== undefined ? label100 : t100;
+  return '<div class="progress-wrap">' +
+    '<div class="progress-labels"><span>0</span><span>' + l80 + ' <span style="opacity:0.6">(80%)</span></span><span>' + l100 + '</span></div>' +
+    '<div class="progress-track"><div class="progress-fill ' + cls + '" style="width:' + pct + '%"></div></div>' +
+    '</div>';
+}
+
+// ── Card builder ──────────────────────────────────────────────────────
+function card(opts) {
+  /* opts: accent, name, value, valueClass, sublabel, target, chipHtml, progressHtml */
+  return '<div class="card accent-' + (opts.accent||'email') + '">' +
+    '<div class="card-name">' + opts.name + '</div>' +
+    '<div class="card-value' + (opts.valueClass ? ' '+opts.valueClass : '') + '">' + (opts.value||'—') + '</div>' +
+    (opts.sublabel ? '<div class="card-sublabel">' + opts.sublabel + '</div>' : '') +
+    (opts.target   ? '<div class="card-target">'   + opts.target   + '</div>' : '') +
+    (opts.chipHtml || '') +
+    (opts.progressHtml || '') +
+    '</div>';
+}
+
+// ── Render ────────────────────────────────────────────────────────────
+function render(data) {
+  var e = data.email   || {};
+  var w = data.web     || {};
+  var c = data.content || {};
+  var m = data.milestones || {};
+
+  // ── Summary bar ──────────────────────────────────────────────────
+  var totalSubs = e.totalSubscribers;
+  var netNew    = e.netNewQ2;
+  var openRate  = e.avgOpenRate;
+
+  var html = '';
+  html += '<div class="summary-bar">';
+  html += '<div class="summary-item"><div class="summary-value">' + fmt(totalSubs) + '</div><div class="summary-label">Total subscribers</div></div>';
+  html += '<div class="summary-item"><div class="summary-value">' + (netNew != null ? '+' + fmt(netNew) : '—') + '</div><div class="summary-label">Net new · Q2</div></div>';
+  html += '<div class="summary-item"><div class="summary-value">' + fmtPct(openRate, 1) + '</div><div class="summary-label">Avg open rate</div></div>';
+  html += '</div>';
+
+  // ── Email List Health ─────────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Email List Health</div><div class="section-source">MailerLite · auto</div></div>';
+  html += '<div class="cards">';
+
+  // Net new Q2
+  var netNewStatus = getStatus(e.netNewQ2, T.netNewSubs80, T.netNewSubs100);
+  html += card({
+    accent: 'email',
+    name: 'Net new subscribers · Q2',
+    value: e.netNewQ2 != null ? '+' + fmt(e.netNewQ2) : '—',
+    target: 'Target: +' + T.netNewSubs80 + ' / +' + T.netNewSubs100,
+    chipHtml: chip(netNewStatus),
+    progressHtml: progressBar(e.netNewQ2, T.netNewSubs80, T.netNewSubs100, '+'+T.netNewSubs80, '+'+T.netNewSubs100),
+  });
+
+  // QoQ growth
+  var qoqStatus = getStatus(e.qoqGrowth, T.qoqGrowth80, T.qoqGrowth100);
+  html += card({
+    accent: 'email',
+    name: 'QoQ subscriber growth',
+    value: fmtPct(e.qoqGrowth, 1),
+    valueClass: 'sm',
+    target: 'Target: ~' + T.qoqGrowth80 + '% / ~' + T.qoqGrowth100 + '%',
+    chipHtml: chip(qoqStatus),
+    progressHtml: progressBar(e.qoqGrowth, T.qoqGrowth80, T.qoqGrowth100, T.qoqGrowth80+'%', T.qoqGrowth100+'%'),
+  });
+
+  // Practitioner %
+  var practStatus = e.practitionerPct != null
+    ? (e.practitionerPct >= 90 ? 'on-track' : e.practitionerPct >= 70 ? 'at-risk' : 'behind')
+    : 'manual';
+  html += card({
+    accent: 'email',
+    name: 'Practitioner % tagged',
+    value: fmtPct(e.practitionerPct, 0),
+    valueClass: 'sm',
+    target: 'Target: 90% tagged · list quality',
+    chipHtml: e.practitionerPct != null ? chip(practStatus) : chip('manual', '✎ Update in sheet'),
+    progressHtml: e.practitionerPct != null ? progressBar(e.practitionerPct, 80, 90, '80%', '90%') : '',
+  });
+
+  // Organic growth %
+  html += card({
+    accent: 'email',
+    name: 'Organic / core growth %',
+    value: fmtPct(e.organicGrowthPct, 0),
+    valueClass: 'sm',
+    sublabel: e.organicGrowthPct != null ? 'Of new subs via organic channels' : '',
+    target: 'Tracked separately · ML + GA4',
+    chipHtml: e.organicGrowthPct != null ? '' : chip('manual', '✎ Update in sheet'),
+  });
+
+  html += '</div></div>';
+
+  // ── Email Engagement ──────────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Email Engagement</div><div class="section-source">MailerLite · auto</div></div>';
+  html += '<div class="cards">';
+
+  // Avg open rate
+  var openStatus = getStatus(e.avgOpenRate, T.openRate80, T.openRate100);
+  html += card({
+    accent: 'email',
+    name: 'Avg open rate',
+    value: fmtPct(e.avgOpenRate, 1),
+    valueClass: 'sm',
+    target: 'Target: ≥' + T.openRate80 + '% / ≥' + T.openRate100 + '%',
+    chipHtml: chip(openStatus),
+    progressHtml: progressBar(e.avgOpenRate, T.openRate80, T.openRate100, T.openRate80+'%', T.openRate100+'%'),
+  });
+
+  // Broadcast CTOR
+  var ctorStatus = e.broadcastCTOR != null
+    ? (e.broadcastCTOR >= T.ctorBroadcast80 ? 'on-track' : e.broadcastCTOR >= 5 ? 'at-risk' : 'behind')
+    : 'tbd';
+  html += card({
+    accent: 'email',
+    name: 'Broadcast CTOR',
+    value: fmtPct(e.broadcastCTOR, 1),
+    valueClass: 'sm',
+    target: 'Target: ' + T.ctorBroadcast80 + '–' + T.ctorBroadcast100 + '% · RSS ~78%',
+    chipHtml: chip(ctorStatus),
+    progressHtml: e.broadcastCTOR != null ? progressBar(e.broadcastCTOR, T.ctorBroadcast80, T.ctorBroadcast100, T.ctorBroadcast80+'%', T.ctorBroadcast100+'%') : '',
+  });
+
+  // LP conversion
+  var lpStatus = e.lpConversion != null
+    ? (e.lpConversion >= T.lpConversion ? 'on-track' : e.lpConversion >= 10 ? 'at-risk' : 'behind')
+    : 'manual';
+  html += card({
+    accent: 'email',
+    name: 'Landing page conversion',
+    value: fmtPct(e.lpConversion, 1),
+    valueClass: 'sm',
+    target: 'Target: &gt;' + T.lpConversion + '% · all LPs',
+    chipHtml: e.lpConversion != null ? chip(lpStatus) : chip('manual', '✎ Update in sheet'),
+    progressHtml: e.lpConversion != null ? progressBar(e.lpConversion, 10, T.lpConversion, '10%', T.lpConversion+'%') : '',
+  });
+
+  // Blog → subscriber conversion
+  var blogSubStatus = getStatus(e.blogToSubConversion, T.blogConversion80, T.blogConversion100);
+  html += card({
+    accent: 'email',
+    name: 'Blog → subscriber conv.',
+    value: fmtPct(e.blogToSubConversion, 2),
+    valueClass: 'sm',
+    target: 'Target: ≥' + T.blogConversion80 + '% / ≥' + T.blogConversion100 + '%',
+    chipHtml: e.blogToSubConversion != null ? chip(blogSubStatus) : chip('manual', '✎ Update in sheet'),
+    progressHtml: e.blogToSubConversion != null
+      ? progressBar(e.blogToSubConversion, T.blogConversion80, T.blogConversion100, T.blogConversion80+'%', T.blogConversion100+'%')
+      : '',
+  });
+
+  html += '</div></div>';
+
+  // ── Web Performance ────────────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Web Performance</div><div class="section-source">GA4 · auto</div></div>';
+  html += '<div class="cards">';
+
+  // Blog views YTD
+  var t80blog = Math.round(T.blogViewsYTD * 0.8);
+  var blogStatus = getStatus(w.blogViewsYTD, t80blog, T.blogViewsYTD);
+  html += card({
+    accent: 'web',
+    name: 'Blog views · YTD',
+    value: fmt(w.blogViewsYTD),
+    target: 'Target: ' + fmt(T.blogViewsYTD) + ' · LinkedIn-led',
+    chipHtml: chip(blogStatus),
+    progressHtml: progressBar(w.blogViewsYTD, t80blog, T.blogViewsYTD, fmt(t80blog), fmt(T.blogViewsYTD)),
+  });
+
+  // LinkedIn referrals
+  var t80li = Math.round(T.liReferrals * 0.8);
+  var liStatus = getStatus(w.liReferrals, t80li, T.liReferrals);
+  html += card({
+    accent: 'web',
+    name: 'LinkedIn referrals · Q2',
+    value: fmt(w.liReferrals),
+    target: 'Target: ' + fmt(T.liReferrals) + ' sessions',
+    chipHtml: chip(liStatus),
+    progressHtml: progressBar(w.liReferrals, t80li, T.liReferrals, fmt(t80li), fmt(T.liReferrals)),
+  });
+
+  // Report downloads
+  var dlStatus = getStatus(w.reportDownloads, T.reportDownloads80, T.reportDownloads100);
+  html += card({
+    accent: 'web',
+    name: 'Report downloads · Q2',
+    value: fmt(w.reportDownloads),
+    target: 'Target: ' + T.reportDownloads80 + ' / ' + T.reportDownloads100,
+    chipHtml: chip(dlStatus),
+    progressHtml: progressBar(w.reportDownloads, T.reportDownloads80, T.reportDownloads100),
+  });
+
+  html += '</div></div>';
+
+  // ── Content Output ────────────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Content Output</div><div class="section-source">Manual · update in sheet</div></div>';
+  html += '<div class="cards">';
+
+  // Content shipped
+  var t80content = Math.round(T.contentShipped * 0.8);
+  var contentStatus = c.contentShipped != null
+    ? getStatus(c.contentShipped, t80content, T.contentShipped)
+    : 'manual';
+  html += card({
+    accent: 'content',
+    name: 'Content shipped · Q2',
+    value: fmt(c.contentShipped),
+    target: 'Target: ' + T.contentShipped + ' pieces / quarter',
+    chipHtml: c.contentShipped != null ? chip(contentStatus) : chip('manual', '✎ Update in sheet'),
+    progressHtml: c.contentShipped != null
+      ? progressBar(c.contentShipped, t80content, T.contentShipped, t80content, T.contentShipped)
+      : '',
+  });
+
+  // LinkedIn cadence
+  var liCadStatus = c.liPostsPerWeek != null
+    ? (c.liPostsPerWeek >= T.liPostsPerWeek ? 'on-track' : c.liPostsPerWeek >= 2 ? 'at-risk' : 'behind')
+    : 'manual';
+  html += card({
+    accent: 'content',
+    name: 'LinkedIn cadence',
+    value: c.liPostsPerWeek != null
+      ? '<span style="font-size:inherit">' + (+c.liPostsPerWeek).toFixed(1) + '</span><span style="font-size:1rem;font-weight:400;"> /wk</span>'
+      : '—',
+    valueClass: 'sm',
+    target: 'Target: ' + T.liPostsPerWeek + ' posts / week',
+    chipHtml: c.liPostsPerWeek != null ? chip(liCadStatus) : chip('manual', '✎ Update in sheet'),
+  });
+
+  html += '</div></div>';
+
+  // ── Milestone Commitments ─────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Milestone Commitments</div><div class="section-source">Status · update in sheet</div></div>';
+
+  var milestones = [
+    { label: 'Vendor Impact Briefs',        note: 'Milestone commitments',         key: m.vendorImpactBriefs },
+    { label: 'Advisory inquiries',          note: 'Pipeline status',               key: m.advisoryInquiries  },
+    { label: 'Speaking engagements',        note: 'Milestone commitments',         key: m.speaking           },
+    { label: 'Podcast — Transformation Realness', note: 'Targets TBD with Purple Acorn', key: m.podcast || 'tbd' },
+  ];
+
+  var msLabels = {
+    'on-track': '✓ On track', 'in-progress': '→ In progress',
+    'behind': '↓ Behind', 'done': '✓ Done', 'tbd': 'TBD', 'not-started': 'Not started',
+  };
+
+  milestones.forEach(function(ms) {
+    var s = ms.key || 'tbd';
+    html += '<div class="milestone">' +
+      '<div><div class="milestone-name">' + ms.label + '</div><div class="milestone-note">' + ms.note + '</div></div>' +
+      chip(s === 'in-progress' ? 'in-progress' : s, msLabels[s] || s) +
+      '</div>';
+  });
+
+  html += '</div>';
+
+  document.getElementById('main-content').innerHTML = html;
+}
+
+// ── Load data ─────────────────────────────────────────────────────────
+function loadData() {
+  document.getElementById('last-updated').textContent = 'Loading…';
+  document.getElementById('error-banner').style.display = 'none';
+
+  if (!SCRIPT_URL) {
+    document.getElementById('demo-banner').style.display = 'block';
+    render(DEMO);
+    document.getElementById('last-updated').textContent = 'Demo mode · not live data';
+    return;
+  }
+
+  fetch(SCRIPT_URL + '?t=' + Date.now())
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      document.getElementById('demo-banner').style.display = data.isDemo ? 'block' : 'none';
+      if (data.sheetUrl) {
+        var el = document.getElementById('edit-link');
+        el.href = data.sheetUrl;
+        el.style.display = 'inline-block';
+      }
+      render(data);
+      var ts = data.lastUpdated
+        ? new Date(data.lastUpdated).toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+        : 'just now';
+      document.getElementById('last-updated').textContent = 'Updated ' + ts;
+    })
+    .catch(function(err) {
+      var b = document.getElementById('error-banner');
+      b.textContent = 'Could not load live data (' + err.message + ') — showing demo data.';
+      b.style.display = 'block';
+      render(DEMO);
+      document.getElementById('last-updated').textContent = 'Load failed';
+    });
+}
+
+loadData();
+</script>
+</body>
+</html>

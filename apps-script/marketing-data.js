@@ -1,0 +1,305 @@
+// ════════════════════════════════════════════════════════════════════════
+// Kyle & Co — Marketing KPIs Data Service
+// Google Apps Script — paste this into script.google.com
+//
+// SETUP: See SCRIPT_SETUP.md in the apps-script/ folder for step-by-step.
+// ════════════════════════════════════════════════════════════════════════
+
+// ── Script Properties (set these in Project Settings → Script Properties) ──
+// ML_API_KEY       : MailerLite API key (from MailerLite → Integrations → API)
+// GA4_PROPERTY_ID  : numeric GA4 property ID (e.g. "123456789")
+// SHEET_ID         : Google Sheet ID (the long ID from the sheet's URL)
+// SHEET_URL        : full shareable URL of the sheet (shown to team as "Edit manual data")
+// Q1_END_SUBS      : subscriber count on March 31 — enter once, never changes
+// Q4_END_SUBS      : subscriber count on Dec 31 2025 — for QoQ reference
+
+var PROPS = PropertiesService.getScriptProperties();
+
+var ML_KEY        = PROPS.getProperty('ML_API_KEY');
+var GA4_ID        = PROPS.getProperty('GA4_PROPERTY_ID');
+var SHEET_ID      = PROPS.getProperty('SHEET_ID');
+var Q1_END_SUBS   = parseInt(PROPS.getProperty('Q1_END_SUBS'))  || 0;
+
+var Q2_START = '2026-04-01';
+var YTD_START = '2026-01-01';
+
+// ── Entry point (called when dashboard fetches the URL) ──────────────────
+function doGet(e) {
+  var data;
+  try {
+    data = buildData();
+  } catch (err) {
+    Logger.log('buildData error: ' + err);
+    data = { error: err.toString(), lastUpdated: new Date().toISOString(), isDemo: false };
+  }
+
+  var output = ContentService.createTextOutput(JSON.stringify(data));
+  output.setMimeType(ContentService.MimeType.JSON);
+  return output;
+}
+
+function buildData() {
+  var today = Utilities.formatDate(new Date(), 'UTC', 'yyyy-MM-dd');
+  var email   = getMailerLiteData(today);
+  var web     = getGA4Data(today);
+  var manual  = getManualData();
+
+  return {
+    email: {
+      totalSubscribers:    email.totalSubscribers,
+      netNewQ2:            email.netNewQ2,
+      qoqGrowth:           email.qoqGrowth,
+      avgOpenRate:         email.avgOpenRate,
+      broadcastCTOR:       email.broadcastCTOR,
+      // manual fields from sheet:
+      lpConversion:        manual.lpConversion,
+      blogToSubConversion: manual.blogToSubConversion,
+      practitionerPct:     manual.practitionerPct,
+      organicGrowthPct:    manual.organicGrowthPct,
+    },
+    web: {
+      blogViewsYTD:    web.blogViewsYTD,
+      liReferrals:     web.liReferrals,
+      reportDownloads: web.reportDownloads,
+    },
+    content: {
+      contentShipped:  manual.contentShipped,
+      liPostsPerWeek:  manual.liPostsPerWeek,
+    },
+    milestones: {
+      vendorImpactBriefs: manual.vendorImpactBriefs,
+      advisoryInquiries:  manual.advisoryInquiries,
+      speaking:           manual.speaking,
+      podcast:            manual.podcast,
+    },
+    lastUpdated: new Date().toISOString(),
+    sheetUrl: PROPS.getProperty('SHEET_URL') || '',
+    isDemo: false,
+  };
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// MailerLite
+// ════════════════════════════════════════════════════════════════════════
+function getMailerLiteData(today) {
+  var headers = { 'Authorization': 'Bearer ' + ML_KEY, 'Content-Type': 'application/json' };
+  var opts = { headers: headers, muteHttpExceptions: true };
+
+  function ml(path) {
+    var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api' + path, opts);
+    if (res.getResponseCode() !== 200) {
+      Logger.log('MailerLite error ' + res.getResponseCode() + ' for ' + path + ': ' + res.getContentText());
+      return null;
+    }
+    return JSON.parse(res.getContentText());
+  }
+
+  // 1. Total active subscribers
+  var totalData = ml('/subscribers?limit=0&filter[status]=active');
+  var totalSubs = totalData && totalData.meta ? totalData.meta.total : null;
+
+  // 2. Net new Q2 = current total minus Q1-end baseline (stored in Script Properties)
+  var netNewQ2 = (totalSubs != null && Q1_END_SUBS > 0) ? totalSubs - Q1_END_SUBS : null;
+
+  // 3. QoQ growth — current vs Q1-end baseline
+  var qoqGrowth = (totalSubs != null && Q1_END_SUBS > 0)
+    ? ((totalSubs - Q1_END_SUBS) / Q1_END_SUBS) * 100
+    : null;
+
+  // 4. Q2 broadcast campaigns — open rate & CTOR
+  var campaignsData = ml('/campaigns?filter[status]=sent&filter[type]=regular&sort=-sent_at&limit=30');
+  var campaigns = (campaignsData && campaignsData.data) ? campaignsData.data : [];
+
+  // filter to Q2 only
+  var q2campaigns = campaigns.filter(function(c) {
+    return c.sent_at && c.sent_at.substring(0, 10) >= Q2_START;
+  });
+
+  var avgOpenRate = null;
+  var broadcastCTOR = null;
+
+  if (q2campaigns.length > 0) {
+    var sumOpen = 0, sumClicks = 0, sumOpens = 0, countOpen = 0;
+    q2campaigns.forEach(function(c) {
+      var s = c.stats || {};
+      // open_rate comes as { float: 32.4, string: "32.4%" } or just a number
+      var openRateVal = s.open_rate && typeof s.open_rate === 'object'
+        ? s.open_rate.float
+        : (s.open_rate || 0);
+      if (openRateVal) { sumOpen += parseFloat(openRateVal); countOpen++; }
+
+      // CTOR = clicks / opens — calculate ourselves for accuracy
+      var opens  = parseInt(s.unique_opens_count)  || 0;
+      var clicks = parseInt(s.unique_clicks_count) || 0;
+      sumOpens  += opens;
+      sumClicks += clicks;
+    });
+    avgOpenRate = countOpen > 0 ? sumOpen / countOpen : null;
+    broadcastCTOR = sumOpens > 0 ? (sumClicks / sumOpens) * 100 : null;
+  }
+
+  return {
+    totalSubscribers: totalSubs,
+    netNewQ2:         netNewQ2,
+    qoqGrowth:        qoqGrowth,
+    avgOpenRate:      avgOpenRate,
+    broadcastCTOR:    broadcastCTOR,
+  };
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// GA4 Data API
+// Requires: Enable "Google Analytics Data API" as an Advanced Google Service
+// (in Apps Script editor → Services → add "Google Analytics Data API")
+// ════════════════════════════════════════════════════════════════════════
+function getGA4Data(today) {
+  var token = ScriptApp.getOAuthToken();
+
+  function ga4Report(payload) {
+    var res = UrlFetchApp.fetch(
+      'https://analyticsdata.googleapis.com/v1beta/properties/' + GA4_ID + ':runReport',
+      {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        payload: JSON.stringify(payload),
+        muteHttpExceptions: true,
+      }
+    );
+    var code = res.getResponseCode();
+    if (code !== 200) {
+      Logger.log('GA4 error ' + code + ': ' + res.getContentText().substring(0, 400));
+      return null;
+    }
+    return JSON.parse(res.getContentText());
+  }
+
+  function firstMetric(report) {
+    try { return parseInt(report.rows[0].metricValues[0].value) || 0; } catch(e) { return 0; }
+  }
+
+  // ── Blog page views YTD ──────────────────────────────────────────────
+  // ADJUST: change '/blog' to match your WordPress blog path if different
+  var blogReport = ga4Report({
+    dateRanges: [{ startDate: YTD_START, endDate: today }],
+    metrics: [{ name: 'screenPageViews' }],
+    dimensionFilter: {
+      filter: {
+        fieldName: 'pagePath',
+        stringFilter: { matchType: 'BEGINS_WITH', value: '/blog' },
+      }
+    }
+  });
+  var blogViewsYTD = blogReport ? firstMetric(blogReport) : null;
+
+  // ── LinkedIn referral sessions Q2 ────────────────────────────────────
+  var liReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    metrics: [{ name: 'sessions' }],
+    dimensions: [{ name: 'sessionSource' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+    limit: 50,
+  });
+  var liSessions = 0;
+  if (liReport && liReport.rows) {
+    liReport.rows.forEach(function(row) {
+      var src = (row.dimensionValues[0].value || '').toLowerCase();
+      if (src.indexOf('linkedin') >= 0 || src.indexOf('lnkd.in') >= 0) {
+        liSessions += parseInt(row.metricValues[0].value) || 0;
+      }
+    });
+  }
+
+  // ── Report / resource downloads Q2 ──────────────────────────────────
+  // Matches 'resource_cta_click' (custom event from existing tracking)
+  // AND 'file_download' (GA4 automatic event for PDF links)
+  // ADJUST event names if your GA4 uses different names
+  var dlReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: {
+      orGroup: {
+        expressions: [
+          { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'resource_cta_click' } } },
+          { filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'file_download' } } },
+        ]
+      }
+    }
+  });
+  var reportDownloads = dlReport ? firstMetric(dlReport) : null;
+
+  return {
+    blogViewsYTD:    blogViewsYTD,
+    liReferrals:     liSessions,
+    reportDownloads: reportDownloads,
+  };
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// Manual data from Google Sheet
+//
+// Sheet name: "Manual Data"
+// Column A: key (exactly as listed below), Column B: value
+//
+// Keys:
+//   lp_conversion          (number — e.g. 14.2)
+//   blog_to_sub_conversion (number — e.g. 1.3)
+//   practitioner_pct       (number — e.g. 78)
+//   organic_growth_pct     (number — e.g. 65)
+//   content_shipped        (integer — e.g. 9)
+//   li_posts_per_week      (number — e.g. 2.7)
+//   vendor_impact_briefs   (status: on-track | in-progress | behind | done | tbd)
+//   advisory_inquiries     (status)
+//   speaking               (status)
+//   podcast                (status)
+// ════════════════════════════════════════════════════════════════════════
+function getManualData() {
+  var defaults = {
+    lpConversion: null, blogToSubConversion: null, practitionerPct: null,
+    organicGrowthPct: null, contentShipped: null, liPostsPerWeek: null,
+    vendorImpactBriefs: 'tbd', advisoryInquiries: 'tbd', speaking: 'tbd', podcast: 'tbd',
+  };
+
+  if (!SHEET_ID) return defaults;
+
+  try {
+    var ss    = SpreadsheetApp.openById(SHEET_ID);
+    var sheet = ss.getSheetByName('Manual Data');
+    if (!sheet) { Logger.log('Sheet "Manual Data" not found'); return defaults; }
+
+    var rows = sheet.getDataRange().getValues();
+    var map  = {};
+    rows.forEach(function(row) {
+      if (row[0]) map[String(row[0]).trim()] = row[1];
+    });
+
+    function num(key) { var v = parseFloat(map[key]); return isNaN(v) ? null : v; }
+    function str(key) { return map[key] ? String(map[key]).trim().toLowerCase() : 'tbd'; }
+
+    return {
+      lpConversion:        num('lp_conversion'),
+      blogToSubConversion: num('blog_to_sub_conversion'),
+      practitionerPct:     num('practitioner_pct'),
+      organicGrowthPct:    num('organic_growth_pct'),
+      contentShipped:      num('content_shipped'),
+      liPostsPerWeek:      num('li_posts_per_week'),
+      vendorImpactBriefs:  str('vendor_impact_briefs'),
+      advisoryInquiries:   str('advisory_inquiries'),
+      speaking:            str('speaking'),
+      podcast:             str('podcast'),
+    };
+  } catch (err) {
+    Logger.log('Error reading manual sheet: ' + err);
+    return defaults;
+  }
+}
+
+// ── Scheduled refresh (run daily via trigger) ─────────────────────────
+// In Apps Script: Triggers → Add trigger → scheduledRefresh → Time-driven → Day timer
+function scheduledRefresh() {
+  try {
+    var data = buildData();
+    Logger.log('[scheduledRefresh] OK — subscribers: ' + (data.email && data.email.totalSubscribers));
+  } catch (err) {
+    Logger.log('[scheduledRefresh] ERROR: ' + err);
+  }
+}
