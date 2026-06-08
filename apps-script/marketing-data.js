@@ -324,6 +324,14 @@ function getManualData() {
   }
 }
 
+// ── MailerLite debug — run in editor, check logs ─────────────────────
+function debugML() {
+  var opts = { headers: { 'Authorization': 'Bearer ' + ML_KEY }, muteHttpExceptions: true };
+  var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/subscribers?limit=1&filter[status]=active', opts);
+  Logger.log('Status: ' + res.getResponseCode());
+  Logger.log('Body: ' + res.getContentText().substring(0, 500));
+}
+
 // ── Scheduled refresh (run daily via trigger) ─────────────────────────
 // In Apps Script: Triggers → Add trigger → scheduledRefresh → Time-driven → Day timer
 function scheduledRefresh() {
