@@ -148,33 +148,25 @@ function getMailerLiteData(today) {
 }
 
 // ════════════════════════════════════════════════════════════════════════
-// GA4 Data API
-// Requires: Enable "Google Analytics Data API" as an Advanced Google Service
-// (in Apps Script editor → Services → add "Google Analytics Data API")
+// GA4 — uses the Analytics Data API Advanced Service (no OAuth headaches)
+//
+// REQUIRED: In Apps Script editor → Services (+) → add
+//   "Google Analytics Data API"  (identifier: AnalyticsData)
 // ════════════════════════════════════════════════════════════════════════
 function getGA4Data(today) {
-  var token = ScriptApp.getOAuthToken();
 
+  // Wraps AnalyticsData.Properties.runReport with error logging
   function ga4Report(payload) {
-    var res = UrlFetchApp.fetch(
-      'https://analyticsdata.googleapis.com/v1beta/properties/' + GA4_ID + ':runReport',
-      {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-        payload: JSON.stringify(payload),
-        muteHttpExceptions: true,
-      }
-    );
-    var code = res.getResponseCode();
-    if (code !== 200) {
-      Logger.log('GA4 error ' + code + ': ' + res.getContentText().substring(0, 400));
+    try {
+      return AnalyticsData.Properties.runReport('properties/' + GA4_ID, payload);
+    } catch (err) {
+      Logger.log('GA4 runReport error: ' + err);
       return null;
     }
-    return JSON.parse(res.getContentText());
   }
 
   function firstMetric(report) {
-    try { return parseInt(report.rows[0].metricValues[0].value) || 0; } catch(e) { return 0; }
+    try { return parseInt(report.rows[0].metricValues[0].value) || 0; } catch (e) { return 0; }
   }
 
   // ── Blog page views YTD ──────────────────────────────────────────────
@@ -210,8 +202,7 @@ function getGA4Data(today) {
   }
 
   // ── Report / resource downloads Q2 ──────────────────────────────────
-  // Matches 'resource_cta_click' (custom event from existing tracking)
-  // AND 'file_download' (GA4 automatic event for PDF links)
+  // Matches 'resource_cta_click' (custom event) AND 'file_download' (auto GA4 event)
   // ADJUST event names if your GA4 uses different names
   var dlReport = ga4Report({
     dateRanges: [{ startDate: Q2_START, endDate: today }],
