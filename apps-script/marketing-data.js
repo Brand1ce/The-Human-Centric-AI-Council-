@@ -329,7 +329,9 @@ function debugML() {
   var opts = { headers: { 'Authorization': 'Bearer ' + ML_KEY }, muteHttpExceptions: true };
   var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/subscribers?limit=1&filter[status]=active', opts);
   Logger.log('Status: ' + res.getResponseCode());
-  Logger.log('Body: ' + res.getContentText().substring(0, 500));
+  var body = JSON.parse(res.getContentText());
+  Logger.log('meta: ' + JSON.stringify(body.meta));
+  Logger.log('top-level keys: ' + Object.keys(body).join(', '));
 }
 
 // ── Scheduled refresh (run daily via trigger) ─────────────────────────
