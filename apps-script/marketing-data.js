@@ -130,15 +130,17 @@ function getMailerLiteData(today) {
 
   function ml(path) {
     var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api' + path, opts);
-    if (res.getResponseCode() !== 200) {
-      Logger.log('MailerLite error ' + res.getResponseCode() + ' for ' + path + ': ' + res.getContentText());
-      return null;
+    var code = res.getResponseCode();
+    if (code !== 200) {
+      var msg = 'MailerLite ' + code + ' on ' + path + ': ' + res.getContentText().substring(0, 200);
+      Logger.log(msg);
+      throw new Error(msg);
     }
     return JSON.parse(res.getContentText());
   }
 
-  // 1. Total active subscribers
-  var totalData = ml('/subscribers?limit=0&filter[status]=active');
+  // 1. Total active subscribers — limit=0 is invalid; use limit=1 and read meta.total
+  var totalData = ml('/subscribers?limit=1&filter[status]=active');
   var totalSubs = totalData && totalData.meta ? totalData.meta.total : null;
 
   // 2. Net new Q2 = current total minus Q1-end baseline (stored in Script Properties)
@@ -198,14 +200,9 @@ function getMailerLiteData(today) {
 // ════════════════════════════════════════════════════════════════════════
 function getGA4Data(today) {
 
-  // Wraps AnalyticsData.Properties.runReport with error logging
+  // Wraps AnalyticsData.Properties.runReport — throws so errors reach _errors
   function ga4Report(payload) {
-    try {
-      return AnalyticsData.Properties.runReport('properties/' + GA4_ID, payload);
-    } catch (err) {
-      Logger.log('GA4 runReport error: ' + err);
-      return null;
-    }
+    return AnalyticsData.Properties.runReport('properties/' + GA4_ID, payload);
   }
 
   function firstMetric(report) {
