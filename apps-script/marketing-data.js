@@ -40,42 +40,85 @@ function doGet(e) {
 
 function buildData() {
   var today = Utilities.formatDate(new Date(), 'UTC', 'yyyy-MM-dd');
-  var email   = getMailerLiteData(today);
-  var web     = getGA4Data(today);
-  var manual  = getManualData();
+  var errors = {};
+
+  var email = {};
+  try { email = getMailerLiteData(today); } catch(e) { errors.mailerlite = e.toString(); Logger.log('ML error: ' + e); }
+
+  var web = {};
+  try { web = getGA4Data(today); } catch(e) { errors.ga4 = e.toString(); Logger.log('GA4 error: ' + e); }
+
+  var manual = {};
+  try { manual = getManualData(); } catch(e) { errors.sheet = e.toString(); Logger.log('Sheet error: ' + e); }
+
+  // Surface config issues as errors
+  if (!ML_KEY)  errors.mailerlite = errors.mailerlite || 'ML_API_KEY not set in Script Properties';
+  if (!GA4_ID)  errors.ga4        = errors.ga4        || 'GA4_PROPERTY_ID not set in Script Properties';
+  if (!SHEET_ID) errors.sheet     = errors.sheet      || 'SHEET_ID not set in Script Properties';
 
   return {
     email: {
-      totalSubscribers:    email.totalSubscribers,
-      netNewQ2:            email.netNewQ2,
-      qoqGrowth:           email.qoqGrowth,
-      avgOpenRate:         email.avgOpenRate,
-      broadcastCTOR:       email.broadcastCTOR,
-      // manual fields from sheet:
-      lpConversion:        manual.lpConversion,
-      blogToSubConversion: manual.blogToSubConversion,
-      practitionerPct:     manual.practitionerPct,
-      organicGrowthPct:    manual.organicGrowthPct,
+      totalSubscribers:    email.totalSubscribers    || null,
+      netNewQ2:            email.netNewQ2            || null,
+      qoqGrowth:           email.qoqGrowth           || null,
+      avgOpenRate:         email.avgOpenRate         || null,
+      broadcastCTOR:       email.broadcastCTOR       || null,
+      lpConversion:        manual.lpConversion       || null,
+      blogToSubConversion: manual.blogToSubConversion|| null,
+      practitionerPct:     manual.practitionerPct    || null,
+      organicGrowthPct:    manual.organicGrowthPct   || null,
     },
     web: {
-      blogViewsYTD:    web.blogViewsYTD,
-      liReferrals:     web.liReferrals,
-      reportDownloads: web.reportDownloads,
+      blogViewsYTD:    web.blogViewsYTD    || null,
+      liReferrals:     web.liReferrals     || null,
+      reportDownloads: web.reportDownloads || null,
     },
     content: {
-      contentShipped:  manual.contentShipped,
-      liPostsPerWeek:  manual.liPostsPerWeek,
+      contentShipped:  manual.contentShipped  || null,
+      liPostsPerWeek:  manual.liPostsPerWeek  || null,
     },
     milestones: {
-      vendorImpactBriefs: manual.vendorImpactBriefs,
-      advisoryInquiries:  manual.advisoryInquiries,
-      speaking:           manual.speaking,
-      podcast:            manual.podcast,
+      vendorImpactBriefs: manual.vendorImpactBriefs || 'tbd',
+      advisoryInquiries:  manual.advisoryInquiries  || 'tbd',
+      speaking:           manual.speaking           || 'tbd',
+      podcast:            manual.podcast            || 'tbd',
     },
+    _errors:     Object.keys(errors).length ? errors : undefined,
     lastUpdated: new Date().toISOString(),
-    sheetUrl: PROPS.getProperty('SHEET_URL') || '',
-    isDemo: false,
+    sheetUrl:    PROPS.getProperty('SHEET_URL') || '',
+    isDemo:      false,
   };
+}
+
+// ── Diagnostic — run this in the editor to see exactly what's failing ──
+function diagnose() {
+  Logger.log('=== DIAGNOSTICS ===');
+  Logger.log('ML_API_KEY set: '      + !!ML_KEY  + (ML_KEY  ? ' (length ' + ML_KEY.length  + ')' : ''));
+  Logger.log('GA4_PROPERTY_ID set: ' + !!GA4_ID  + (GA4_ID  ? ' = ' + GA4_ID : ''));
+  Logger.log('SHEET_ID set: '        + !!SHEET_ID + (SHEET_ID ? ' = ' + SHEET_ID : ''));
+  Logger.log('Q1_END_SUBS: '         + Q1_END_SUBS);
+
+  if (ML_KEY) {
+    try {
+      var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/subscribers?limit=1&filter[status]=active', {
+        headers: { 'Authorization': 'Bearer ' + ML_KEY },
+        muteHttpExceptions: true,
+      });
+      Logger.log('MailerLite response code: ' + res.getResponseCode());
+      Logger.log('MailerLite body: ' + res.getContentText().substring(0, 300));
+    } catch(e) { Logger.log('MailerLite exception: ' + e); }
+  }
+
+  if (GA4_ID) {
+    try {
+      var today = Utilities.formatDate(new Date(), 'UTC', 'yyyy-MM-dd');
+      var report = AnalyticsData.Properties.runReport('properties/' + GA4_ID, {
+        dateRanges: [{ startDate: '2026-01-01', endDate: today }],
+        metrics: [{ name: 'sessions' }],
+      });
+      Logger.log('GA4 sessions: ' + JSON.stringify(report).substring(0, 300));
+    } catch(e) { Logger.log('GA4 exception: ' + e); }
+  }
 }
 
 // ════════════════════════════════════════════════════════════════════════
