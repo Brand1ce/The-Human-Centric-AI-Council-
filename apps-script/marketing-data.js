@@ -139,9 +139,20 @@ function getMailerLiteData(today) {
     return JSON.parse(res.getContentText());
   }
 
-  // 1. Total active subscribers — limit=0 is invalid; use limit=1 and read meta.total
-  var totalData = ml('/subscribers?limit=1&filter[status]=active');
-  var totalSubs = totalData && totalData.meta ? totalData.meta.total : null;
+  // 1. Total active subscribers — v2 API uses cursor pagination, no meta.total
+  //    Page through all active subscribers and count them
+  var totalSubs = 0;
+  var cursor = null;
+  for (var page = 0; page < 20; page++) {
+    var url = '/subscribers?filter[status]=active&limit=1000';
+    if (cursor) url += '&cursor=' + encodeURIComponent(cursor);
+    var pageData = ml(url);
+    if (!pageData || !pageData.data) break;
+    totalSubs += pageData.data.length;
+    cursor = pageData.meta && pageData.meta.next_cursor ? pageData.meta.next_cursor : null;
+    if (!cursor) break;
+  }
+  if (totalSubs === 0) totalSubs = null;
 
   // 2. Net new Q2 = current total minus Q1-end baseline (stored in Script Properties)
   var netNewQ2 = (totalSubs != null && Q1_END_SUBS > 0) ? totalSubs - Q1_END_SUBS : null;
