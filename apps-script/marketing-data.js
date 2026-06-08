@@ -335,6 +335,21 @@ function getManualData() {
   }
 }
 
+// ── Campaign debug — run in editor to see what campaigns exist ────────
+function debugCampaigns() {
+  var opts = { headers: { 'Authorization': 'Bearer ' + ML_KEY }, muteHttpExceptions: true };
+  var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/campaigns?filter[status]=sent&sort=-sent_at&limit=5', opts);
+  Logger.log('Status: ' + res.getResponseCode());
+  var body = JSON.parse(res.getContentText());
+  if (body.data) {
+    body.data.forEach(function(c) {
+      Logger.log('Campaign: ' + c.name + ' | sent_at: ' + c.sent_at + ' | type: ' + c.type);
+    });
+  } else {
+    Logger.log('No data: ' + JSON.stringify(body).substring(0, 300));
+  }
+}
+
 // ── MailerLite debug — run in editor, check logs ─────────────────────
 function debugML() {
   var opts = { headers: { 'Authorization': 'Bearer ' + ML_KEY }, muteHttpExceptions: true };
