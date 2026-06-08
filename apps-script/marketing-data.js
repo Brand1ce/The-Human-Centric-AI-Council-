@@ -150,7 +150,7 @@ function getMailerLiteData(today) {
     : null;
 
   // 4. Q2 broadcast campaigns — open rate & CTOR
-  var campaignsData = ml('/campaigns?filter[status]=sent&filter[type]=regular&sort=-sent_at&limit=30');
+  var campaignsData = ml('/campaigns?filter[status]=sent&filter[type]=regular&sort=-sent_at&limit=25');
   var campaigns = (campaignsData && campaignsData.data) ? campaignsData.data : [];
 
   // filter to Q2 only
