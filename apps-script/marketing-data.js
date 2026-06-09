@@ -198,9 +198,10 @@ function getMailerLiteData(today) {
   var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=10');
   var campaigns = (campaignsData && campaignsData.data) ? campaignsData.data : [];
 
-  // filter to Q2 only
+  // filter to Q2 only — MailerLite uses scheduled_for, not sent_at
   var q2campaigns = campaigns.filter(function(c) {
-    return c.sent_at && c.sent_at.substring(0, 10) >= Q2_START;
+    var d = c.scheduled_for || '';
+    return d.substring(0, 10) >= Q2_START;
   });
 
   var avgOpenRate = null;
