@@ -207,23 +207,16 @@ function getMailerLiteData(today) {
   var broadcastCTOR = null;
 
   if (q2campaigns.length > 0) {
-    var sumOpen = 0, sumClicks = 0, sumOpens = 0, countOpen = 0;
+    var sumOpens = 0, sumClicks = 0;
     q2campaigns.forEach(function(c) {
       var s = c.stats || {};
-      // open_rate comes as { float: 32.4, string: "32.4%" } or just a number
-      var openRateVal = s.open_rate && typeof s.open_rate === 'object'
-        ? s.open_rate.float
-        : (s.open_rate || 0);
-      if (openRateVal) { sumOpen += parseFloat(openRateVal); countOpen++; }
-
-      // CTOR = clicks / opens — calculate ourselves for accuracy
-      var opens  = parseInt(s.unique_opens_count)  || 0;
-      var clicks = parseInt(s.unique_clicks_count) || 0;
+      var opens  = parseInt(s.opens_count)  || 0;
+      var clicks = parseInt(s.clicks_count) || 0;
       sumOpens  += opens;
       sumClicks += clicks;
     });
-    avgOpenRate = countOpen > 0 ? sumOpen / countOpen : null;
     broadcastCTOR = sumOpens > 0 ? (sumClicks / sumOpens) * 100 : null;
+    Logger.log('ML Q2 campaigns: ' + q2campaigns.length + ' | opens: ' + sumOpens + ' | clicks: ' + sumClicks + ' | CTOR: ' + broadcastCTOR);
   }
 
   return {
@@ -399,11 +392,10 @@ function debugCampaigns() {
   var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/campaigns?filter[status]=sent&sort=-sent_at&limit=10', opts);
   Logger.log('Status: ' + res.getResponseCode());
   var body = JSON.parse(res.getContentText());
-  if (body.data) {
+  if (body.data && body.data.length > 0) {
+    Logger.log('=== Campaign top-level keys: ' + JSON.stringify(Object.keys(body.data[0])));
     body.data.forEach(function(c) {
-      Logger.log('--- Campaign: ' + c.name + ' | sent_at: ' + c.sent_at);
-      Logger.log('    stats keys: ' + JSON.stringify(Object.keys(c.stats || {})));
-      Logger.log('    stats: ' + JSON.stringify(c.stats));
+      Logger.log('--- ' + c.name + ' | sent_at=' + c.sent_at + ' | scheduled_for=' + c.scheduled_for + ' | created_at=' + c.created_at + ' | updated_at=' + c.updated_at);
     });
   } else {
     Logger.log('No data: ' + JSON.stringify(body).substring(0, 300));
