@@ -66,7 +66,7 @@ function buildData() {
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
       practitionerPct:     manual.practitionerPct    || null,
-      organicGrowthPct:    manual.organicGrowthPct   || null,
+      organicCount:        manual.organicCount        || null,
     },
     web: {
       blogViewsYTD:    web.blogViewsYTD    || null,
@@ -314,8 +314,7 @@ function getGA4Data(today) {
 //
 // Keys:
 //   practitioner_pct     (number — e.g. 78)
-//   organic_growth_pct   (number — e.g. 65)
-//   content_shipped      (integer — e.g. 9)
+//   organic_count        (integer — e.g. 1180, your current organic core subscriber count)
 //   vendor_impact_briefs (status: on-track | in-progress | behind | done | tbd)
 //   advisory_inquiries     (status)
 //   speaking               (status)
@@ -323,7 +322,7 @@ function getGA4Data(today) {
 // ════════════════════════════════════════════════════════════════════════
 function getManualData() {
   var defaults = {
-    practitionerPct: null, organicGrowthPct: null, contentShipped: null,
+    practitionerPct: null, organicCount: null,
     vendorImpactBriefs: 'tbd', advisoryInquiries: 'tbd', speaking: 'tbd', podcast: 'tbd',
   };
 
@@ -346,8 +345,7 @@ function getManualData() {
     return {
       q2NewSubs:          num('q2_new_subs'),
       practitionerPct:    num('practitioner_pct'),
-      organicGrowthPct:   num('organic_growth_pct'),
-      contentShipped:     num('content_shipped'),
+      organicCount:       num('organic_count'),
       vendorImpactBriefs: str('vendor_impact_briefs'),
       advisoryInquiries:  str('advisory_inquiries'),
       speaking:           str('speaking'),
