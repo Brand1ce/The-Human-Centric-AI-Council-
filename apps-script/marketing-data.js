@@ -65,8 +65,6 @@ function buildData() {
                              : null,
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
-      lpConversion:        web.lpConversion          || null,
-      blogToSubConversion: manual.blogToSubConversion|| null,
       practitionerPct:     manual.practitionerPct    || null,
       organicGrowthPct:    manual.organicGrowthPct   || null,
     },
@@ -77,7 +75,6 @@ function buildData() {
     },
     content: {
       contentShipped:  manual.contentShipped  || null,
-      liPostsPerWeek:  manual.liPostsPerWeek  || null,
     },
     milestones: {
       vendorImpactBriefs: manual.vendorImpactBriefs || 'tbd',
@@ -302,30 +299,10 @@ function getGA4Data(today) {
   });
   var reportDownloads = dlReport ? firstMetric(dlReport) : null;
 
-  // ── LP conversion Q2 — form_submit events ÷ total sessions × 100 ─────
-  // form_submit fires on all modals (contact, council apply, etc.) across the site
-  var formReport = ga4Report({
-    dateRanges: [{ startDate: Q2_START, endDate: today }],
-    metrics: [{ name: 'eventCount' }],
-    dimensionFilter: {
-      filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'form_submit' } }
-    }
-  });
-  var formSubmits = formReport ? firstMetric(formReport) : 0;
-
-  var sessionsReport = ga4Report({
-    dateRanges: [{ startDate: Q2_START, endDate: today }],
-    metrics: [{ name: 'sessions' }],
-  });
-  var totalSessions = sessionsReport ? firstMetric(sessionsReport) : 0;
-  var lpConversion = (totalSessions > 0) ? (formSubmits / totalSessions) * 100 : null;
-  Logger.log('GA4 form_submit Q2: ' + formSubmits + ' | sessions Q2: ' + totalSessions + ' | lpConversion: ' + lpConversion);
-
   return {
     blogViewsYTD:    blogViewsYTD,
     liReferrals:     liSessions,
     reportDownloads: reportDownloads,
-    lpConversion:    lpConversion,
   };
 }
 
@@ -336,20 +313,17 @@ function getGA4Data(today) {
 // Column A: key (exactly as listed below), Column B: value
 //
 // Keys:
-//   blog_to_sub_conversion (number — e.g. 1.3)
-//   practitioner_pct       (number — e.g. 78)
-//   organic_growth_pct     (number — e.g. 65)
-//   content_shipped        (integer — e.g. 9)
-//   li_posts_per_week      (number — e.g. 2.7)
-//   vendor_impact_briefs   (status: on-track | in-progress | behind | done | tbd)
+//   practitioner_pct     (number — e.g. 78)
+//   organic_growth_pct   (number — e.g. 65)
+//   content_shipped      (integer — e.g. 9)
+//   vendor_impact_briefs (status: on-track | in-progress | behind | done | tbd)
 //   advisory_inquiries     (status)
 //   speaking               (status)
 //   podcast                (status)
 // ════════════════════════════════════════════════════════════════════════
 function getManualData() {
   var defaults = {
-    blogToSubConversion: null, practitionerPct: null,
-    organicGrowthPct: null, contentShipped: null, liPostsPerWeek: null,
+    practitionerPct: null, organicGrowthPct: null, contentShipped: null,
     vendorImpactBriefs: 'tbd', advisoryInquiries: 'tbd', speaking: 'tbd', podcast: 'tbd',
   };
 
@@ -370,16 +344,14 @@ function getManualData() {
     function str(key) { return map[key] ? String(map[key]).trim().toLowerCase() : 'tbd'; }
 
     return {
-      q2NewSubs:           num('q2_new_subs'),
-      blogToSubConversion: num('blog_to_sub_conversion'),
-      practitionerPct:     num('practitioner_pct'),
-      organicGrowthPct:    num('organic_growth_pct'),
-      contentShipped:      num('content_shipped'),
-      liPostsPerWeek:      num('li_posts_per_week'),
-      vendorImpactBriefs:  str('vendor_impact_briefs'),
-      advisoryInquiries:   str('advisory_inquiries'),
-      speaking:            str('speaking'),
-      podcast:             str('podcast'),
+      q2NewSubs:          num('q2_new_subs'),
+      practitionerPct:    num('practitioner_pct'),
+      organicGrowthPct:   num('organic_growth_pct'),
+      contentShipped:     num('content_shipped'),
+      vendorImpactBriefs: str('vendor_impact_briefs'),
+      advisoryInquiries:  str('advisory_inquiries'),
+      speaking:           str('speaking'),
+      podcast:            str('podcast'),
     };
   } catch (err) {
     Logger.log('Error reading manual sheet: ' + err);
