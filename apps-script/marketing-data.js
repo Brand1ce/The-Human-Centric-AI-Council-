@@ -60,9 +60,11 @@ function buildData() {
     email: {
       totalSubscribers:    email.totalSubscribers    || null,
       netNewQ2:            manual.q2NewSubs           || null,
-      qoqGrowth:           manual.q2NewSubs
-                             ? (manual.q2NewSubs / 1151) * 100
-                             : null,
+      qoqGrowth:           manual.organicCount
+                             ? ((manual.organicCount - 1151) / 1151) * 100
+                             : manual.q2NewSubs
+                               ? (manual.q2NewSubs / 1151) * 100
+                               : null,
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
       practitionerPct:     manual.practitionerPct    || null,
