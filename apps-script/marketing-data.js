@@ -195,7 +195,7 @@ function getMailerLiteData(today) {
   var qoqGrowth = null;
 
   // 4. Q2 broadcast campaigns — open rate & CTOR
-  var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=25');
+  var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=10');
   var campaigns = (campaignsData && campaignsData.data) ? campaignsData.data : [];
 
   // filter to Q2 only
@@ -396,12 +396,14 @@ function getManualData() {
 // ── Campaign debug — run in editor to see what campaigns exist ────────
 function debugCampaigns() {
   var opts = { headers: { 'Authorization': 'Bearer ' + ML_KEY }, muteHttpExceptions: true };
-  var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/campaigns?filter[status]=sent&sort=-sent_at&limit=5', opts);
+  var res = UrlFetchApp.fetch('https://connect.mailerlite.com/api/campaigns?filter[status]=sent&sort=-sent_at&limit=10', opts);
   Logger.log('Status: ' + res.getResponseCode());
   var body = JSON.parse(res.getContentText());
   if (body.data) {
     body.data.forEach(function(c) {
-      Logger.log('Campaign: ' + c.name + ' | sent_at: ' + c.sent_at + ' | type: ' + c.type);
+      Logger.log('--- Campaign: ' + c.name + ' | sent_at: ' + c.sent_at);
+      Logger.log('    stats keys: ' + JSON.stringify(Object.keys(c.stats || {})));
+      Logger.log('    stats: ' + JSON.stringify(c.stats));
     });
   } else {
     Logger.log('No data: ' + JSON.stringify(body).substring(0, 300));
