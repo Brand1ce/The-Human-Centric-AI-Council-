@@ -59,11 +59,13 @@ function buildData() {
   return {
     email: {
       totalSubscribers:    email.totalSubscribers    || null,
-      netNewQ2:            email.netNewQ2            || null,
-      qoqGrowth:           email.qoqGrowth           || null,
+      netNewQ2:            manual.q2NewSubs           || null,
+      qoqGrowth:           (manual.q2NewSubs && email.totalSubscribers)
+                             ? (manual.q2NewSubs / (email.totalSubscribers - manual.q2NewSubs)) * 100
+                             : null,
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
-      lpConversion:        manual.lpConversion       || null,
+      lpConversion:        web.lpConversion          || null,
       blogToSubConversion: manual.blogToSubConversion|| null,
       practitionerPct:     manual.practitionerPct    || null,
       organicGrowthPct:    manual.organicGrowthPct   || null,
@@ -112,13 +114,45 @@ function diagnose() {
   if (GA4_ID) {
     try {
       var today = Utilities.formatDate(new Date(), 'UTC', 'yyyy-MM-dd');
-      var report = AnalyticsData.Properties.runReport('properties/' + GA4_ID, {
-        dateRanges: [{ startDate: '2026-01-01', endDate: today }],
-        metrics: [{ name: 'sessions' }],
+      var token = ScriptApp.getOAuthToken();
+      var url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + GA4_ID + ':runReport';
+      var res = UrlFetchApp.fetch(url, {
+        method: 'post',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        payload: JSON.stringify({ dateRanges: [{ startDate: '2026-01-01', endDate: today }], metrics: [{ name: 'sessions' }] }),
+        muteHttpExceptions: true,
       });
-      Logger.log('GA4 sessions: ' + JSON.stringify(report).substring(0, 300));
+      Logger.log('GA4 status: ' + res.getResponseCode());
+      Logger.log('GA4 response: ' + res.getContentText().substring(0, 300));
     } catch(e) { Logger.log('GA4 exception: ' + e); }
   }
+}
+
+// ── Direct GA4 test — bypasses Advanced Service, calls API with raw OAuth token ──
+// Run this to see the exact error from the API
+function testGA4Direct() {
+  var propId = PropertiesService.getScriptProperties().getProperty('GA4_PROPERTY_ID');
+  var token  = ScriptApp.getOAuthToken();
+
+  Logger.log('Property ID: ' + propId);
+  Logger.log('Token length: ' + (token ? token.length : 'null'));
+
+  var url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + propId + ':runReport';
+  var res = UrlFetchApp.fetch(url, {
+    method: 'post',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type':  'application/json',
+    },
+    payload: JSON.stringify({
+      dateRanges: [{ startDate: '2026-01-01', endDate: '2026-06-08' }],
+      metrics:    [{ name: 'sessions' }],
+    }),
+    muteHttpExceptions: true,
+  });
+
+  Logger.log('Status: '   + res.getResponseCode());
+  Logger.log('Response: ' + res.getContentText().substring(0, 600));
 }
 
 // ════════════════════════════════════════════════════════════════════════
@@ -139,8 +173,7 @@ function getMailerLiteData(today) {
     return JSON.parse(res.getContentText());
   }
 
-  // 1. Total active subscribers — v2 API uses cursor pagination, no meta.total
-  //    Page through all active subscribers and count them
+  // 1. Total active subscribers
   var totalSubs = 0;
   var cursor = null;
   for (var page = 0; page < 20; page++) {
@@ -153,14 +186,13 @@ function getMailerLiteData(today) {
     if (!cursor) break;
   }
   if (totalSubs === 0) totalSubs = null;
+  Logger.log('ML total active: ' + totalSubs);
 
-  // 2. Net new Q2 = current total minus Q1-end baseline (stored in Script Properties)
-  var netNewQ2 = (totalSubs != null && Q1_END_SUBS > 0) ? totalSubs - Q1_END_SUBS : null;
-
-  // 3. QoQ growth — current vs Q1-end baseline
-  var qoqGrowth = (totalSubs != null && Q1_END_SUBS > 0)
-    ? ((totalSubs - Q1_END_SUBS) / Q1_END_SUBS) * 100
-    : null;
+  // netNewQ2 and qoqGrowth come from the manual Google Sheet
+  // (MailerLite's subscribed_at is unreliable — gets reset on reimport/reconfirm)
+  // Update q2_new_subs in the sheet from MailerLite's Audience Growth report
+  var netNewQ2  = null;
+  var qoqGrowth = null;
 
   // 4. Q2 broadcast campaigns — open rate & CTOR
   var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=25');
@@ -204,16 +236,23 @@ function getMailerLiteData(today) {
 }
 
 // ════════════════════════════════════════════════════════════════════════
-// GA4 — uses the Analytics Data API Advanced Service (no OAuth headaches)
-//
-// REQUIRED: In Apps Script editor → Services (+) → add
-//   "Google Analytics Data API"  (identifier: AnalyticsData)
+// GA4 — calls Analytics Data API v1beta directly via OAuth token
+// (The Advanced Service is not needed — UrlFetchApp + ScriptApp.getOAuthToken works)
 // ════════════════════════════════════════════════════════════════════════
 function getGA4Data(today) {
 
-  // Wraps AnalyticsData.Properties.runReport — throws so errors reach _errors
   function ga4Report(payload) {
-    return AnalyticsData.Properties.runReport('properties/' + GA4_ID, payload);
+    var token = ScriptApp.getOAuthToken();
+    var url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + GA4_ID + ':runReport';
+    var res = UrlFetchApp.fetch(url, {
+      method: 'post',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true,
+    });
+    var code = res.getResponseCode();
+    if (code !== 200) throw new Error('GA4 ' + code + ': ' + res.getContentText().substring(0, 300));
+    return JSON.parse(res.getContentText());
   }
 
   function firstMetric(report) {
@@ -269,10 +308,30 @@ function getGA4Data(today) {
   });
   var reportDownloads = dlReport ? firstMetric(dlReport) : null;
 
+  // ── LP conversion Q2 — form_submit events ÷ total sessions × 100 ─────
+  // form_submit fires on all modals (contact, council apply, etc.) across the site
+  var formReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: {
+      filter: { fieldName: 'eventName', stringFilter: { matchType: 'EXACT', value: 'form_submit' } }
+    }
+  });
+  var formSubmits = formReport ? firstMetric(formReport) : 0;
+
+  var sessionsReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    metrics: [{ name: 'sessions' }],
+  });
+  var totalSessions = sessionsReport ? firstMetric(sessionsReport) : 0;
+  var lpConversion = (totalSessions > 0) ? (formSubmits / totalSessions) * 100 : null;
+  Logger.log('GA4 form_submit Q2: ' + formSubmits + ' | sessions Q2: ' + totalSessions + ' | lpConversion: ' + lpConversion);
+
   return {
     blogViewsYTD:    blogViewsYTD,
     liReferrals:     liSessions,
     reportDownloads: reportDownloads,
+    lpConversion:    lpConversion,
   };
 }
 
@@ -283,7 +342,6 @@ function getGA4Data(today) {
 // Column A: key (exactly as listed below), Column B: value
 //
 // Keys:
-//   lp_conversion          (number — e.g. 14.2)
 //   blog_to_sub_conversion (number — e.g. 1.3)
 //   practitioner_pct       (number — e.g. 78)
 //   organic_growth_pct     (number — e.g. 65)
@@ -296,7 +354,7 @@ function getGA4Data(today) {
 // ════════════════════════════════════════════════════════════════════════
 function getManualData() {
   var defaults = {
-    lpConversion: null, blogToSubConversion: null, practitionerPct: null,
+    blogToSubConversion: null, practitionerPct: null,
     organicGrowthPct: null, contentShipped: null, liPostsPerWeek: null,
     vendorImpactBriefs: 'tbd', advisoryInquiries: 'tbd', speaking: 'tbd', podcast: 'tbd',
   };
@@ -318,7 +376,7 @@ function getManualData() {
     function str(key) { return map[key] ? String(map[key]).trim().toLowerCase() : 'tbd'; }
 
     return {
-      lpConversion:        num('lp_conversion'),
+      q2NewSubs:           num('q2_new_subs'),
       blogToSubConversion: num('blog_to_sub_conversion'),
       practitionerPct:     num('practitioner_pct'),
       organicGrowthPct:    num('organic_growth_pct'),
@@ -358,6 +416,56 @@ function debugML() {
   var body = JSON.parse(res.getContentText());
   Logger.log('meta: ' + JSON.stringify(body.meta));
   Logger.log('top-level keys: ' + Object.keys(body).join(', '));
+}
+
+// ── GA4 event inspector — run to see what events are tracked on your site ──
+function debugGA4Events() {
+  var token = ScriptApp.getOAuthToken();
+  var url = 'https://analyticsdata.googleapis.com/v1beta/properties/' + GA4_ID + ':runReport';
+
+  // Top events site-wide (YTD)
+  var res = UrlFetchApp.fetch(url, {
+    method: 'post',
+    headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+    payload: JSON.stringify({
+      dateRanges: [{ startDate: '2026-01-01', endDate: '2026-12-31' }],
+      dimensions: [{ name: 'eventName' }],
+      metrics:    [{ name: 'eventCount' }],
+      orderBys:   [{ metric: { metricName: 'eventCount' }, desc: true }],
+      limit: 30,
+    }),
+    muteHttpExceptions: true,
+  });
+  Logger.log('=== All GA4 events YTD ===');
+  var body = JSON.parse(res.getContentText());
+  if (body.rows) {
+    body.rows.forEach(function(row) {
+      Logger.log(row.dimensionValues[0].value + ': ' + row.metricValues[0].value);
+    });
+  } else {
+    Logger.log(res.getContentText().substring(0, 400));
+  }
+
+  // Top pages by sessions (to identify LP path)
+  var res2 = UrlFetchApp.fetch(url, {
+    method: 'post',
+    headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+    payload: JSON.stringify({
+      dateRanges: [{ startDate: '2026-01-01', endDate: '2026-12-31' }],
+      dimensions: [{ name: 'pagePath' }],
+      metrics:    [{ name: 'sessions' }],
+      orderBys:   [{ metric: { metricName: 'sessions' }, desc: true }],
+      limit: 20,
+    }),
+    muteHttpExceptions: true,
+  });
+  Logger.log('=== Top pages by sessions YTD ===');
+  var body2 = JSON.parse(res2.getContentText());
+  if (body2.rows) {
+    body2.rows.forEach(function(row) {
+      Logger.log(row.dimensionValues[0].value + ': ' + row.metricValues[0].value + ' sessions');
+    });
+  }
 }
 
 // ── Scheduled refresh (run daily via trigger) ─────────────────────────
