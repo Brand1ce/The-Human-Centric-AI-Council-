@@ -51,6 +51,9 @@ function buildData() {
   var manual = {};
   try { manual = getManualData(); } catch(e) { errors.sheet = e.toString(); Logger.log('Sheet error: ' + e); }
 
+  var pod = null;
+  try { pod = getPodcastData(); } catch(e) { errors.podcast = e.toString(); Logger.log('Podcast error: ' + e); }
+
   // Surface config issues as errors
   if (!ML_KEY)  errors.mailerlite = errors.mailerlite || 'ML_API_KEY not set in Script Properties';
   if (!GA4_ID)  errors.ga4        = errors.ga4        || 'GA4_PROPERTY_ID not set in Script Properties';
@@ -82,8 +85,8 @@ function buildData() {
       vendorImpactBriefs: manual.vendorImpactBriefs || 'tbd',
       advisoryInquiries:  manual.advisoryInquiries  || 'tbd',
       speaking:           manual.speaking           || 'tbd',
-      podcast:            manual.podcast            || 'tbd',
     },
+    podcast: pod,
     _errors:     Object.keys(errors).length ? errors : undefined,
     lastUpdated: new Date().toISOString(),
     sheetUrl:    PROPS.getProperty('SHEET_URL') || '',
@@ -315,12 +318,14 @@ function getGA4Data(today) {
 // Column A: key (exactly as listed below), Column B: value
 //
 // Keys:
+//   q2_new_subs          (integer — new organic subs added in Q2, from MailerLite Audience Growth report)
 //   practitioner_pct     (number — e.g. 78)
-//   organic_count        (integer — e.g. 1180, your current organic core subscriber count)
+//   organic_count        (integer — e.g. 980, your current organic core subscriber count)
 //   vendor_impact_briefs (status: on-track | in-progress | behind | done | tbd)
-//   advisory_inquiries     (status)
-//   speaking               (status)
-//   podcast                (status)
+//   advisory_inquiries   (status)
+//   speaking             (status)
+//
+// Podcast data lives in the "Podcast Episodes" tab — see getPodcastData() below.
 // ════════════════════════════════════════════════════════════════════════
 function getManualData() {
   var defaults = {
@@ -351,12 +356,60 @@ function getManualData() {
       vendorImpactBriefs: str('vendor_impact_briefs'),
       advisoryInquiries:  str('advisory_inquiries'),
       speaking:           str('speaking'),
-      podcast:            str('podcast'),
     };
   } catch (err) {
     Logger.log('Error reading manual sheet: ' + err);
     return defaults;
   }
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// Podcast — Transformation Realness (Megaphone)
+//
+// Add a "Podcast Episodes" tab to the Google Sheet with these columns:
+//   A: Episode title
+//   B: Published date (YYYY-MM-DD or a date cell)
+//   C: Total listens (downloads + streams)
+//
+// Row 1 can be a header row — it will be skipped automatically.
+// Episodes can be in any order; the script sorts by published date.
+// ════════════════════════════════════════════════════════════════════════
+function getPodcastData() {
+  if (!SHEET_ID) return null;
+
+  var ss    = SpreadsheetApp.openById(SHEET_ID);
+  var sheet = ss.getSheetByName('Podcast Episodes');
+  if (!sheet) { Logger.log('Podcast Episodes tab not found'); return null; }
+
+  var rows     = sheet.getDataRange().getValues();
+  var episodes = [];
+
+  rows.forEach(function(row) {
+    var total = parseInt(row[2]);
+    if (!row[0] || isNaN(total)) return; // skip header or blank rows
+
+    var published = '';
+    if (row[1] instanceof Date) {
+      published = Utilities.formatDate(row[1], 'UTC', 'yyyy-MM-dd');
+    } else if (row[1]) {
+      published = String(row[1]).trim();
+    }
+
+    episodes.push({ title: String(row[0]).trim(), published: published, total: total });
+  });
+
+  episodes.sort(function(a, b) { return a.published < b.published ? -1 : 1; });
+
+  var q2Listens = episodes.reduce(function(sum, ep) { return sum + ep.total; }, 0);
+
+  Logger.log('Podcast: ' + episodes.length + ' episodes, ' + q2Listens + ' total listens');
+
+  return {
+    q2Episodes:     episodes.length,
+    q2Listens:      q2Listens,
+    avgPerEpisode:  episodes.length > 0 ? Math.round(q2Listens / episodes.length) : 0,
+    episodes:       episodes,
+  };
 }
 
 // ── Campaign debug — run in editor to see what campaigns exist ────────
