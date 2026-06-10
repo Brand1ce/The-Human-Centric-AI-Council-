@@ -61,14 +61,14 @@ function buildData() {
       totalSubscribers:    email.totalSubscribers    || null,
       netNewQ2:            manual.q2NewSubs           || null,
       qoqGrowth:           manual.organicCount
-                             ? ((manual.organicCount - 1151) / 1151) * 100
+                             ? ((manual.organicCount - 945) / 945) * 100
                              : manual.q2NewSubs
-                               ? (manual.q2NewSubs / 1151) * 100
+                               ? (manual.q2NewSubs / 945) * 100
                                : null,
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
       practitionerPct:     manual.practitionerPct    || null,
-      organicCount:        manual.organicCount || (manual.q2NewSubs ? 1151 + manual.q2NewSubs : null),
+      organicCount:        manual.organicCount || (manual.q2NewSubs ? 945 + manual.q2NewSubs : null),
     },
     web: {
       blogViewsYTD:    web.blogViewsYTD    || null,
