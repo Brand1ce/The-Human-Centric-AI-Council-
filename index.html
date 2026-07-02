@@ -685,7 +685,7 @@ function HCAIC_Final() {
           </button>
         ) : (
           <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', fontSize: '0.85rem' }}>
-            <a href="https://kyleandco.com" style={{ color: C.navy, textDecoration: 'none', fontSize: '0.85rem' }}>Kyle &amp; Co</a>
+            <a href="https://kyleandco.com" style={{ color: C.navy, textDecoration: 'none', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}><span aria-hidden="true">&larr;</span> Kyle &amp; Co</a>
             <button onClick={() => document.querySelector('#library')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>The AI Transformation Toolkit</button>
             <button onClick={() => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>2026 Work</button>
             <button onClick={() => document.querySelector('#members')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'none', border: 'none', cursor: 'pointer', color: C.navy, fontSize: '0.85rem', fontFamily: 'inherit', padding: 0 }}>Members</button>
@@ -703,6 +703,7 @@ function HCAIC_Final() {
       {/* MOBILE MENU */}
       {isMobile && menuOpen && (
         <div className="mobile-menu-overlay">
+          <a href="https://kyleandco.com" style={{ fontSize: '1rem', color: C.slate, textDecoration: 'none', fontWeight: 400 }}><span aria-hidden="true">&larr;</span> Kyle &amp; Co</a>
           {[
             { label: 'The AI Transformation Toolkit', id: '#library' },
             { label: '2026 Work', id: '#work' },
@@ -1526,6 +1527,7 @@ function HCAIC_Final() {
             <div>
               <div className="mono" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', opacity: 0.55, marginBottom: '1rem' }}>Kyle & Co</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', fontSize: '0.88rem' }}>
+                <a href="https://kyleandco.com" style={{ color: C.ivory, opacity: 0.85, textDecoration: 'none' }}>Main site</a>
                 <a href="https://kyleandco.com/insights/" target="_blank" style={{ color: C.ivory, opacity: 0.85, textDecoration: 'none' }}>Research</a>
                 <a href="https://kyleandco.com/blog/" target="_blank" style={{ color: C.ivory, opacity: 0.85, textDecoration: 'none' }}>Blog</a>
               </div>
