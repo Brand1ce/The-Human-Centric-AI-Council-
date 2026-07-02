@@ -617,7 +617,7 @@ function HCAIC_Final() {
         @media (max-width: 767px) {
           .mobile-hide { display: none !important; }
           .mobile-menu-overlay {
-            position: fixed; inset: 0; top: 36px; z-index: 100;
+            position: fixed; inset: 0; top: 0; z-index: 100;
             background: #F7F1EA; display: flex; flex-direction: column;
             padding: 2rem 1.5rem; gap: 1.5rem;
           }
@@ -649,24 +649,11 @@ function HCAIC_Final() {
         }
       `}</style>
 
-      {/* ANNOUNCEMENT TICKER */}
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, background: C.navy, overflow: 'hidden', height: '36px', display: 'flex', alignItems: 'center' }}>
-        <div style={{ display: 'flex', animation: 'marqueeScroll 28s linear infinite', whiteSpace: 'nowrap', willChange: 'transform' }}>
-          {[0,1,2].map(i => (
-            <a key={i} href="https://kyleandco.com/ai-toolkit-for-hr-leaders/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '2rem', paddingRight: '4rem', fontSize: '0.72rem', letterSpacing: '0.08em', color: C.ivory }}>
-              <span style={{ color: C.cream, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.65rem' }}>New post</span>
-              <span style={{ opacity: 0.85 }}>Finally: A Practical AI Transformation Toolkit Built for HR Leaders</span>
-              <span style={{ color: C.lilac }}>Read Kyle's take →</span>
-            </a>
-          ))}
-        </div>
-      </div>
-
       {/* NAV */}
       <nav
         style={{
           position: 'fixed',
-          top: '36px',
+          top: 0,
           left: 0,
           right: 0,
           padding: isMobile ? '0.75rem 1.25rem' : scrolled ? '0.9rem 2.5rem' : '1.5rem 2.5rem',
@@ -845,6 +832,25 @@ function HCAIC_Final() {
           </div>
 
         </div>
+      </section>
+
+      {/* FEATURED POST */}
+      <section style={{ background: C.navy, padding: isMobile ? '0 1.25rem 4rem' : '0 2.5rem 7rem' }}>
+        <a
+          href="https://kyleandco.com/ai-toolkit-for-hr-leaders/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track('featured_post_click', { post: 'ai-toolkit-for-hr-leaders' })}
+          style={{ display: 'block', maxWidth: '1500px', margin: '0 auto', textDecoration: 'none' }}
+        >
+          <div style={{ background: C.cream, borderRadius: '14px', padding: isMobile ? '1.75rem' : '2.25rem 3rem', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'auto 1fr auto', gap: isMobile ? '1rem' : '2.5rem', alignItems: 'center' }}>
+            <span className="mono" style={{ fontSize: '0.62rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: C.lilac, fontWeight: 700, whiteSpace: 'nowrap' }}>Featured post</span>
+            <h3 className="display" style={{ fontSize: isMobile ? '1.3rem' : '1.7rem', fontWeight: 400, lineHeight: 1.2, letterSpacing: '-0.01em', color: C.navy, margin: 0 }}>
+              Finally: A Practical AI Transformation Toolkit Built for <span className="serif-italic" style={{ color: C.lilac }}>HR Leaders</span>
+            </h3>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', whiteSpace: 'nowrap', color: C.navy, fontWeight: 600, fontSize: '0.9rem' }}>Read Kyle's take →</span>
+          </div>
+        </a>
       </section>
 
       {/* THE LIBRARY — the star */}
