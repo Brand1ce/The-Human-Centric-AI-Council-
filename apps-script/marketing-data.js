@@ -87,6 +87,10 @@ function buildData() {
       speaking:           manual.speaking           || 'tbd',
     },
     podcast: pod,
+    candidateFraud: {
+      earlyAccess: email.cfEarlyAccess,
+      webinar:     email.cfWebinar,
+    },
     _errors:     Object.keys(errors).length ? errors : undefined,
     lastUpdated: new Date().toISOString(),
     sheetUrl:    PROPS.getProperty('SHEET_URL') || '',
@@ -222,12 +226,28 @@ function getMailerLiteData(today) {
     Logger.log('ML Q2 campaigns: ' + q2campaigns.length + ' | opens: ' + sumOpens + ' | clicks: ' + sumClicks + ' | CTOR: ' + broadcastCTOR);
   }
 
+  // Candidate Fraud group counts
+  var cfEarlyAccess = null;
+  var cfWebinar = null;
+  try {
+    var eaData = ml('/groups/191659199008081788');
+    cfEarlyAccess = parseInt(eaData && eaData.data && eaData.data.active_count) || 0;
+    Logger.log('CF early access: ' + cfEarlyAccess);
+  } catch(e) { Logger.log('CF early access group error: ' + e); }
+  try {
+    var wbData = ml('/groups/191183628187731037');
+    cfWebinar = parseInt(wbData && wbData.data && wbData.data.active_count) || 0;
+    Logger.log('CF webinar: ' + cfWebinar);
+  } catch(e) { Logger.log('CF webinar group error: ' + e); }
+
   return {
     totalSubscribers: totalSubs,
     netNewQ2:         netNewQ2,
     qoqGrowth:        qoqGrowth,
     avgOpenRate:      avgOpenRate,
     broadcastCTOR:    broadcastCTOR,
+    cfEarlyAccess:    cfEarlyAccess,
+    cfWebinar:        cfWebinar,
   };
 }
 
