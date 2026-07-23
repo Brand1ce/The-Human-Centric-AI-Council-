@@ -371,7 +371,7 @@ function render(data) {
 
   // ── Podcast ───────────────────────────────────────────────────────
   html += '<div class="section">';
-  html += '<div class="section-header"><div class="section-title">Podcast · ' + PODCAST.show + '</div><div class="section-source">Megaphone · manual · ' + PODCAST.rangeLabel + '</div></div>';
+  html += '<div class="section-header"><div class="section-title">Podcast · ' + PODCAST.show + '</div><div class="section-source">Megaphone · ' + PODCAST.rangeLabel + '</div></div>';
   html += '<div class="cards">';
   html += card({ accent: 'content', name: 'Total downloads', value: fmt(PODCAST.totalDownloads), sublabel: PODCAST.rangeLabel });
   html += card({ accent: 'content', name: 'Episodes with plays', value: fmt(PODCAST.episodesActive) });
@@ -533,15 +533,25 @@ function render(data) {
     progressHtml: progressBar(w.liReferrals, t80li, T.liReferrals, fmt(t80li), fmt(T.liReferrals)),
   });
 
-  // Report downloads
-  var dlStatus = getStatus(w.reportDownloads, T.reportDownloads80, T.reportDownloads100);
+  // Report direct downloads (site counter) — real grabs via the site
+  var directDl = data.directDownloads;
+  var dlStatus = getStatus(directDl, T.reportDownloads80, T.reportDownloads100);
   html += card({
     accent: 'web',
-    name: 'Report downloads · Q2',
-    value: fmt(w.reportDownloads),
+    name: 'Report direct downloads',
+    value: fmt(directDl),
+    sublabel: 'Real grabs via the site counter',
     target: 'Target: ' + T.reportDownloads80 + ' / ' + T.reportDownloads100,
     chipHtml: chip(dlStatus),
-    progressHtml: progressBar(w.reportDownloads, T.reportDownloads80, T.reportDownloads100),
+    progressHtml: progressBar(directDl, T.reportDownloads80, T.reportDownloads100),
+  });
+
+  // GA4 report-page engagement — ungated, a proxy for email-driven reads
+  html += card({
+    accent: 'web',
+    name: 'Report page engagement · GA4',
+    value: fmt(w.reportDownloads),
+    sublabel: 'Ungated · includes readers arriving from the email',
   });
 
   html += '</div></div>';
@@ -637,11 +647,15 @@ function loadData() {
         el.href = data.sheetUrl;
         el.style.display = 'inline-block';
       }
-      render(data);
-      var ts = data.lastUpdated
-        ? new Date(data.lastUpdated).toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
-        : 'just now';
-      document.getElementById('last-updated').textContent = 'Updated ' + ts;
+      // Best-effort: pull the site's direct-download counter, then render.
+      fetchDirectDownloads(function(dd) {
+        data.directDownloads = dd;
+        render(data);
+        var ts = data.lastUpdated
+          ? new Date(data.lastUpdated).toLocaleString('en-US', { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' })
+          : 'just now';
+        document.getElementById('last-updated').textContent = 'Updated ' + ts;
+      });
     })
     .catch(function(err) {
       var b = document.getElementById('error-banner');
@@ -650,6 +664,16 @@ function loadData() {
       render(DEMO);
       document.getElementById('last-updated').textContent = 'Load failed';
     });
+}
+
+// Reads the microsite's own download counter (candidatefraud = real report grabs).
+function fetchDirectDownloads(cb) {
+  fetch('https://api.jsonbin.io/v3/b/69f340c4aaba88219756240d/latest', {
+    headers: { 'X-ACCESS-KEY': '$2a$10$prZqMqXbtmzSXZyh1nHLcOt1RcJbDCcAgppQ/6J2Brax5qLkY8Ggm' }
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ cb(j && j.record && j.record.candidatefraud != null ? j.record.candidatefraud : null); })
+    .catch(function(){ cb(null); });
 }
 
 loadData();
