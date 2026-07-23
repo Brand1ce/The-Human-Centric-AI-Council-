@@ -320,6 +320,27 @@ function card(opts) {
     '</div>';
 }
 
+// ── Podcast · Transformation Realness (manual — export from Megaphone, paste to me to refresh) ──
+var PODCAST = {
+  show: 'Transformation Realness',
+  rangeLabel: 'Apr 1 to Jul 23, 2026',
+  totalDownloads: 1738,
+  episodesActive: 36,
+  avgPerEpisode:  48,
+  topEpisodes: [
+    { title: 'Rebecca Carr on TA Tech', total: 262 },
+    { title: 'Joe Shaker on Creativity in Recruitment Marketing', total: 225 },
+    { title: 'Paradox on Frictionless Hiring', total: 155 },
+    { title: "Workday's Big Play: Redefining HR Tech", total: 133 },
+    { title: 'Lightcast on Skills-Based Transformation', total: 132 },
+    { title: 'GoodTime on Taming Interview Chaos', total: 125 },
+    { title: 'Rocki Howard on Staying Human in an AI World', total: 125 },
+    { title: 'HiredScore: Smarter, Sharper, Iconic Outcomes', total: 101 },
+    { title: "GEM's Steve Bartel on the State of Recruiting", total: 72 },
+    { title: 'Julia Levy on Supporting Graduates', total: 62 },
+  ],
+};
+
 // ── Render ────────────────────────────────────────────────────────────
 function render(data) {
   var e = data.email   || {};
@@ -346,6 +367,25 @@ function render(data) {
   html += '<div class="cards">';
   html += card({ accent: 'email', name: 'Report early-access signups', value: cf.earlyAccess != null ? fmt(cf.earlyAccess) : '—', sublabel: 'Registered before public release' });
   html += card({ accent: 'email', name: 'Webinar registrants', value: cf.webinar != null ? fmt(cf.webinar) : '—', sublabel: 'Live session · Jul 29' });
+  html += '</div></div>';
+
+  // ── Podcast ───────────────────────────────────────────────────────
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Podcast · ' + PODCAST.show + '</div><div class="section-source">Megaphone · manual · ' + PODCAST.rangeLabel + '</div></div>';
+  html += '<div class="cards">';
+  html += card({ accent: 'content', name: 'Total downloads', value: fmt(PODCAST.totalDownloads), sublabel: PODCAST.rangeLabel });
+  html += card({ accent: 'content', name: 'Episodes with plays', value: fmt(PODCAST.episodesActive) });
+  html += card({ accent: 'content', name: 'Avg per episode', value: fmt(PODCAST.avgPerEpisode) });
+  html += '</div>';
+  html += '<div style="margin-top:14px;background:#fff;border:1px solid rgba(39,55,82,0.1);border-radius:10px;overflow:hidden;">';
+  html += '<div style="padding:11px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9D92AD;font-weight:600;border-bottom:1px solid rgba(39,55,82,0.08);">Top 10 episodes</div>';
+  PODCAST.topEpisodes.forEach(function(ep, i){
+    html += '<div style="display:flex;align-items:center;gap:12px;padding:10px 16px;' + (i < PODCAST.topEpisodes.length-1 ? 'border-bottom:1px solid rgba(39,55,82,0.06);' : '') + '">'
+      + '<span style="width:18px;color:#9D92AD;font-weight:700;font-size:13px;flex-shrink:0;">' + (i+1) + '</span>'
+      + '<span style="flex:1;font-size:13px;line-height:1.35;color:#273752;">' + ep.title + '</span>'
+      + '<span style="font-weight:700;font-size:13px;color:#273752;flex-shrink:0;">' + fmt(ep.total) + '</span>'
+      + '</div>';
+  });
   html += '</div></div>';
 
   // ── Email List Health ─────────────────────────────────────────────
