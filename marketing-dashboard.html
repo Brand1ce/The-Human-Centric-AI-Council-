@@ -242,6 +242,10 @@ var DEMO = {
     liReferrals:         412,
     reportDownloads:      91,
   },
+  candidateFraud: {
+    earlyAccess:          24,
+    webinar:              45,
+  },
   content: {
     contentShipped:        8,
     liPostsPerWeek:      2.8,
@@ -334,6 +338,15 @@ function render(data) {
   html += '<div class="summary-item"><div class="summary-value">' + (netNew != null ? '+' + fmt(netNew) : '—') + '</div><div class="summary-label">Net new · Q2</div></div>';
   html += '<div class="summary-item"><div class="summary-value">' + fmtPct(openRate, 1) + '</div><div class="summary-label">Avg open rate</div></div>';
   html += '</div>';
+
+  // ── Candidate Fraud Funnel ────────────────────────────────────────
+  var cf = data.candidateFraud || {};
+  html += '<div class="section">';
+  html += '<div class="section-header"><div class="section-title">Candidate Fraud Funnel</div><div class="section-source">MailerLite · auto</div></div>';
+  html += '<div class="cards">';
+  html += card({ accent: 'email', name: 'Report early-access signups', value: cf.earlyAccess != null ? fmt(cf.earlyAccess) : '—', sublabel: 'Registered before public release' });
+  html += card({ accent: 'email', name: 'Webinar registrants', value: cf.webinar != null ? fmt(cf.webinar) : '—', sublabel: 'Live session · Jul 29' });
+  html += '</div></div>';
 
   // ── Email List Health ─────────────────────────────────────────────
   html += '<div class="section">';
