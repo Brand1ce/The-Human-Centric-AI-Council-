@@ -92,6 +92,8 @@ function buildData() {
                                : null,
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
+      broadcastSends:      email.broadcastSends      || null,
+      broadcastFrom:       email.broadcastFrom       || null,
       practitionerPct:     manual.practitionerPct    || null,
       organicCount:        email.organicCore || manual.organicCount || (manual.q2NewSubs ? 945 + manual.q2NewSubs : null),
     },
@@ -238,18 +240,21 @@ function getMailerLiteData(today) {
 
   var avgOpenRate = null;
   var broadcastCTOR = null;
+  var broadcastSends = 0;
+  var broadcastFrom = null;
 
   if (q2campaigns.length > 0) {
+    broadcastSends = q2campaigns.length;
+    var dates = q2campaigns.map(function(c) { return (c.scheduled_for || c.sent_at || '').substring(0, 10); }).filter(Boolean).sort();
+    broadcastFrom = dates.length ? dates[0] : null;
     var sumOpens = 0, sumClicks = 0;
     q2campaigns.forEach(function(c) {
       var s = c.stats || {};
-      var opens  = parseInt(s.opens_count)  || 0;
-      var clicks = parseInt(s.clicks_count) || 0;
-      sumOpens  += opens;
-      sumClicks += clicks;
+      sumOpens  += parseInt(s.opens_count)  || 0;
+      sumClicks += parseInt(s.clicks_count) || 0;
     });
     broadcastCTOR = sumOpens > 0 ? (sumClicks / sumOpens) * 100 : null;
-    Logger.log('ML Q2 campaigns: ' + q2campaigns.length + ' | opens: ' + sumOpens + ' | clicks: ' + sumClicks + ' | CTOR: ' + broadcastCTOR);
+    Logger.log('ML campaigns: ' + broadcastSends + ' sends since ' + broadcastFrom + ' | CTOR: ' + broadcastCTOR);
   }
 
   // Candidate Fraud group counts
@@ -287,6 +292,8 @@ function getMailerLiteData(today) {
     qoqGrowth:        qoqGrowth,
     avgOpenRate:      avgOpenRate,
     broadcastCTOR:    broadcastCTOR,
+    broadcastSends:   broadcastSends,
+    broadcastFrom:    broadcastFrom,
     cfEarlyAccess:    cfEarlyAccess,
     cfWebinar:        cfWebinar,
     organicCore:      organicCore,
