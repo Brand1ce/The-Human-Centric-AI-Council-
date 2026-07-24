@@ -228,33 +228,31 @@ function getMailerLiteData(today) {
   var netNewQ2  = null;
   var qoqGrowth = null;
 
-  // 4. Q2 broadcast campaigns — open rate & CTOR
-  var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=10');
+  // 4. Broadcast campaigns — CTOR averaged over the last 90 days
+  var campaignsData = ml('/campaigns?filter[status]=sent&sort=-sent_at&limit=50');
   var campaigns = (campaignsData && campaignsData.data) ? campaignsData.data : [];
 
-  // filter to Q2 only — MailerLite uses scheduled_for, not sent_at
-  var q2campaigns = campaigns.filter(function(c) {
-    var d = c.scheduled_for || '';
-    return d.substring(0, 10) >= Q2_START;
+  var NINETY_AGO = Utilities.formatDate(new Date(new Date().getTime() - 90 * 86400000), 'UTC', 'yyyy-MM-dd');
+  var recentCampaigns = campaigns.filter(function(c) {
+    var d = (c.scheduled_for || c.sent_at || '').substring(0, 10);
+    return d && d >= NINETY_AGO;
   });
 
   var avgOpenRate = null;
   var broadcastCTOR = null;
   var broadcastSends = 0;
-  var broadcastFrom = null;
+  var broadcastFrom = NINETY_AGO;
 
-  if (q2campaigns.length > 0) {
-    broadcastSends = q2campaigns.length;
-    var dates = q2campaigns.map(function(c) { return (c.scheduled_for || c.sent_at || '').substring(0, 10); }).filter(Boolean).sort();
-    broadcastFrom = dates.length ? dates[0] : null;
+  if (recentCampaigns.length > 0) {
+    broadcastSends = recentCampaigns.length;
     var sumOpens = 0, sumClicks = 0;
-    q2campaigns.forEach(function(c) {
+    recentCampaigns.forEach(function(c) {
       var s = c.stats || {};
       sumOpens  += parseInt(s.opens_count)  || 0;
       sumClicks += parseInt(s.clicks_count) || 0;
     });
     broadcastCTOR = sumOpens > 0 ? (sumClicks / sumOpens) * 100 : null;
-    Logger.log('ML campaigns: ' + broadcastSends + ' sends since ' + broadcastFrom + ' | CTOR: ' + broadcastCTOR);
+    Logger.log('ML campaigns (90d): ' + broadcastSends + ' sends | CTOR: ' + broadcastCTOR);
   }
 
   // Candidate Fraud group counts
