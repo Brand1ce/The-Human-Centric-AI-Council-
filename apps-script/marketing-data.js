@@ -97,6 +97,7 @@ function buildData() {
     },
     web: {
       blogViewsYTD:    web.blogViewsYTD    || null,
+      blogViews30d:    web.blogViews30d    || null,
       liReferrals:     web.liReferrals     || null,
       reportDownloads: web.reportDownloads || null,
       topPages:        web.topPages        || [],
@@ -377,6 +378,25 @@ function getGA4Data(today) {
     });
   }
 
+  // ── Blog views · last 30 days (sum of blog-post pageviews) ────────────
+  var THIRTY_AGO = Utilities.formatDate(new Date(new Date().getTime() - 30 * 86400000), 'UTC', 'yyyy-MM-dd');
+  var blog30 = ga4Report({
+    dateRanges: [{ startDate: THIRTY_AGO, endDate: today }],
+    dimensions: [{ name: 'pagePath' }],
+    metrics:    [{ name: 'screenPageViews' }],
+    orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+    limit: 120,
+  });
+  var blogViews30d = 0;
+  if (blog30 && blog30.rows) {
+    blog30.rows.forEach(function(row) {
+      var clean = (row.dimensionValues[0].value || '').split('?')[0];
+      var isNonBlog  = (clean === '/') || NON_BLOG.some(function(pfx) { return clean.indexOf(pfx) === 0; });
+      var isRootSlug = /^\/[a-z0-9][a-z0-9-]*\/?$/.test(clean);
+      if (!isNonBlog && isRootSlug) blogViews30d += parseInt(row.metricValues[0].value) || 0;
+    });
+  }
+
   // ── Top referrers (traffic sources by sessions) ───────────────────────
   var refReport = ga4Report({
     dateRanges: [{ startDate: Q2_START, endDate: today }],
@@ -395,6 +415,7 @@ function getGA4Data(today) {
 
   return {
     blogViewsYTD:    blogViewsYTD,
+    blogViews30d:    blogViews30d,
     liReferrals:     liSessions,
     reportDownloads: reportDownloads,
     topPages:        topPages,
