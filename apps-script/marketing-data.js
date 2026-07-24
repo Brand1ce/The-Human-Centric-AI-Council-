@@ -93,7 +93,7 @@ function buildData() {
       avgOpenRate:         email.avgOpenRate         || null,
       broadcastCTOR:       email.broadcastCTOR       || null,
       practitionerPct:     manual.practitionerPct    || null,
-      organicCount:        manual.organicCount || (manual.q2NewSubs ? 945 + manual.q2NewSubs : null),
+      organicCount:        email.organicCore || manual.organicCount || (manual.q2NewSubs ? 945 + manual.q2NewSubs : null),
     },
     web: {
       blogViewsYTD:    web.blogViewsYTD    || null,
@@ -266,6 +266,21 @@ function getMailerLiteData(today) {
     Logger.log('CF webinar: ' + cfWebinar);
   } catch(e) { Logger.log('CF webinar group error: ' + e); }
 
+  // Core Organic Audience — live count from the MailerLite segment of that name
+  var organicCore = null;
+  try {
+    var segData = ml('/segments?limit=100');
+    var segs = (segData && segData.data) ? segData.data : [];
+    for (var si = 0; si < segs.length; si++) {
+      if (String(segs[si].name || '').trim().toLowerCase() === 'core organic audience') {
+        var s = segs[si];
+        organicCore = parseInt(s.total != null ? s.total : (s.active_count != null ? s.active_count : (s.stats && s.stats.total))) || null;
+        break;
+      }
+    }
+    Logger.log('Core Organic Audience segment: ' + organicCore);
+  } catch(e) { Logger.log('segment error: ' + e); }
+
   return {
     totalSubscribers: totalSubs,
     netNewQ2:         netNewQ2,
@@ -274,6 +289,7 @@ function getMailerLiteData(today) {
     broadcastCTOR:    broadcastCTOR,
     cfEarlyAccess:    cfEarlyAccess,
     cfWebinar:        cfWebinar,
+    organicCore:      organicCore,
   };
 }
 
