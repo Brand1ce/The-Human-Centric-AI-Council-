@@ -77,6 +77,9 @@ function buildData() {
       blogViewsYTD:    web.blogViewsYTD    || null,
       liReferrals:     web.liReferrals     || null,
       reportDownloads: web.reportDownloads || null,
+      topPages:        web.topPages        || [],
+      topBlogs:        web.topBlogs        || [],
+      topReferrers:    web.topReferrers    || [],
     },
     content: {
       contentShipped:  manual.contentShipped  || null,
@@ -324,10 +327,57 @@ function getGA4Data(today) {
   });
   var reportDownloads = dlReport ? firstMetric(dlReport) : null;
 
+  // ── Top pages + top blog posts (blogs derived from top pages) ─────────
+  var pagesReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
+    metrics:    [{ name: 'screenPageViews' }],
+    orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+    limit: 40,
+  });
+  var topPages = [], topBlogs = [];
+  // Root-level slugs NOT in these sections are treated as blog posts.
+  var NON_BLOG = ['/aicouncil', '/candidatefraud', '/research', '/blog', '/vendors',
+                  '/insights', '/contact', '/practitioners', '/live', '/marketing',
+                  '/dashboard', '/wp-', '/feed'];
+  if (pagesReport && pagesReport.rows) {
+    pagesReport.rows.forEach(function(row) {
+      var path  = row.dimensionValues[0].value || '';
+      var title = (row.dimensionValues[1].value || path).replace(/\s*[|–—].*$/, '').trim() || path;
+      var views = parseInt(row.metricValues[0].value) || 0;
+      if (topPages.length < 8) topPages.push({ path: path, title: title, views: views });
+      var clean = path.split('?')[0];
+      var isNonBlog  = (clean === '/') || NON_BLOG.some(function(pfx) { return clean.indexOf(pfx) === 0; });
+      var isRootSlug = /^\/[a-z0-9][a-z0-9-]*\/?$/.test(clean);
+      if (!isNonBlog && isRootSlug && topBlogs.length < 5) {
+        topBlogs.push({ path: clean, title: title, views: views });
+      }
+    });
+  }
+
+  // ── Top referrers (traffic sources by sessions) ───────────────────────
+  var refReport = ga4Report({
+    dateRanges: [{ startDate: Q2_START, endDate: today }],
+    dimensions: [{ name: 'sessionSource' }],
+    metrics:    [{ name: 'sessions' }],
+    orderBys:   [{ metric: { metricName: 'sessions' }, desc: true }],
+    limit: 12,
+  });
+  var topReferrers = [];
+  if (refReport && refReport.rows) {
+    refReport.rows.forEach(function(row) {
+      if (topReferrers.length >= 8) return;
+      topReferrers.push({ source: row.dimensionValues[0].value || '(unknown)', sessions: parseInt(row.metricValues[0].value) || 0 });
+    });
+  }
+
   return {
     blogViewsYTD:    blogViewsYTD,
     liReferrals:     liSessions,
     reportDownloads: reportDownloads,
+    topPages:        topPages,
+    topBlogs:        topBlogs,
+    topReferrers:    topReferrers,
   };
 }
 
