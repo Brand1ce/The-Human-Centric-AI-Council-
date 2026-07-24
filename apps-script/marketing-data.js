@@ -98,13 +98,16 @@ function buildData() {
       organicCount:        email.organicCore || manual.organicCount || (manual.q2NewSubs ? 945 + manual.q2NewSubs : null),
     },
     web: {
-      blogViewsYTD:    web.blogViewsYTD    || null,
-      blogViews30d:    web.blogViews30d    || null,
-      liReferrals:     web.liReferrals     || null,
-      reportDownloads: web.reportDownloads || null,
-      topPages:        web.topPages        || [],
-      topBlogs:        web.topBlogs        || [],
-      topReferrers:    web.topReferrers    || [],
+      blogViewsYTD:      web.blogViewsYTD      || null,
+      blogViews30d:      web.blogViews30d      || null,
+      topBlog30d:        web.topBlog30d        || null,
+      cfLandingViews30d: web.cfLandingViews30d || null,
+      cfReportViews30d:  web.cfReportViews30d  || null,
+      liReferrals:       web.liReferrals       || null,
+      reportDownloads:   web.reportDownloads   || null,
+      topPages:          web.topPages          || [],
+      topBlogs:          web.topBlogs          || [],
+      topReferrers:      web.topReferrers       || [],
     },
     content: {
       contentShipped:  manual.contentShipped  || null,
@@ -399,24 +402,45 @@ function getGA4Data(today) {
     });
   }
 
-  // ── Blog views · last 30 days (sum of blog-post pageviews) ────────────
+  // ── 30-day window: blog views + top blog post ─────────────────────────
   var THIRTY_AGO = Utilities.formatDate(new Date(new Date().getTime() - 30 * 86400000), 'UTC', 'yyyy-MM-dd');
   var blog30 = ga4Report({
     dateRanges: [{ startDate: THIRTY_AGO, endDate: today }],
-    dimensions: [{ name: 'pagePath' }],
+    dimensions: [{ name: 'pagePath' }, { name: 'pageTitle' }],
     metrics:    [{ name: 'screenPageViews' }],
     orderBys:   [{ metric: { metricName: 'screenPageViews' }, desc: true }],
     limit: 120,
   });
-  var blogViews30d = 0;
+  var blogViews30d = 0, topBlog30d = null;
   if (blog30 && blog30.rows) {
     blog30.rows.forEach(function(row) {
       var clean = (row.dimensionValues[0].value || '').split('?')[0];
       var isNonBlog  = (clean === '/') || NON_BLOG.some(function(pfx) { return clean.indexOf(pfx) === 0; });
       var isRootSlug = /^\/[a-z0-9][a-z0-9-]*\/?$/.test(clean);
-      if (!isNonBlog && isRootSlug) blogViews30d += parseInt(row.metricValues[0].value) || 0;
+      if (!isNonBlog && isRootSlug) {
+        var v = parseInt(row.metricValues[0].value) || 0;
+        blogViews30d += v;
+        if (!topBlog30d) {   // rows are sorted desc → first blog match is the top
+          var t = (row.dimensionValues[1].value || clean).replace(/\s*[|–—].*$/, '').trim() || clean;
+          topBlog30d = { title: t, path: clean, views: v };
+        }
+      }
     });
   }
+
+  // ── Candidate fraud pages · last 30 days ──────────────────────────────
+  var cfLandingRep = ga4Report({
+    dateRanges: [{ startDate: THIRTY_AGO, endDate: today }],
+    metrics: [{ name: 'screenPageViews' }],
+    dimensionFilter: { filter: { fieldName: 'pagePath', stringFilter: { matchType: 'EXACT', value: '/candidatefraud/' } } },
+  });
+  var cfLandingViews30d = cfLandingRep ? firstMetric(cfLandingRep) : 0;
+  var cfReportRep = ga4Report({
+    dateRanges: [{ startDate: THIRTY_AGO, endDate: today }],
+    metrics: [{ name: 'screenPageViews' }],
+    dimensionFilter: { filter: { fieldName: 'pagePath', stringFilter: { matchType: 'BEGINS_WITH', value: '/candidatefraud/report' } } },
+  });
+  var cfReportViews30d = cfReportRep ? firstMetric(cfReportRep) : 0;
 
   // ── Top referrers (traffic sources by sessions) ───────────────────────
   var refReport = ga4Report({
@@ -435,13 +459,16 @@ function getGA4Data(today) {
   }
 
   return {
-    blogViewsYTD:    blogViewsYTD,
-    blogViews30d:    blogViews30d,
-    liReferrals:     liSessions,
-    reportDownloads: reportDownloads,
-    topPages:        topPages,
-    topBlogs:        topBlogs,
-    topReferrers:    topReferrers,
+    blogViewsYTD:      blogViewsYTD,
+    blogViews30d:      blogViews30d,
+    topBlog30d:        topBlog30d,
+    cfLandingViews30d: cfLandingViews30d,
+    cfReportViews30d:  cfReportViews30d,
+    liReferrals:       liSessions,
+    reportDownloads:   reportDownloads,
+    topPages:          topPages,
+    topBlogs:          topBlogs,
+    topReferrers:      topReferrers,
   };
 }
 
