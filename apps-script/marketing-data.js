@@ -24,7 +24,26 @@ var Q2_START = '2026-04-01';
 var YTD_START = '2026-01-01';
 
 // ── Entry point (called when dashboard fetches the URL) ──────────────────
+// Serves a cached payload so the dashboard loads instantly. The expensive
+// MailerLite + GA4 work runs on a schedule (scheduledRefresh) or when the
+// cache is missing/older than 6h. Add ?fresh=1 to force a live recompute.
 function doGet(e) {
+  var props  = PropertiesService.getScriptProperties();
+  var cached = props.getProperty('CACHED_PAYLOAD');
+  var ts     = parseInt(props.getProperty('CACHED_AT'), 10) || 0;
+  var stale  = (new Date().getTime() - ts) > 6 * 3600 * 1000;
+  var force  = e && e.parameter && e.parameter.fresh === '1';
+
+  if (!cached || stale || force) {
+    cached = refreshCache();
+  }
+
+  return ContentService.createTextOutput(cached).setMimeType(ContentService.MimeType.JSON);
+}
+
+// Compute the payload once and store it (called by doGet on a cache miss and
+// by the daily trigger). Storing the JSON string keeps doGet responses instant.
+function refreshCache() {
   var data;
   try {
     data = buildData();
@@ -32,10 +51,13 @@ function doGet(e) {
     Logger.log('buildData error: ' + err);
     data = { error: err.toString(), lastUpdated: new Date().toISOString(), isDemo: false };
   }
-
-  var output = ContentService.createTextOutput(JSON.stringify(data));
-  output.setMimeType(ContentService.MimeType.JSON);
-  return output;
+  var json = JSON.stringify(data);
+  try {
+    var props = PropertiesService.getScriptProperties();
+    props.setProperty('CACHED_PAYLOAD', json);
+    props.setProperty('CACHED_AT', String(new Date().getTime()));
+  } catch (e2) { Logger.log('cache store error: ' + e2); }
+  return json;
 }
 
 function buildData() {
@@ -562,8 +584,8 @@ function debugGA4Events() {
 // In Apps Script: Triggers → Add trigger → scheduledRefresh → Time-driven → Day timer
 function scheduledRefresh() {
   try {
-    var data = buildData();
-    Logger.log('[scheduledRefresh] OK — subscribers: ' + (data.email && data.email.totalSubscribers));
+    refreshCache();
+    Logger.log('[scheduledRefresh] cache refreshed');
   } catch (err) {
     Logger.log('[scheduledRefresh] ERROR: ' + err);
   }
