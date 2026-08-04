@@ -98,6 +98,23 @@
   color: var(--slate); font-size: 0.9rem; letter-spacing: 0.02em;
 }
 
+/* UNDERWRITERS */
+.kco-post .uw-strip { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; margin: 0.25rem 0 1.75rem; }
+.kco-post .uw-strip img { max-width: 100%; height: auto; filter: brightness(0); opacity: 0.8; }
+.kco-post .uw-names { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.25rem 0 1.75rem; }
+.kco-post .uw-names span {
+  background: rgba(157,146,173,0.12); color: var(--navy); font-weight: 600;
+  font-size: 0.92rem; padding: 0.5rem 1rem; border-radius: 100px;
+}
+
+/* INLINE CTA (town hall) */
+.kco-post a.inline-cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--cream); color: var(--navy-dark);
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+  padding: 0.65rem 1.25rem; border-radius: 100px; margin: 0 0 1.6rem;
+}
+
 /* DIVIDER */
 .kco-post .rule { border: none; border-top: 1px solid rgba(39,55,82,0.12); margin: 3.5rem 0; }
 
@@ -275,20 +292,29 @@
 
   <p>Special thanks to our founding underwriters, who we got us started:</p>
 
-  <span class="ph">[PLACEHOLDER: founding underwriters]</span>
+  <div class="uw-strip">
+    <img src="https://kyleandco.com/aicouncil/vendor-logos-line1.png" alt="Founding underwriters: Workday, Findem, Warden AI, Humanly, GoodTime, Rival" />
+    <img src="https://kyleandco.com/aicouncil/vendor-logos-line2.png" alt="Founding underwriters: isolved, Glider, CodeSignal, Gem, HiBob, SmartRecruiters" />
+  </div>
 
-  <p>And welcome to this year's new underwriters (to date)</p>
+  <p>And this year's Year Two underwriters (to date)</p>
 
-  <span class="ph">[PLACEHOLDER: new underwriters joining for Year Two]</span>
+  <div class="uw-names">
+    <span>isolved</span>
+    <span>Glider</span>
+    <span>CodeSignal</span>
+    <span>HiBob</span>
+    <span>GoodTime</span>
+  </div>
 
   <hr class="rule" />
 
   <!-- SECTION -->
   <h2 class="sec">Come see <em>the work</em></h2>
 
-  <p>Our next town hall is [PLACEHOLDER: date and time], and it's open to anyone, not just council members. The workstream leads will walk through what they're building and what they need. Come with hard questions.</p>
+  <p>Our next town hall is September 2, 2026 (time TBA), and it's open to anyone, not just council members. The workstream leads will walk through what they're building and what they need. Come with hard questions.</p>
 
-  <span class="ph">[PLACEHOLDER: registration link]</span>
+  <p><a class="inline-cta" href="https://kyleandco.com/aicouncil#register">Registration opens soon &middot; add your name</a></p>
 
   <p>The gap between what's possible with AI and what's actually working inside HR organizations hasn't closed. If anything, it widened this year. That's the work.</p>
 
@@ -297,7 +323,7 @@
     <p class="cta-bar-label">See the full roster and the work in progress.</p>
     <div class="cta-bar-actions">
       <a class="primary" href="https://kyleandco.com/aicouncil">Visit the council page</a>
-      <a class="secondary" href="#">Register for the town hall</a>
+      <a class="secondary" href="https://kyleandco.com/aicouncil#register">Register for the town hall</a>
     </div>
   </div>
 
