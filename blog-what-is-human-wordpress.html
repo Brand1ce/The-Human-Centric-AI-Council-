@@ -115,6 +115,36 @@
   padding: 0.65rem 1.25rem; border-radius: 100px; margin: 0 0 1.6rem;
 }
 
+/* CALLED-OUT PEOPLE (champions / leads, with headshots) */
+.kco-post .person-row {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 0.75rem; margin: 0.5rem 0 1.75rem;
+}
+.kco-post .person {
+  display: flex; align-items: center; gap: 0.85rem;
+  padding: 0.7rem 0.9rem; background: rgba(157,146,173,0.08);
+  border-left: 3px solid var(--cream); border-radius: 0 8px 8px 0;
+}
+.kco-post .person img {
+  width: 54px; height: 54px; border-radius: 50%; object-fit: cover;
+  object-position: center top; flex-shrink: 0;
+  background: rgba(157,146,173,0.18);
+}
+.kco-post .person .p-name { font-weight: 600; color: var(--navy); font-size: 0.95rem; line-height: 1.2; }
+.kco-post .person .p-role { color: var(--slate); font-size: 0.8rem; line-height: 1.3; margin-top: 0.2rem; }
+
+/* FULL COHORT GRID (small headshots) */
+.kco-post .roster {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 1.3rem 0.6rem; margin: 1.75rem 0 0;
+}
+.kco-post .roster figure { margin: 0; text-align: center; }
+.kco-post .roster img {
+  width: 64px; height: 64px; border-radius: 50%; object-fit: cover;
+  object-position: center top; background: rgba(157,146,173,0.18);
+}
+.kco-post .roster figcaption { font-size: 0.72rem; color: var(--slate); margin-top: 0.45rem; line-height: 1.25; }
+
 /* DIVIDER */
 .kco-post .rule { border: none; border-top: 1px solid rgba(39,55,82,0.12); margin: 3.5rem 0; }
 
@@ -226,23 +256,23 @@
 
   <p><strong>Pillar champions are torchbearers.</strong> Workstreams go quiet between deliverables. Pillars never do. Champions keep the conversation alive in market year-round, curate what's worth attention, and make sure everyone aligned to their pillar carries the torch too.</p>
 
-  <ul class="people">
-    <li><strong>Kate Gilkey</strong>, <span>AI Literacy &amp; Education</span></li>
-    <li><strong>Bruce Nichols</strong>, <span>AI Trust &amp; Safety</span></li>
-    <li><strong>Bill Musman</strong>, <span>AI Adoption &amp; Change Management</span></li>
-    <li><strong>Kate Warman</strong>, <span>AI Value Realization</span></li>
-    <li><strong>Adam Treitler</strong>, <span>Forward-Thinking &amp; Future-Ready AI</span></li>
-  </ul>
+  <div class="person-row">
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/kate-gilkey.jpg" alt="Kate Gilkey" /><div><div class="p-name">Kate Gilkey</div><div class="p-role">AI Literacy &amp; Education</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/bruce-nichols.png" alt="Bruce Nichols" /><div><div class="p-name">Bruce Nichols</div><div class="p-role">AI Trust &amp; Safety</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/bill-musman.png" alt="Bill Musman" /><div><div class="p-name">Bill Musman</div><div class="p-role">AI Adoption &amp; Change Management</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/kate-warman.jpg" alt="Kate Warman" /><div><div class="p-name">Kate Warman</div><div class="p-role">AI Value Realization</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/adam-treitler.jpg" alt="Adam Treitler" /><div><div class="p-name">Adam Treitler</div><div class="p-role">Forward-Thinking &amp; Future-Ready AI</div></div></div>
+  </div>
 
   <p><strong>Workstream leads own delivery.</strong> They're the R in RACI, accountable for what we publicly commit to. That's a different job from being the foremost expert on a topic. They steer the project, pull in contributors, and decide what makes the cut.</p>
 
-  <ul class="people">
-    <li><strong>Jelena Marjanovic</strong>, <span>AI Literacy into Capability</span></li>
-    <li><strong>Susan Jackson</strong>, <span>AI Governance &amp; Risk Framework</span></li>
-    <li><strong>Kirandeep Virdi</strong>, <span>AI's Impact on HR</span></li>
-    <li><strong>Clayton Rodgers</strong>, <span>Human-Centered HR Operating Model</span></li>
-    <li><strong>Rob Devlin</strong>, <span>Human-Centric AI Case Studies</span></li>
-  </ul>
+  <div class="person-row">
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/jelena-marjanovic.jpg" alt="Jelena Marjanovic" /><div><div class="p-name">Jelena Marjanovic</div><div class="p-role">AI Literacy into Capability</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/susan-jackson.jpg" alt="Susan Jackson" /><div><div class="p-name">Susan Jackson</div><div class="p-role">AI Governance &amp; Risk Framework</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/kirandeep-virdi.jpg" alt="Kirandeep Virdi" /><div><div class="p-name">Kirandeep Virdi</div><div class="p-role">AI's Impact on HR</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/clayton-rodgers.jpg" alt="Clayton Rodgers" /><div><div class="p-name">Clayton Rodgers</div><div class="p-role">Human-Centered HR Operating Model</div></div></div>
+    <div class="person"><img src="https://kyleandco.com/aicouncil/member-headshots/rob-devlin.jpg" alt="Rob Devlin" /><div><div class="p-name">Rob Devlin</div><div class="p-role">Human-Centric AI Case Studies</div></div></div>
+  </div>
 
   <hr class="rule" />
 
@@ -317,6 +347,41 @@
   <p><a class="inline-cta" href="https://kyleandco.com/aicouncil#register">Registration opens soon &middot; add your name</a></p>
 
   <p>The gap between what's possible with AI and what's actually working inside HR organizations hasn't closed. If anything, it widened this year. That's the work.</p>
+
+  <hr class="rule" />
+
+  <!-- FULL COHORT -->
+  <h2 class="sec">The people <em>doing the work</em></h2>
+
+  <div class="roster">
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/adam-treitler.jpg" alt="Adam Treitler" /><figcaption>Adam Treitler</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/bill-musman.png" alt="Bill Musman" /><figcaption>Bill Musman</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/bob-pulver.jpg" alt="Bob Pulver" /><figcaption>Bob Pulver</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/bradley-clark.jpg" alt="Bradley Clark" /><figcaption>Bradley Clark</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/bruce-nichols.png" alt="Bruce Nichols" /><figcaption>Bruce Nichols</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/christi-anthony.jpg" alt="Christi Anthony" /><figcaption>Christi Anthony</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/clayton-rodgers.jpg" alt="Clayton Rodgers" /><figcaption>Clayton Rodgers</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/daniel-morales.jpg" alt="Daniel Morales" /><figcaption>Daniel Morales</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/dustin-cann.jpg" alt="Dustin Cann" /><figcaption>Dustin Cann</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/jelena-marjanovic.jpg" alt="Jelena Marjanovic" /><figcaption>Jelena Marjanovic</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/jeremy-lyons.jpg" alt="Jeremy Lyons" /><figcaption>Jeremy Lyons</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/johnny-sanchez.jpg" alt="Johnny Sanchez" /><figcaption>Johnny Sanchez</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/jon-fraschetti.jpg" alt="Jon Fraschetti" /><figcaption>Jon Fraschetti</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/kaity-jacobsen.jpg" alt="Kaity Jacobsen" /><figcaption>Kaity Jacobsen</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/kate-gilkey.jpg" alt="Kate Gilkey" /><figcaption>Kate Gilkey</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/kate-warman.jpg" alt="Kate Warman" /><figcaption>Kate Warman</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/kirandeep-virdi.jpg" alt="Kirandeep Virdi" /><figcaption>Kirandeep Virdi</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/melissa-laswell.jpg" alt="Melissa Laswell" /><figcaption>Melissa Laswell</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/rachel-bourne.jpg" alt="Rachel Bourne" /><figcaption>Rachel Bourne</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/rita-domarkaite.jpg" alt="Rita Domarkaite" /><figcaption>Rita Domarkaite</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/rob-devlin.jpg" alt="Rob Devlin" /><figcaption>Rob Devlin</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/robyn-mather.jpg" alt="Robyn Mather" /><figcaption>Robyn Mather</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/sarah-smart.jpg" alt="Sarah Smart" /><figcaption>Sarah Smart</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/sarika-lamont.jpg" alt="Sarika Lamont" /><figcaption>Sarika Lamont</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/susan-jackson.jpg" alt="Susan Jackson" /><figcaption>Susan Jackson</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/sydney-edman.jpg" alt="Sydney Edman" /><figcaption>Sydney Edman</figcaption></figure>
+    <figure><img src="https://kyleandco.com/aicouncil/member-headshots/tara-torres.jpg" alt="Tara Torres" /><figcaption>Tara Torres</figcaption></figure>
+  </div>
 
   <!-- BOTTOM CTA BAR -->
   <div class="cta-bar">
